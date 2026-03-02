@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIFTY 50 — Advance Briefing | 02 March 2026 | Sanjeev Signals</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #0a0e1a;
+    --navy-mid:   #0f1628;
+    --navy-light: #162040;
+    --navy-card:  #111827;
+    --orange:     #f97316;
+    --orange-dim: #c2540a;
+    --orange-glow:#ff8533;
+    --gold:       #fbbf24;
+    --white:      #f0f4ff;
+    --muted:      #8899bb;
+    --bull:       #22c55e;
+    --bear:       #ef4444;
+    --zone:       #f59e0b;
+    --border:     rgba(249,115,22,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRID TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(249,115,22,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249,115,22,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 32px 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--orange);
+    text-transform: uppercase;
+  }
+
+  .brand span {
+    color: var(--muted);
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .meta-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 64px 0 48px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+
+  .hero-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 8vw, 76px);
+    letter-spacing: 3px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    color: var(--orange);
+    font-style: normal;
+  }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  /* ── LEVEL CARDS ── */
+  .levels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 48px 0;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  @media (max-width: 620px) {
+    .levels { grid-template-columns: 1fr; }
+  }
+
+  .level-card {
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .level-card:hover { transform: translateY(-3px); }
+
+  .level-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .level-card.bull  { border-color: rgba(34,197,94,0.3); background: rgba(34,197,94,0.05); }
+  .level-card.bear  { border-color: rgba(239,68,68,0.3);  background: rgba(239,68,68,0.05); }
+  .level-card.zone  { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.05); }
+
+  .level-card.bull::before  { background: var(--bull); }
+  .level-card.bear::before  { background: var(--bear); }
+  .level-card.zone::before  { background: var(--zone); }
+
+  .level-direction {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .level-card.bull .level-direction { color: var(--bull); }
+  .level-card.bear .level-direction { color: var(--bear); }
+  .level-card.zone .level-direction { color: var(--zone); }
+
+  .level-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .level-card.bull .level-number { color: var(--bull); }
+  .level-card.bear .level-number { color: var(--bear); }
+  .level-card.zone .level-number { color: var(--zone); }
+
+  .level-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── SECTION ── */
+  section {
+    margin: 48px 0;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── FRAMEWORK TABLE ── */
+  .fw-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .fw-table tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .fw-table td {
+    padding: 13px 16px;
+  }
+
+  .fw-table td:first-child {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    width: 40%;
+    font-family: 'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .fw-table td:last-child {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .fw-table tr:hover td { background: rgba(249,115,22,0.04); }
+
+  /* ── SCENARIO BLOCKS ── */
+  .scenario {
+    border-left: 3px solid;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .scenario.bull { border-color: var(--bull); background: rgba(34,197,94,0.05); }
+  .scenario.bear { border-color: var(--bear); background: rgba(239,68,68,0.05); }
+  .scenario.zone { border-color: var(--zone); background: rgba(245,158,11,0.05); }
+
+  .scenario-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .scenario.bull .scenario-title { color: var(--bull); }
+  .scenario.bear .scenario-title { color: var(--bear); }
+  .scenario.zone .scenario-title { color: var(--zone); }
+
+  .scenario p {
+    font-size: 14px;
+    color: rgba(240,244,255,0.8);
+    line-height: 1.7;
+  }
+
+  /* ── PRINCIPLES ── */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 540px) {
+    .principles-grid { grid-template-columns: 1fr; }
+  }
+
+  .principle {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 18px 20px;
+    font-size: 13px;
+    color: rgba(240,244,255,0.75);
+    line-height: 1.6;
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .principle::before {
+    content: '—';
+    position: absolute;
+    left: 16px;
+    color: var(--orange);
+    font-weight: 700;
+  }
+
+  /* ── FORMULA BAR ── */
+  .formula {
+    background: var(--navy-light);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 28px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: var(--orange);
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  .formula span {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* ── QUOTE ── */
+  .quote-block {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 32px;
+    margin: 32px 0;
+    text-align: center;
+  }
+
+  .quote-block p {
+    font-family: 'Barlow', sans-serif;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(240,244,255,0.65);
+    line-height: 1.8;
+  }
+
+  .quote-block strong {
+    color: var(--orange);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ── JOURNAL PLACEHOLDER ── */
+  .journal-placeholder {
+    background: var(--navy-card);
+    border: 1px dashed rgba(249,115,22,0.25);
+    border-radius: 4px;
+    padding: 36px;
+    text-align: center;
+  }
+
+  .journal-placeholder .clock {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--orange);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+
+  .journal-placeholder p {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── MEDIA BLOCKS ── */
+  .media-block {
+    background: var(--navy-card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 4px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .media-block:hover {
+    border-color: var(--orange);
+    background: rgba(249,115,22,0.06);
+  }
+
+  .media-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    color: var(--orange);
+  }
+
+  .media-info strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+
+  .media-info span {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    background: rgba(10,14,26,0.8);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 28px 32px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .disclaimer strong {
+    color: rgba(240,244,255,0.6);
+    display: block;
+    margin-bottom: 12px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  .disclaimer .sebi-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: rgba(249,115,22,0.5);
+    text-transform: uppercase;
+    border: 1px solid rgba(249,115,22,0.2);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 4px;
+    color: var(--orange);
+  }
+
+  .footer-brand span {
+    display: block;
+    font-family: 'Barlow', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .hashtags {
+    font-size: 11px;
+    color: rgba(249,115,22,0.5);
+    letter-spacing: 1px;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 40px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      Sanjeev Signals
+      <span>Delivered by Victoria — AI Assistant | Created by Sanjeev Singh</span>
+    </div>
+    <div class="meta-tag">
+      Pre-Market — Advance<br>
+      Daily Morning Briefing
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">NIFTY 50 — Advance Briefing</div>
+    <h1>02 <em>March</em><br>2026</h1>
+    <div class="hero-sub">Opening Control Framework &nbsp;|&nbsp; Monday</div>
+  </div>
+
+  <!-- LEVEL CARDS -->
+  <div class="levels">
+    <div class="level-card bull">
+      <div class="level-direction">▲ Bullish Bias</div>
+      <div class="level-number">25,266</div>
+      <div class="level-desc">Sustain above this level triggers buy-side execution</div>
+    </div>
+    <div class="level-card bear">
+      <div class="level-direction">▼ Bearish Bias</div>
+      <div class="level-number">25,187</div>
+      <div class="level-desc">Sustain below this level triggers sell-side execution</div>
+    </div>
+    <div class="level-card zone">
+      <div class="level-direction">◈ No Trade Zone</div>
+      <div class="level-number" style="font-size:24px; padding-top:6px;">25,187<br>– 25,266</div>
+      <div class="level-desc">Uncertainty zone — avoid directional commitment</div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK -->
+  <section>
+    <div class="section-label">Opening Control Framework</div>
+    <table class="fw-table">
+      <tr><td>Date</td><td>Monday, 02 March 2026</td></tr>
+      <tr><td>Instrument</td><td>NIFTY 50</td></tr>
+      <tr><td>Bullish Level</td><td style="color:var(--bull);">Above 25,266</td></tr>
+      <tr><td>Bearish Level</td><td style="color:var(--bear);">Below 25,187</td></tr>
+      <tr><td>No Trade Zone</td><td style="color:var(--zone);">25,187 – 25,266</td></tr>
+      <tr><td>Briefing Type</td><td>Pre-Market — Advance</td></tr>
+    </table>
+  </section>
+
+  <!-- THE PLAN -->
+  <section>
+    <div class="section-label">The Plan</div>
+
+    <div class="scenario bull">
+      <div class="scenario-title">▲ Above 25,266 — Bullish Bias</div>
+      <p>Market opens and sustains above 25,266. Bias turns bullish. Focus shifts entirely to buy-side execution. Pullbacks within the upward move are entry opportunities — not exit signals.</p>
+    </div>
+
+    <div class="scenario bear">
+      <div class="scenario-title">▼ Below 25,187 — Bearish Bias</div>
+      <p>Market opens and sustains below 25,187. Bias remains bearish. Focus shifts entirely to sell-side execution. Bounces within the downward move are entry opportunities — not exit signals.</p>
+    </div>
+
+    <div class="scenario zone">
+      <div class="scenario-title">◈ 25,187 – 25,266 — No Trade Zone</div>
+      <p>Price inside this range signals uncertainty and elevated probability of false moves. Directional commitment is to be avoided. If participation is chosen within this zone, bias leans bearish — however risk is significantly higher. Position sizing and risk-reward management become critical. Patience is the edge here.</p>
+    </div>
+  </section>
+
+  <!-- CORE PRINCIPLES -->
+  <section>
+    <div class="section-label">Core Principles</div>
+
+    <div class="formula">
+      Levels Decide &nbsp;<span>→</span>&nbsp; Bias Follows &nbsp;<span>→</span>&nbsp; Execution Stays Structured
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle">Wait for price to act. Never anticipate.</div>
+      <div class="principle">The plan is pre-defined. Trust it and execute.</div>
+      <div class="principle">Enter only after price sustains beyond the level — not before.</div>
+      <div class="principle">Pullbacks are part of the move. Stay with the bias.</div>
+    </div>
+
+    <div class="quote-block">
+      <p><strong>Everything else is noise.</strong><br>
+      Price tells the story. Your job is to listen — not predict.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- POST TRADE JOURNAL -->
+  <section>
+    <div class="section-label">Post-Trade Journal</div>
+    <div class="journal-placeholder">
+      <div class="clock">NIFTY 50 | 1-MIN | 02 MAR 2026</div>
+      <p>This section will be updated after market close<br>with today's trade details, execution review, and outcome.</p>
+    </div>
+  </section>
+
+  <!-- CHART & VIDEO -->
+  <section>
+    <div class="section-label">Chart & Video Briefing</div>
+
+    <a class="media-block" href="./2026-03-02-nifty50-pre.png" target="_blank">
+      <div class="media-icon">◫</div>
+      <div class="media-info">
+        <strong>Pre-Market Chart</strong>
+        <span>NIFTY 50 — 02 Mar 2026 | Levels: 25,187 / 25,266</span>
+      </div>
+    </a>
+
+    <a class="media-block" href="./2026-03-02-nifty50-morning-plan.mp4" target="_blank">
+      <div class="media-icon">▶</div>
+      <div class="media-info">
+        <strong>Watch Advance Briefing</strong>
+        <span>Victoria — AI Assistant | Sanjeev Signals</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section>
+    <div class="section-label">Legal Disclaimer</div>
+    <div class="disclaimer">
+      <strong>Not a SEBI Registered Investment Advisor</strong>
+      Sanjeev Signals is not a SEBI Registered Investment Advisor (RIA) or Research Analyst. All content published on this platform — including daily briefings, charts, trade journals, and videos — is strictly for educational and informational purposes only. Nothing published here constitutes financial advice, investment advice, a buy or sell recommendation, or a tip service of any nature.
+      <br><br>
+      Trading in equities, derivatives, and financial instruments carries substantial risk of capital loss. Past performance is not indicative of future results. You are solely and entirely responsible for your own trading and investment decisions. Before making any financial decision, please consult a SEBI Registered Investment Advisor.
+      <br>
+      <span class="sebi-tag">SEBI (Investment Advisers) Regulations, 2013</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      Sanjeev Signals
+      <span>Pre-Market Clarity. Rule-Based Execution.</span>
+    </div>
+    <div class="hashtags">
+      #Nifty50 #Sensex #StockMarket<br>
+      #PreMarketBriefing #SanjeevSignals<br>
+      #RuleBasedTrading #PreAnalysis
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

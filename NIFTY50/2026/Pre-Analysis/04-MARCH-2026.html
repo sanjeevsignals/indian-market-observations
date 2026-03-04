@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanjeev Signals — Nifty 50 Crash Day Playbook</title>
+  <meta name="author" content="Sanjeev Singh"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital,wght@1,400;1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0a0c0f;
+      --surface:  #0f1217;
+      --card:     #141820;
+      --border:   #1e2530;
+      --red:      #e84040;
+      --red-dim:  #8a1c1c;
+      --amber:    #f0a500;
+      --green:    #22c55e;
+      --muted:    #4a5568;
+      --text:     #d6dde8;
+      --bright:   #f0f4fa;
+      --mono:     'DM Mono', monospace;
+      --display:  'Bebas Neue', sans-serif;
+      --serif:    'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── BRAND HEADER ── */
+    .brand-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 100%;
+    }
+    .brand-logo {
+      font-family: var(--display);
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: var(--bright);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-logo .logo-dot {
+      width: 8px; height: 8px;
+      background: var(--red);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--red);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.5; transform: scale(1.4); }
+    }
+    .brand-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .brand-meta .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .brand-meta .meta-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      opacity: 0.6;
+    }
+    .brand-meta .meta-val {
+      color: var(--text);
+      font-size: 11px;
+    }
+    .brand-meta .meta-val.ai { color: var(--amber); }
+    .brand-divider {
+      width: 1px; height: 28px;
+      background: var(--border);
+    }
+
+    /* ── SCANLINE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.07) 2px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── TICKER BANNER ── */
+    .ticker-wrap {
+      width: 100%;
+      background: var(--red);
+      overflow: hidden;
+      padding: 6px 0;
+      position: sticky; top: 0;
+      z-index: 100;
+    }
+    .ticker-inner {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 28s linear infinite;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: #fff;
+    }
+    .ticker-inner span { margin: 0 3rem; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 80px 40px 60px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero-title {
+      font-family: var(--display);
+      font-size: clamp(52px, 9vw, 110px);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--bright);
+      margin-bottom: 10px;
+    }
+    .hero-title .accent {
+      color: var(--red);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 18px;
+      color: var(--muted);
+      margin-top: 18px;
+      margin-bottom: 36px;
+    }
+
+    .hero-stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-bottom: 48px;
+    }
+    .stat-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 10px 22px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    .stat-pill .val {
+      display: block;
+      font-size: 22px;
+      font-family: var(--display);
+      letter-spacing: 0.04em;
+      color: var(--red);
+    }
+    .stat-pill .lbl {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ── ALERT BOX ── */
+    .alert-box {
+      border-left: 3px solid var(--red);
+      background: rgba(232,64,64,0.07);
+      padding: 18px 24px;
+      max-width: 780px;
+      margin: 0 auto 60px;
+      text-align: left;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #c8d0dc;
+    }
+    .alert-box strong { color: var(--bright); }
+
+    /* ── MAIN CONTENT ── */
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── STRATEGY CARDS ── */
+    .strategies { display: grid; gap: 2px; }
+
+    .strat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s;
+      animation: fadeUp 0.6s both;
+    }
+    .strat-card:hover { border-color: var(--red-dim); }
+    .strat-card:nth-child(1) { animation-delay: 0.05s; }
+    .strat-card:nth-child(2) { animation-delay: 0.15s; }
+    .strat-card:nth-child(3) { animation-delay: 0.25s; }
+    .strat-card:nth-child(4) { animation-delay: 0.35s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .strat-num {
+      position: absolute;
+      top: 28px; right: 30px;
+      font-family: var(--display);
+      font-size: 80px;
+      color: rgba(255,255,255,0.03);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .strat-badge {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+    }
+
+    .strat-title {
+      font-family: var(--display);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--bright);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .strat-body {
+      font-size: 13px;
+      color: #8d9baf;
+      line-height: 1.85;
+    }
+
+    .strat-body p { margin-bottom: 10px; }
+    .strat-body strong { color: var(--text); }
+
+    /* ── RULE LIST ── */
+    .rule-list {
+      margin-top: 16px;
+      display: grid;
+      gap: 6px;
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #8d9baf;
+    }
+    .rule-item .dot {
+      margin-top: 6px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+    .rule-item.green .dot { background: var(--green); }
+    .rule-item.red   .dot { background: var(--red); }
+
+    /* ── DON'T TABLE ── */
+    .dont-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 16px;
+    }
+    @media (max-width: 600px) { .dont-grid { grid-template-columns: 1fr; } }
+
+    .dont-item {
+      background: rgba(232,64,64,0.06);
+      border: 1px solid rgba(232,64,64,0.15);
+      padding: 14px 16px;
+      font-size: 12px;
+      color: #9aa5b4;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .dont-icon {
+      font-size: 16px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    /* ── SESSION TIMELINE ── */
+    .timeline {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 600px) { .timeline { grid-template-columns: 1fr; } }
+
+    .tl-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      position: relative;
+      animation: fadeUp 0.7s both;
+    }
+    .tl-block:nth-child(1) { animation-delay: 0.1s; }
+    .tl-block:nth-child(2) { animation-delay: 0.2s; border-top: 2px solid var(--amber); }
+    .tl-block:nth-child(3) { animation-delay: 0.3s; border-top: 2px solid var(--green); }
+
+    .tl-time {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .tl-label {
+      font-family: var(--display);
+      font-size: 30px;
+      letter-spacing: 0.04em;
+      color: var(--bright);
+      margin-bottom: 8px;
+    }
+    .tl-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── QUOTE PULL ── */
+    .pull-quote {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 0;
+      text-align: center;
+      margin: 60px 0;
+    }
+    .pull-quote p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(18px, 3vw, 26px);
+      color: var(--bright);
+      line-height: 1.5;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .pull-quote cite {
+      display: block;
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    /* ── VWAP RULE BANNER ── */
+    .rule-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--amber);
+      padding: 20px 28px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin: 24px 0;
+    }
+    .rule-banner .rb-icon { font-size: 22px; flex-shrink: 0; }
+    .rule-banner .rb-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .rule-banner .rb-text strong { color: var(--amber); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    footer .ft-brand {
+      font-family: var(--display);
+      font-size: 18px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    footer .ft-note {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    footer .ft-note span { color: var(--red); }
+
+    /* ── BLINKING CURSOR ── */
+    .cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--red);
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BRAND HEADER -->
+<div class="brand-header">
+  <div class="brand-logo">
+    <span class="logo-dot"></span>
+    SANJEEV SIGNALS
+  </div>
+  <div class="brand-meta">
+    <div class="meta-item">
+      <span class="meta-label">Author</span>
+      <span class="meta-val">Sanjeev Singh</span>
+    </div>
+    <div class="brand-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">AI Assistant</span>
+      <span class="meta-val ai">Victoria ✦</span>
+    </div>
+    <div class="brand-divider"></div>
+    <div class="meta-item">
+      <span class="meta-label">Published</span>
+      <span class="meta-val" id="today-date">—</span>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span>⚠ NIFTY 50 GAP-DOWN EXPECTED: −500 TO −550 PTS</span>
+    <span>▼ RISK-OFF SENTIMENT ACTIVE</span>
+    <span>⚠ ELEVATED VOLATILITY ALERT</span>
+    <span>▼ BROAD-BASED SELLING PRESSURE ANTICIPATED</span>
+    <span>⚠ NIFTY 50 GAP-DOWN EXPECTED: −500 TO −550 PTS</span>
+    <span>▼ RISK-OFF SENTIMENT ACTIVE</span>
+    <span>⚠ ELEVATED VOLATILITY ALERT</span>
+    <span>▼ BROAD-BASED SELLING PRESSURE ANTICIPATED</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Sanjeev Signals — Professional Playbook</div>
+  <h1 class="hero-title">
+    CRASH DAY
+    <span class="accent">PROTOCOL</span>
+  </h1>
+  <p class="hero-subtitle">Structure & Control Over Prediction<span class="cursor"></span></p>
+
+  <div class="hero-stat-row">
+    <div class="stat-pill">
+      <span class="val">−500</span>
+      <span class="lbl">Gap Est. (pts)</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val">4</span>
+      <span class="lbl">Core Rules</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val">3</span>
+      <span class="lbl">Sessions</span>
+    </div>
+  </div>
+</section>
+
+<!-- ALERT -->
+<div class="alert-box">
+  <strong>Market Intelligence —</strong> India's equity markets are expected to open approximately <strong>500–550 points lower</strong>, reflecting heightened volatility and negative overnight cues. Risk-off sentiment is elevated, with broad-based selling pressure anticipated across key sectors. <strong>Disciplined execution and strict risk management are non-negotiable today.</strong>
+</div>
+
+<!-- CONTENT -->
+<main class="content">
+
+  <div class="section-label">Trading Framework</div>
+
+  <div class="strategies">
+
+    <!-- CARD 1 -->
+    <div class="strat-card">
+      <span class="strat-num">01</span>
+      <div class="strat-badge">First 15–30 Min</div>
+      <h2 class="strat-title">Opening Range Control</h2>
+      <div class="strat-body">
+        <p>Do <strong>nothing</strong> immediately at open. Let the first range form. A large gap-down typically produces three distinct phases before a tradeable structure emerges.</p>
+        <div class="rule-list">
+          <div class="rule-item amber"><span class="dot"></span><span>Panic flush — initial capitulation selling</span></div>
+          <div class="rule-item amber"><span class="dot"></span><span>Short covering spike — squeeze of weak shorts</span></div>
+          <div class="rule-item amber"><span class="dot"></span><span>False breakdown — head-fake below key support</span></div>
+        </div>
+        <p style="margin-top:16px">Define Opening High &amp; Opening Low. Trade only on <strong>breakdown continuation below the opening low</strong>, or a structured pullback to VWAP / breakdown level rejection. No impulsive entry.</p>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="strat-card">
+      <span class="strat-num">02</span>
+      <div class="strat-badge">Trend Continuation</div>
+      <h2 class="strat-title">Pullback-to-Structure Selling</h2>
+      <div class="strat-body">
+        <p>Gap-down days favour the <strong>sell-side</strong> — but only under strict conditions. Confirm the environment before committing.</p>
+        <div class="rule-list">
+          <div class="rule-item green"><span class="dot"></span><span>Price stays <strong>below VWAP</strong></span></div>
+          <div class="rule-item green"><span class="dot"></span><span>Lower highs keep forming on every rally</span></div>
+          <div class="rule-item green"><span class="dot"></span><span>No aggressive reclaim of previous day's close</span></div>
+        </div>
+
+        <div class="rule-banner" style="margin-top:18px">
+          <span class="rb-icon">📐</span>
+          <span class="rb-text"><strong>Sell pullbacks. Never chase red candles.</strong> Crash opens reward patience, not speed. The move has already happened — wait for price to come to you.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="strat-card">
+      <span class="strat-num">03</span>
+      <div class="strat-badge">Gap Fill Scenario</div>
+      <h2 class="strat-title">Reversal Trap Awareness</h2>
+      <div class="strat-body">
+        <p>Large gap-down days can rotate violently. Be alert for two failure modes that trap directional traders.</p>
+        <div class="rule-list">
+          <div class="rule-item red"><span class="dot"></span><span>Short-covering rally — bears caught overextended</span></div>
+          <div class="rule-item red"><span class="dot"></span><span>Gap-fill attempt — price reclaims prior session range</span></div>
+        </div>
+        <p style="margin-top:16px">If price <strong>reclaims the opening range high with strength</strong>, bias shifts <em>neutral</em> — not bearish. Do not fight the reclaim.</p>
+
+        <div class="rule-banner" style="margin-top:18px; border-left-color: var(--green);">
+          <span class="rb-icon">🧭</span>
+          <span class="rb-text"><strong>Levels decide → Bias follows → Execution.</strong> The market doesn't owe you a trend. Respect what price is actually doing.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="strat-card">
+      <span class="strat-num">04</span>
+      <div class="strat-badge">Capital Preservation</div>
+      <h2 class="strat-title">What NOT To Do</h2>
+      <div class="strat-body">
+        <p>Crash days seduce traders with false certainty. The following behaviours destroy accounts on volatile days — eliminate them entirely.</p>
+        <div class="dont-grid">
+          <div class="dont-item"><span class="dont-icon">🚫</span><span>Bottom calling — catching falling knives</span></div>
+          <div class="dont-item"><span class="dont-icon">🚫</span><span>Blind option buying at the open bell</span></div>
+          <div class="dont-item"><span class="dont-icon">🚫</span><span>Emotional revenge trading after a loss</span></div>
+          <div class="dont-item"><span class="dont-icon">🚫</span><span>Over-leveraging due to "high conviction"</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PULL QUOTE -->
+  <div class="pull-quote">
+    <p>"Crash days create opportunity — but only for traders who respect structure over emotion."</p>
+    <cite>— Professional Playbook Rule Zero</cite>
+  </div>
+
+  <!-- SESSION TIMELINE -->
+  <div class="section-label">Session Structure</div>
+
+  <div class="timeline">
+    <div class="tl-block">
+      <div class="tl-time">09:15 — 10:30</div>
+      <div class="tl-label">OBSERVE</div>
+      <div class="tl-desc">Morning. Watch, define ranges, absorb the open. Do not trade yet. Mark VWAP, opening high, opening low.</div>
+    </div>
+    <div class="tl-block">
+      <div class="tl-time">10:30 — 13:00</div>
+      <div class="tl-label">REACT</div>
+      <div class="tl-desc">Mid-session. Structured entries only. Follow the environment, not a pre-formed bias. Pullback sells or reversal pivots.</div>
+    </div>
+    <div class="tl-block">
+      <div class="tl-time">13:00 — 15:30</div>
+      <div class="tl-label">CONFIRM</div>
+      <div class="tl-desc">Afternoon. Confirm trend direction. Size into high-conviction setups. Manage open risk heading into close.</div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK REMINDER -->
+  <div class="rule-banner">
+    <span class="rb-icon">💡</span>
+    <span class="rb-text">
+      On a crash-type open, you don't trade <em>strategy</em> — you trade <strong>environment</strong>.
+      Choose your timeframe (5m / 15m / 30m) and build today's precise playbook around that lens.
+      The framework above scales to any timeframe; execution detail depends on your preferred structure.
+    </span>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex; flex-direction:column; gap:4px;">
+    <span class="ft-brand">SANJEEV SIGNALS</span>
+    <span style="font-size:11px; color:var(--muted); letter-spacing:0.08em;">by Sanjeev Singh &nbsp;·&nbsp; AI: <span style="color:var(--amber);">Victoria</span></span>
+  </div>
+  <div style="text-align:right; display:flex; flex-direction:column; gap:4px; align-items:flex-end;">
+    <span class="ft-note" id="footer-date" style="color:var(--text); font-size:12px;">—</span>
+    <span class="ft-note">For educational purposes only. <span>Not financial advice.</span> Trade responsibly.</span>
+  </div>
+</footer>
+
+<script>
+  const opts = { year: 'numeric', month: 'long', day: 'numeric' };
+  const d = new Date().toLocaleDateString('en-IN', opts);
+  document.getElementById('today-date').textContent = d;
+  document.getElementById('footer-date').textContent = d;
+</script>
+
+</body>
+</html>

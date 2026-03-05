@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIFTY 50 — Advance Briefing | 06 March 2026 | Sanjeev Signals</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange:        #e8590c;
+    --orange-deep:   #c44a08;
+    --orange-light:  #fff3ed;
+    --orange-mid:    #ffd4b8;
+    --white:         #ffffff;
+    --off:           #faf9f7;
+    --panel:         #f4f3f0;
+    --border:        #e8e5e0;
+    --border-mid:    #d0ccc5;
+    --ink:           #17120e;
+    --ink-mid:       #3d3530;
+    --ink-soft:      #7a746e;
+    --bull:          #1a7a5e;
+    --bull-bg:       #edfaf5;
+    --bull-border:   #9fe4cc;
+    --bear:          #c0231a;
+    --bear-bg:       #fef2f1;
+    --bear-border:   #f5b4b0;
+    --zone:          #a36b00;
+    --zone-bg:       #fdf8ed;
+    --zone-border:   #f0d98a;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ━━━ BRAND STRIPE ━━━ */
+  .brand-stripe {
+    background: var(--orange);
+    padding: 9px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .brand-stripe-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .brand-stripe-left .dot {
+    width: 7px; height: 7px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 50%;
+    animation: breathe 2s infinite;
+  }
+  .brand-stripe-right {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ━━━ HEADER ━━━ */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(23,18,14,0.06);
+  }
+  .header-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .logo { display: flex; align-items: center; gap: 14px; }
+  .logo-box {
+    width: 40px; height: 40px;
+    background: var(--ink);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-box::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--orange);
+  }
+  .logo-box span {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+  }
+  .logo-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+  .logo-name small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-top: 1px;
+  }
+  .header-tags { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 4px;
+  }
+  .tag-orange { background: var(--orange); color: white; }
+  .tag-outline { background: var(--panel); border: 1px solid var(--border-mid); color: var(--ink-soft); }
+
+  /* ━━━ WRAP ━━━ */
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 32px 80px; }
+
+  /* ━━━ HERO ━━━ */
+  .hero {
+    padding: 56px 0 44px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+    border-bottom: 1px solid var(--border);
+  }
+  @media(max-width:640px) { .hero { grid-template-columns: 1fr; } .hero-aside { display: none; } }
+
+  .hero-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero-kicker::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--orange);
+    border-radius: 2px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 5.5vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
+    color: var(--ink);
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+  }
+  .hero h1 .accent { color: var(--orange); }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .hero-pill {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+  .hero-aside { text-align: right; }
+  .hero-aside-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .hero-aside-instrument {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .hero-aside-sub { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* ━━━ LEVEL GRID ━━━ */
+  .level-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 36px 0;
+  }
+  @media(max-width:600px) { .level-grid { grid-template-columns: 1fr; } }
+
+  .level-card {
+    border-radius: 10px;
+    padding: 24px 22px;
+    border: 1px solid;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .level-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .level-card.bull { background: var(--bull-bg); border-color: var(--bull-border); }
+  .level-card.bear { background: var(--bear-bg); border-color: var(--bear-border); }
+  .level-card.zone { background: var(--zone-bg); border-color: var(--zone-border); }
+
+  .level-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+  .level-icon {
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .level-card.bull .level-icon { background: var(--bull); color: white; }
+  .level-card.bear .level-icon { background: var(--bear); color: white; }
+  .level-card.zone .level-icon { background: var(--zone); color: white; }
+
+  .level-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  .level-card.bull .level-badge { background: var(--bull-border); color: var(--bull); }
+  .level-card.bear .level-badge { background: var(--bear-border); color: var(--bear); }
+  .level-card.zone .level-badge { background: var(--zone-border); color: var(--zone); }
+
+  .level-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .level-card.zone .level-number { font-size: 20px; line-height: 1.45; letter-spacing: -0.5px; }
+  .level-card.bull .level-number { color: var(--bull); }
+  .level-card.bear .level-number { color: var(--bear); }
+  .level-card.zone .level-number { color: var(--zone); }
+
+  .level-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    padding-top: 10px;
+    border-top: 1px solid;
+  }
+  .level-card.bull .level-desc { border-color: var(--bull-border); }
+  .level-card.bear .level-desc { border-color: var(--bear-border); }
+  .level-card.zone .level-desc { border-color: var(--zone-border); }
+
+  /* ━━━ SECTION ━━━ */
+  .section { padding: 40px 0; border-bottom: 1px solid var(--border); }
+  .section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+  .section-label h2 {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ━━━ TABLE ━━━ */
+  .fw-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .fw-table tr { border-bottom: 1px solid var(--border); }
+  .fw-table tr:last-child { border-bottom: none; }
+  .fw-table tr:hover td { background: var(--orange-light); }
+  .fw-table td { padding: 12px 18px; background: var(--white); }
+  .fw-table td:first-child {
+    width: 36%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: var(--off);
+    border-right: 1px solid var(--border);
+  }
+  .fw-table td:last-child { font-weight: 500; color: var(--ink); }
+
+  /* ━━━ SCENARIOS ━━━ */
+  .scenario { border-radius: 8px; border: 1px solid; margin-bottom: 12px; overflow: hidden; }
+  .scenario.bull { border-color: var(--bull-border); }
+  .scenario.bear { border-color: var(--bear-border); }
+  .scenario.zone { border-color: var(--zone-border); }
+
+  .scenario-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 18px;
+    border-bottom: 1px solid;
+  }
+  .scenario.bull .scenario-top { background: var(--bull-bg); border-color: var(--bull-border); }
+  .scenario.bear .scenario-top { background: var(--bear-bg); border-color: var(--bear-border); }
+  .scenario.zone .scenario-top { background: var(--zone-bg); border-color: var(--zone-border); }
+
+  .scenario-name {
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .scenario.bull .scenario-name { color: var(--bull); }
+  .scenario.bear .scenario-name { color: var(--bear); }
+  .scenario.zone .scenario-name { color: var(--zone); }
+
+  .scenario-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .scenario.bull .scenario-val { color: var(--bull); }
+  .scenario.bear .scenario-val { color: var(--bear); }
+  .scenario.zone .scenario-val { color: var(--zone); }
+
+  .scenario-body { padding: 15px 18px; font-size: 14px; color: var(--ink-mid); line-height: 1.75; background: var(--white); }
+
+  /* ━━━ FORMULA ━━━ */
+  .formula {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    gap: 4px;
+  }
+  .f-item { color: rgba(255,255,255,0.9); font-weight: 600; padding: 4px 8px; letter-spacing: 0.5px; }
+  .f-arrow { color: var(--orange); font-size: 16px; padding: 0 4px; }
+
+  /* ━━━ PRINCIPLES ━━━ */
+  .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:520px) { .principles { grid-template-columns: 1fr; } }
+
+  .principle-card {
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .principle-card::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ━━━ QUOTE ━━━ */
+  .quote {
+    margin-top: 20px;
+    background: linear-gradient(135deg, var(--orange-light) 0%, var(--white) 100%);
+    border: 1px solid var(--orange-mid);
+    border-left: 4px solid var(--orange);
+    border-radius: 0 8px 8px 0;
+    padding: 22px 28px;
+  }
+  .quote p { font-size: 16px; font-weight: 500; color: var(--ink-mid); line-height: 1.7; font-style: italic; }
+  .quote strong { color: var(--orange-deep); font-style: normal; font-weight: 700; }
+
+  /* ━━━ JOURNAL ━━━ */
+  .journal-box {
+    background: var(--off);
+    border: 1.5px dashed var(--border-mid);
+    border-radius: 8px;
+    padding: 44px 28px;
+    text-align: center;
+  }
+  .jb-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .journal-box p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  /* ━━━ MEDIA ━━━ */
+  .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:520px) { .media-grid { grid-template-columns: 1fr; } }
+
+  .media-card {
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+  .media-card:hover {
+    border-color: var(--orange);
+    background: var(--orange-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(232,89,12,0.1);
+  }
+  .media-card-icon {
+    width: 40px; height: 40px;
+    background: var(--orange);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 15px;
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+  .media-card strong { display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+  .media-card span { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-soft); letter-spacing: 0.5px; }
+
+  /* ━━━ DISCLAIMER ━━━ */
+  .disclaimer {
+    background: var(--off);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.9;
+  }
+  .disc-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sebi-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border: 1px solid var(--border-mid);
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--white);
+  }
+
+  /* ━━━ FOOTER ━━━ */
+  footer { background: var(--ink); padding: 32px; }
+  .footer-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .footer-brand { font-size: 18px; font-weight: 800; color: white; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .footer-brand span { color: var(--orange); }
+  .footer-tagline { font-size: 12px; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; }
+  .footer-right { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.35); text-align: right; line-height: 2; }
+
+  /* ━━━ ANIMATIONS ━━━ */
+  @keyframes breathe {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.8); }
+  }
+</style>
+</head>
+<body>
+
+<!-- BRAND STRIPE -->
+<div class="brand-stripe">
+  <div class="brand-stripe-left">
+    <div class="dot"></div>
+    Sanjeev Signals — Pre-Market Advance Briefing
+  </div>
+  <div class="brand-stripe-right">06 March 2026 · NIFTY 50 · Three-Level Framework</div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-box"><span>SS</span></div>
+      <div class="logo-name">
+        Sanjeev Signals
+        <small>Victoria — AI Assistant · Created by Sanjeev Singh</small>
+      </div>
+    </div>
+    <div class="header-tags">
+      <div class="tag tag-orange">Pre-Market</div>
+      <div class="tag tag-outline">06 MAR 2026</div>
+      <div class="tag tag-outline">NIFTY 50</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-main">
+      <div class="hero-kicker">NIFTY 50 — Opening Control Framework</div>
+      <h1>Advance<br>Briefing —<br><span class="accent">06 March</span></h1>
+      <div class="hero-pills">
+        <div class="hero-pill">Friday</div>
+        <div class="hero-pill">Daily Series</div>
+        <div class="hero-pill">Three-Level Framework</div>
+        <div class="hero-pill">Pre-Market · Advance</div>
+      </div>
+    </div>
+    <div class="hero-aside">
+      <div class="hero-aside-date">Friday · 2026</div>
+      <div class="hero-aside-instrument">NIFTY<br>50</div>
+      <div class="hero-aside-sub">Three-Level<br>Framework</div>
+    </div>
+  </div>
+
+  <!-- LEVEL GRID -->
+  <div class="level-grid">
+    <div class="level-card bull">
+      <div class="level-card-top">
+        <div class="level-icon">▲</div>
+        <div class="level-badge">Bullish Bias</div>
+      </div>
+      <div class="level-number">25,692</div>
+      <div class="level-desc">Sustain above → Buy-side execution active</div>
+    </div>
+    <div class="level-card bear">
+      <div class="level-card-top">
+        <div class="level-icon">▼</div>
+        <div class="level-badge">Bearish Bias</div>
+      </div>
+      <div class="level-number">25,562</div>
+      <div class="level-desc">Sustain below → Sell-side execution active</div>
+    </div>
+    <div class="level-card zone">
+      <div class="level-card-top">
+        <div class="level-icon">◈</div>
+        <div class="level-badge">No Trade Zone</div>
+      </div>
+      <div class="level-number">25,562<br>– 25,692</div>
+      <div class="level-desc">Uncertainty zone — if trading, lean bullish with caution</div>
+    </div>
+  </div>
+
+  <!-- FRAMEWORK TABLE -->
+  <div class="section">
+    <div class="section-label"><h2>Opening Control Framework</h2></div>
+    <table class="fw-table">
+      <tr><td>Date</td><td>Friday, 06 March 2026</td></tr>
+      <tr><td>Instrument</td><td>NIFTY 50</td></tr>
+      <tr><td>Bullish Level</td><td style="color:var(--bull);font-family:'JetBrains Mono',monospace;font-weight:600;">▲ Above 25,692</td></tr>
+      <tr><td>Bearish Level</td><td style="color:var(--bear);font-family:'JetBrains Mono',monospace;font-weight:600;">▼ Below 25,562</td></tr>
+      <tr><td>No Trade Zone</td><td style="color:var(--zone);font-family:'JetBrains Mono',monospace;font-weight:600;">◈ 25,562 – 25,692</td></tr>
+      <tr><td>Zone Preference</td><td style="color:var(--bull);font-family:'JetBrains Mono',monospace;font-weight:600;">▲ Lean Bullish (Higher Risk)</td></tr>
+      <tr><td>Briefing Type</td><td>Pre-Market — Advance</td></tr>
+    </table>
+  </div>
+
+  <!-- THE PLAN -->
+  <div class="section">
+    <div class="section-label"><h2>The Plan</h2></div>
+    <div class="scenario bull">
+      <div class="scenario-top">
+        <div class="scenario-name">▲ Bullish Bias</div>
+        <div class="scenario-val">Above 25,692</div>
+      </div>
+      <div class="scenario-body">Market opens and sustains above 25,692. Bias turns bullish. Focus shifts entirely to buy-side execution. Pullbacks within the upward move are entry opportunities — not exit signals.</div>
+    </div>
+    <div class="scenario bear">
+      <div class="scenario-top">
+        <div class="scenario-name">▼ Bearish Bias</div>
+        <div class="scenario-val">Below 25,562</div>
+      </div>
+      <div class="scenario-body">Market opens and sustains below 25,562. Bias turns bearish. Focus shifts entirely to sell-side execution. Bounces within the downward move are entry opportunities — not exit signals.</div>
+    </div>
+    <div class="scenario zone">
+      <div class="scenario-top">
+        <div class="scenario-name">◈ No Trade Zone</div>
+        <div class="scenario-val">25,562 – 25,692</div>
+      </div>
+      <div class="scenario-body">Price inside this range signals uncertainty and elevated probability of false moves. Directional commitment is to be avoided. If participation is chosen within this zone, preference leans <strong>bullish</strong> — however risk is significantly higher. Position sizing and risk-reward management become critical. Patience is the edge here.</div>
+    </div>
+  </div>
+
+  <!-- CORE PRINCIPLES -->
+  <div class="section">
+    <div class="section-label"><h2>Core Principles</h2></div>
+    <div class="formula">
+      <div class="f-item">Levels Decide</div>
+      <div class="f-arrow">→</div>
+      <div class="f-item">Bias Follows</div>
+      <div class="f-arrow">→</div>
+      <div class="f-item">Execution Stays Structured</div>
+    </div>
+    <div class="principles">
+      <div class="principle-card">Wait for price to act. Never anticipate.</div>
+      <div class="principle-card">The plan is pre-defined. Trust it and execute.</div>
+      <div class="principle-card">Enter only after price sustains beyond the level — not before.</div>
+      <div class="principle-card">Pullbacks are part of the move. Stay with the bias.</div>
+    </div>
+    <div class="quote">
+      <p><strong>Everything else is noise.</strong><br>
+      Price tells the story. Your job is to listen — not predict.</p>
+    </div>
+  </div>
+
+  <!-- POST TRADE JOURNAL -->
+  <div class="section">
+    <div class="section-label"><h2>Post-Trade Journal</h2></div>
+    <div class="journal-box">
+      <div class="jb-mono">NIFTY 50 · 1-Min Chart · 06 Mar 2026</div>
+      <p>Updated after market close with trade details,<br>execution review & outcome.</p>
+    </div>
+  </div>
+
+  <!-- CHART & VIDEO -->
+  <div class="section">
+    <div class="section-label"><h2>Chart & Video Briefing</h2></div>
+    <div class="media-grid">
+      <a class="media-card" href="./2026-03-06-nifty50-pre.png" target="_blank">
+        <div class="media-card-icon">◫</div>
+        <div>
+          <strong>Pre-Market Chart</strong>
+          <span>25,562 / 25,692 · 06 Mar 2026</span>
+        </div>
+      </a>
+      <a class="media-card" href="./2026-03-06-nifty50-morning-plan.mp4" target="_blank">
+        <div class="media-card-icon">▶</div>
+        <div>
+          <strong>Watch Briefing</strong>
+          <span>Victoria · Sanjeev Signals</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="section">
+    <div class="section-label"><h2>Legal Disclaimer</h2></div>
+    <div class="disclaimer">
+      <div class="disc-head">⚖ Not a SEBI Registered Investment Advisor</div>
+      Sanjeev Signals is not a SEBI Registered Investment Advisor (RIA) or Research Analyst. All content published on this platform — including daily briefings, charts, trade journals, and videos — is strictly for educational and informational purposes only. Nothing published here constitutes financial advice, investment advice, a buy or sell recommendation, or a tip service of any nature.
+      <br><br>
+      Trading in equities, derivatives, and financial instruments carries substantial risk of capital loss. Past performance is not indicative of future results. You are solely and entirely responsible for your own trading and investment decisions. Before making any financial decision, please consult a SEBI Registered Investment Advisor.
+      <br>
+      <span class="sebi-tag">SEBI (Investment Advisers) Regulations, 2013</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">Sanjeev <span>Signals</span></div>
+      <div class="footer-tagline">Pre-Market Clarity. Rule-Based Execution.</div>
+    </div>
+    <div class="footer-right">
+      #Nifty50 · #Sensex · #StockMarket<br>
+      #PreMarketBriefing · #SanjeevSignals<br>
+      #RuleBasedTrading · #PreAnalysis
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

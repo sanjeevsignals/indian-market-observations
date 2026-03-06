@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Build Your Website Using AI — Sanjeev Signals</title>
+  <meta name="description" content="A step-by-step process for building a professional website using AI tools. No coding. No agency. Just clear thinking. By Sanjeev Singh — Sanjeev Signals." />
+  <meta name="author" content="Sanjeev Singh" />
+  <meta property="og:title" content="How to Build Your Website Using AI — Sanjeev Signals" />
+  <meta property="og:description" content="A step-by-step process anyone can follow to build their own digital platform using AI tools." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="How to Build Your Website Using AI — Sanjeev Signals" />
+  <meta name="twitter:description" content="A step-by-step process anyone can follow to build their own digital platform using AI tools." />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c10;
+      --surface: #0e1420;
+      --surface2: #131b28;
+      --border: #1e2d42;
+      --text: #c8d8e8;
+      --text-dim: #5a7a96;
+      --text-bright: #e8f2ff;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.15);
+      --accent2: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --grid: rgba(59,130,246,0.04);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── TOP NAV BAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+
+    .topbar-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--text-bright);
+    }
+
+    .topbar-brand span { color: var(--accent); }
+
+    .topbar-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      padding: 80px 32px 60px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(59,130,246,0.3);
+      padding: 6px 14px;
+      margin-bottom: 32px;
+      animation: fadeIn 0.5s ease both;
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5.5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--text-bright);
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+
+    .hero-title .highlight {
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-subtitle {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      max-width: 580px;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+
+    .author-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .author-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .author-info span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    /* Prose */
+    .prose p {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .prose strong {
+      color: var(--text-bright);
+      font-weight: 600;
+    }
+
+    /* Opening block */
+    .opening {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      padding: 32px 36px;
+      margin-bottom: 48px;
+    }
+
+    .opening p {
+      font-size: 1.08rem !important;
+      color: var(--text) !important;
+      margin-bottom: 16px !important;
+    }
+
+    .opening p:last-child { margin-bottom: 0 !important; }
+
+    .bullet-list {
+      list-style: none;
+      margin: 16px 0;
+    }
+
+    .bullet-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 6px 0;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .bullet-list li::before {
+      content: '•';
+      color: var(--accent);
+      font-size: 1.2rem;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    /* Truth block */
+    .truth-block {
+      background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(6,182,212,0.04));
+      border: 1px solid rgba(59,130,246,0.2);
+      padding: 36px 40px;
+      margin: 40px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .truth-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .truth-block p {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: var(--text-bright) !important;
+      margin-bottom: 12px !important;
+      line-height: 1.5;
+    }
+
+    .truth-block p:last-child { margin-bottom: 0 !important; }
+
+    .truth-block strong { color: var(--accent) !important; }
+
+    /* Step section */
+    .step-section {
+      margin: 48px 0;
+      position: relative;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--accent);
+      line-height: 1;
+      opacity: 0.6;
+      flex-shrink: 0;
+      min-width: 36px;
+    }
+
+    .step-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.2;
+      padding-top: 4px;
+    }
+
+    .step-body {
+      padding-left: 56px;
+    }
+
+    .step-body p {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .step-body strong { color: var(--text-bright); font-weight: 600; }
+
+    .step-divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+      margin: 48px 0;
+    }
+
+    /* Code/prompt block */
+    .prompt-block {
+      background: #030608;
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prompt-block::before {
+      content: 'PROMPT';
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--accent2);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .prompt-block p {
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 0.85rem !important;
+      color: #a8d4f0 !important;
+      line-height: 1.7 !important;
+      margin-bottom: 0 !important;
+    }
+
+    .prompt-block strong {
+      color: var(--accent2) !important;
+    }
+
+    .bad-prompt {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.2);
+      padding: 16px 20px;
+      margin: 16px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: rgba(239,68,68,0.8);
+      position: relative;
+    }
+
+    .bad-prompt::before {
+      content: '✕  VAGUE';
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      display: block;
+      margin-bottom: 8px;
+      color: var(--red);
+      opacity: 0.7;
+    }
+
+    /* Platform list */
+    .platform-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin: 20px 0;
+    }
+
+    .platform-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .platform-item:hover {
+      border-color: rgba(59,130,246,0.3);
+      background: var(--surface2);
+    }
+
+    .platform-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text-bright);
+    }
+
+    .platform-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .platform-url:hover { opacity: 1; }
+
+    /* Takeaway box */
+    .takeaway {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      margin: 24px 0;
+    }
+
+    .takeaway-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+
+    .takeaway p {
+      font-size: 1rem !important;
+      color: var(--text) !important;
+      margin-bottom: 0 !important;
+    }
+
+    .takeaway strong { color: var(--text-bright) !important; }
+
+    /* Auto-generate list */
+    .auto-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin: 16px 0;
+    }
+
+    .auto-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .auto-item::before {
+      content: '→';
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Conclusion */
+    .conclusion {
+      margin: 64px 0 0;
+      padding: 48px 0 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .conclusion-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-bright);
+      margin-bottom: 24px;
+    }
+
+    .conclusion .prose p {
+      font-size: 1.05rem;
+    }
+
+    /* Final statement */
+    .final-statement {
+      margin: 40px 0;
+      padding: 40px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.06), rgba(6,182,212,0.03));
+      border: 1px solid rgba(59,130,246,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-statement::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    }
+
+    .final-statement p {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 1.25rem !important;
+      color: var(--text-bright) !important;
+      line-height: 1.6 !important;
+      margin-bottom: 12px !important;
+    }
+
+    .final-statement p:last-child { margin-bottom: 0 !important; }
+
+    .final-statement strong { color: var(--accent) !important; }
+
+    /* Signature */
+    .signature {
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sig-line {
+      height: 1px;
+      flex: 1;
+      background: var(--border);
+    }
+
+    .sig-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-bright);
+    }
+
+    /* Footer */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text-bright);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-brand span { color: var(--accent); }
+
+    .footer-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 8px;
+    }
+
+    .footer-disclaimer {
+      margin: 20px auto 0;
+      max-width: 520px;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Prevent drop-cap leak */
+    .opening p::first-letter,
+    .truth-block p::first-letter,
+    .step-body p::first-letter,
+    .prompt-block p::first-letter,
+    .takeaway p::first-letter,
+    .conclusion .prose p::first-letter,
+    .final-statement p::first-letter,
+    .footer-disclaimer::first-letter {
+      font-size: inherit;
+      float: none;
+      color: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .hero { padding: 56px 20px 40px; }
+      .content { padding: 0 20px 60px; }
+      .step-body { padding-left: 0; }
+      .auto-list { grid-template-columns: 1fr; }
+      .topbar { padding: 0 20px; }
+      .final-statement { padding: 28px 24px; }
+      .opening { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <nav class="topbar">
+    <div class="topbar-brand">Sanjeev <span>Signals</span></div>
+    <div class="topbar-tag">Technology × Thinking</div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Step-by-Step Guide</div>
+    <h1 class="hero-title">How a person can build their own website using <span class="highlight">AI</span></h1>
+    <p class="hero-subtitle">No coding. No developer. No agency. Just clear thinking — and the right tools.</p>
+    <div class="hero-meta">
+      <div class="author-chip">
+        <div class="author-dot">SS</div>
+        <div class="author-info">
+          <strong>Sanjeev Singh</strong>
+          <span>F&amp;O Trader · Pure Option Buyer · Real P&amp;L · Zero Certifications</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- Opening -->
+    <div class="opening prose">
+      <p>For a long time, building a website required three things:</p>
+      <ul class="bullet-list">
+        <li>coding knowledge</li>
+        <li>a developer</li>
+        <li>or a design agency</li>
+      </ul>
+      <p>That reality has changed.</p>
+      <p>Today, a single person can build a <strong>professional website</strong> in a few hours using <strong>AI tools</strong>. No coding. No technical background.</p>
+      <p>But there is one important truth.</p>
+    </div>
+
+    <!-- Truth block -->
+    <div class="truth-block">
+      <p><strong>AI does not replace thinking.</strong></p>
+      <p>AI replaces <strong>manual work.</strong></p>
+      <p>The real advantage goes to the person who knows <strong>what they want to build.</strong></p>
+    </div>
+
+    <div class="prose" style="margin-bottom: 48px; position: relative; z-index: 1;">
+      <p>Below is a simple step-by-step process anyone can follow.</p>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">①</div>
+        <div class="step-title">Decide the purpose of the website</div>
+      </div>
+      <div class="step-body prose">
+        <p>Before opening any AI tool, answer one question.</p>
+        <p><strong>Why does this website exist?</strong></p>
+        <ul class="bullet-list">
+          <li>personal brand website</li>
+          <li>business landing page</li>
+          <li>research blog</li>
+          <li>portfolio</li>
+          <li>trading platform</li>
+          <li>newsletter hub</li>
+        </ul>
+        <p>If the purpose is unclear, the website becomes a random collection of pages.</p>
+        <div class="takeaway">
+          <div class="takeaway-label">Key Principle</div>
+          <p><strong>Clear purpose → clear structure.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 2 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">②</div>
+        <div class="step-title">Decide your positioning</div>
+      </div>
+      <div class="step-body prose">
+        <p>A website is not just information.</p>
+        <p>It is <strong>positioning.</strong></p>
+        <p>For example, a trader's website could position the person as:</p>
+        <ul class="bullet-list">
+          <li>signal provider</li>
+          <li>trading educator</li>
+          <li>market analyst</li>
+          <li>trading research platform</li>
+        </ul>
+        <p>Each positioning creates a different structure.</p>
+        <p>AI tools will ask about your <strong>brand.</strong><br>Your answers shape the entire website.</p>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 3 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">③</div>
+        <div class="step-title">Write a clear prompt</div>
+      </div>
+      <div class="step-body prose">
+        <p>This is the <strong>most important step.</strong></p>
+        <p>Instead of writing something vague like:</p>
+        <div class="bad-prompt">"Create a website for my business."</div>
+        <p>Write a structured prompt like:</p>
+        <div class="prompt-block">
+          <p>Create a professional minimalist website for a <strong>trading intelligence platform.</strong><br>
+          The platform focuses on <strong>market structure, key levels, disciplined execution, and risk management.</strong><br>
+          The design should look like an <strong>institutional research platform</strong> with a clean layout and professional typography.</p>
+        </div>
+        <div class="takeaway">
+          <div class="takeaway-label">Remember</div>
+          <p><strong>AI responds to clarity. Better prompt → better website.</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 4 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">④</div>
+        <div class="step-title">Choose an AI website builder</div>
+      </div>
+      <div class="step-body prose">
+        <p>Now go to one of these AI website platforms.</p>
+        <div class="platform-grid">
+          <div class="platform-item">
+            <span class="platform-name">Framer</span>
+            <a class="platform-url" href="https://framer.com" target="_blank" rel="noopener">framer.com →</a>
+          </div>
+          <div class="platform-item">
+            <span class="platform-name">Wix</span>
+            <a class="platform-url" href="https://wix.com" target="_blank" rel="noopener">wix.com →</a>
+          </div>
+          <div class="platform-item">
+            <span class="platform-name">Durable</span>
+            <a class="platform-url" href="https://durable.co" target="_blank" rel="noopener">durable.co →</a>
+          </div>
+          <div class="platform-item">
+            <span class="platform-name">10Web</span>
+            <a class="platform-url" href="https://10web.io" target="_blank" rel="noopener">10web.io →</a>
+          </div>
+          <div class="platform-item">
+            <span class="platform-name">Emergent</span>
+            <a class="platform-url" href="https://emergent.sh" target="_blank" rel="noopener">emergent.sh →</a>
+          </div>
+        </div>
+        <p>All of these platforms have AI website generators.</p>
+        <p>Create a free account and choose <strong>"Generate website with AI."</strong></p>
+        <p>A platform like <strong>Emergent</strong> is slightly different.<br>
+        Instead of only designing the layout, it can generate <strong>full-stack websites</strong> using prompts, including UI structure and basic functionality.</p>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 5 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">⑤</div>
+        <div class="step-title">Enter your prompt</div>
+      </div>
+      <div class="step-body prose">
+        <p>After signing in, the platform will ask:</p>
+        <ul class="bullet-list">
+          <li>What kind of website do you want?</li>
+          <li>What is your business or brand name?</li>
+          <li>What services do you offer?</li>
+        </ul>
+        <p>This is where you paste the <strong>prompt</strong> you prepared earlier.</p>
+        <p>The AI will automatically generate:</p>
+        <div class="auto-list">
+          <div class="auto-item">homepage</div>
+          <div class="auto-item">about page</div>
+          <div class="auto-item">services page</div>
+          <div class="auto-item">blog section</div>
+          <div class="auto-item">contact page</div>
+          <div class="auto-item">layout design</div>
+        </div>
+        <p style="margin-top: 16px;">This usually takes <strong>30 seconds to 2 minutes.</strong></p>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 6 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">⑥</div>
+        <div class="step-title">Customize the website</div>
+      </div>
+      <div class="step-body prose">
+        <p>Once the AI generates the website, you can edit everything.</p>
+        <p>You can change:</p>
+        <ul class="bullet-list">
+          <li>text</li>
+          <li>images</li>
+          <li>colors</li>
+          <li>sections</li>
+          <li>layout</li>
+        </ul>
+        <p>For example, add sections like:</p>
+        <ul class="bullet-list">
+          <li>About</li>
+          <li>Research</li>
+          <li>Blog</li>
+          <li>Newsletter</li>
+          <li>Contact</li>
+        </ul>
+        <p>Most AI builders allow <strong>drag-and-drop editing,</strong> so you don't need coding.</p>
+        <p>Platforms like <strong>Framer</strong> and <strong>Emergent</strong> also allow deeper customization if you want more advanced control.</p>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 7 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">⑦</div>
+        <div class="step-title">Connect domain name</div>
+      </div>
+      <div class="step-body prose">
+        <p>To make the website professional, you need a <strong>domain name.</strong></p>
+        <p>Example:</p>
+        <div class="prompt-block">
+          <p>yourname.com<br>brandname.com</p>
+        </div>
+        <p>Domains can be purchased from companies like <strong>GoDaddy</strong> or <strong>Namecheap.</strong></p>
+        <p>After buying a domain, connect it to your website inside the AI builder dashboard.</p>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 8 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">⑧</div>
+        <div class="step-title">Publish the website</div>
+      </div>
+      <div class="step-body prose">
+        <p>After editing and connecting the domain, click <strong>Publish.</strong></p>
+        <p>Your website will become <strong>live on the internet.</strong></p>
+        <p>Now anyone can visit it.</p>
+      </div>
+    </div>
+
+    <div class="step-divider"></div>
+
+    <!-- Step 9 -->
+    <div class="step-section">
+      <div class="step-header">
+        <div class="step-num">⑨</div>
+        <div class="step-title">Start using the website as a platform</div>
+      </div>
+      <div class="step-body prose">
+        <p>A website is not just a <strong>digital card.</strong></p>
+        <p>It becomes your <strong>platform.</strong></p>
+        <p>You can:</p>
+        <ul class="bullet-list">
+          <li>publish articles</li>
+          <li>share research</li>
+          <li>host a newsletter</li>
+          <li>showcase work</li>
+          <li>build authority in your field</li>
+        </ul>
+        <p>Over time, the website evolves with your ideas.</p>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="conclusion">
+      <div class="conclusion-title">The bigger shift</div>
+      <div class="prose">
+        <p>For decades, the internet was controlled by people who had <strong>technical skills.</strong></p>
+        <p>Today, AI is removing that barrier.</p>
+        <p>Anyone with <strong>clear thinking</strong> can now build their own <strong>digital platform.</strong></p>
+        <p>The cost of creation has dropped.</p>
+        <p>But the importance of <strong>clarity, positioning, and ideas</strong> has increased.</p>
+        <p>Because when technology becomes easy, the real advantage belongs to people who know <strong>what they want to build.</strong></p>
+        <p>And in the AI era, the most powerful skill is not coding.</p>
+      </div>
+
+      <div class="final-statement">
+        <p><strong>It is clear thinking.</strong></p>
+      </div>
+
+      <div class="signature">
+        <div class="sig-line"></div>
+        <div class="sig-name">— Sanjeev Singh</div>
+        <div class="sig-line"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Sanjeev <span>Signals</span></div>
+    <div class="footer-sub">F&amp;O Trader · Pure Option Buyer · Real P&amp;L · Zero Certifications · Independent Systems Researcher</div>
+    <p class="footer-disclaimer">
+      This article is for educational and informational purposes only. Nothing herein constitutes financial or investment advice. Always conduct your own research before making any decisions.
+    </p>
+  </footer>
+
+</body>
+</html>

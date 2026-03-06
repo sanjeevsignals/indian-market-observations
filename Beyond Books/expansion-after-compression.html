@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expansion After Compression — Sanjeev Signals</title>
+  <meta name="description" content="A Level-Driven Framework for Capturing Breakout Moves Without Predicting Direction. By Sanjeev Singh — F&O Trader, Pure Option Buyer, Sanjeev Signals." />
+  <meta property="og:title" content="Expansion After Compression — Sanjeev Signals" />
+  <meta property="og:description" content="A Level-Driven Framework for Capturing Breakout Moves Without Predicting Direction." />
+  <meta property="og:type" content="article" />
+  <meta name="author" content="Sanjeev Singh" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Expansion After Compression — Sanjeev Signals" />
+  <meta name="twitter:description" content="A Level-Driven Framework for Capturing Breakout Moves Without Predicting Direction." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0d0d0d;
+      --paper: #f5f0e8;
+      --accent: #c8410a;
+      --accent2: #1a3a5c;
+      --gold: #b5892a;
+      --muted: #6b6356;
+      --rule: #d4c9b5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse at 80% 10%, rgba(200,65,10,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 10% 90%, rgba(26,58,92,0.06) 0%, transparent 60%);
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px double var(--ink);
+      padding: 28px 0 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::before {
+      content: '';
+      display: block;
+      height: 4px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0 8px, transparent 8px 16px);
+      margin-bottom: 24px;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .brand-name span {
+      color: var(--accent);
+    }
+
+    .brand-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    .masthead-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--rule);
+      padding: 10px 40px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── ARTICLE HEADER ── */
+    .article-header {
+      padding: 64px 0 40px;
+      position: relative;
+    }
+
+    .article-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .article-category::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .article-title em {
+      font-style: italic;
+      color: var(--accent2);
+    }
+
+    .article-deck {
+      font-size: 1.18rem;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.6;
+      border-left: 3px solid var(--accent);
+      padding-left: 20px;
+      margin-bottom: 32px;
+    }
+
+    .article-byline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .byline-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .byline-text strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {
+      padding: 44px 0 64px;
+    }
+
+    .article-body p {
+      font-size: 1.05rem;
+      margin-bottom: 22px;
+      color: #1c1814;
+    }
+
+    .article-body p:first-child::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2rem;
+      font-weight: 900;
+      float: left;
+      line-height: 0.75;
+      margin-right: 10px;
+      margin-top: 8px;
+      color: var(--accent);
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 48px 0 16px;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    h2::before {
+      content: '§';
+      color: var(--accent);
+      margin-right: 10px;
+      font-style: italic;
+      opacity: 0.7;
+      speak: never;
+    }
+
+    /* Prevent drop-cap leaking into non-prose paragraphs */
+    .key-box p::first-letter,
+    .framework-side p::first-letter,
+    .works-item p::first-letter,
+    .pull-quote p::first-letter,
+    .rule-box p::first-letter,
+    .trade-note::first-letter,
+    .article-deck::first-letter,
+    .footer-disclaimer::first-letter {
+      font-size: inherit;
+      float: none;
+      color: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      margin: 0;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      margin: 44px -28px;
+      padding: 32px 40px;
+      background: var(--ink);
+      color: var(--paper);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 10rem;
+      color: var(--accent);
+      opacity: 0.18;
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      line-height: 1;
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--paper) !important;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0 !important;
+    }
+
+    /* Key points box */
+    .key-box {
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--accent2);
+      padding: 28px 32px;
+      margin: 36px 0;
+      background: rgba(26,58,92,0.03);
+    }
+
+    .key-box-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 16px;
+    }
+
+    .key-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .key-box ul li {
+      display: flex;
+      gap: 12px;
+      font-size: 1rem;
+      color: #1c1814;
+      align-items: flex-start;
+    }
+
+    .key-box ul li::before {
+      content: '→';
+      color: var(--accent2);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    /* Framework visual */
+    .framework-visual {
+      margin: 40px 0;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+
+    .framework-header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 14px 24px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .framework-body {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+    }
+
+    .framework-side {
+      padding: 28px 28px;
+    }
+
+    .framework-divider {
+      background: var(--rule);
+    }
+
+    .framework-side-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .framework-side.buy .framework-side-label { color: #1a7a3a; }
+    .framework-side.sell .framework-side-label { color: var(--accent); }
+
+    .framework-side h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .framework-side.buy h3 { color: #1a7a3a; }
+    .framework-side.sell h3 { color: var(--accent); }
+
+    .framework-side p {
+      font-size: 0.9rem !important;
+      color: var(--muted) !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Example trade box */
+    .trade-example {
+      background: #0d0d0d;
+      color: #f5f0e8;
+      padding: 32px;
+      margin: 40px 0;
+      font-family: 'DM Mono', monospace;
+      position: relative;
+    }
+
+    .trade-example-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .trade-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(245,240,232,0.1);
+      font-size: 0.88rem;
+    }
+
+    .trade-row.last { border-bottom: none; }
+
+    .trade-label { color: rgba(245,240,232,0.5); }
+
+    .trade-value { font-weight: 500; }
+    .trade-value.resistance { color: #e87c5a; }
+    .trade-value.support { color: #5ab0e8; }
+    .trade-value.buy { color: #5ae87c; }
+    .trade-value.sell { color: #e85a5a; }
+
+    .trade-note {
+      margin-top: 20px;
+      font-size: 0.78rem;
+      color: rgba(245,240,232,0.45);
+      line-height: 1.6;
+    }
+
+    /* Rule box */
+    .rule-box {
+      border: 2px solid var(--gold);
+      padding: 28px 32px;
+      margin: 36px 0;
+      position: relative;
+    }
+
+    .rule-box::before {
+      content: 'CRITICAL RULE';
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      background: var(--paper);
+      padding: 0 10px;
+      position: absolute;
+      top: -10px;
+      left: 20px;
+    }
+
+    .rule-box p {
+      margin-bottom: 0 !important;
+      font-size: 1rem !important;
+      font-weight: 500 !important;
+      color: var(--ink) !important;
+    }
+
+    /* Works best section */
+    .works-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin: 28px 0;
+    }
+
+    .works-item {
+      background: var(--paper);
+      padding: 22px 24px;
+    }
+
+    .works-item-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--rule);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .works-item-title {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .works-item p {
+      font-size: 0.85rem !important;
+      color: var(--muted) !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Final principle */
+    .final-principle {
+      text-align: center;
+      padding: 56px 0 48px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 3px double var(--ink);
+      margin: 48px 0;
+    }
+
+    .final-principle .steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-top: 32px;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      padding: 16px 28px;
+      border: 1px solid var(--rule);
+      position: relative;
+      text-align: center;
+    }
+
+    .step + .step::before {
+      content: '→';
+      position: absolute;
+      left: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .step-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .final-principle > p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 0 auto;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 32px 28px 48px;
+      border-top: 3px double var(--ink);
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+
+    .footer-brand span { color: var(--accent); }
+
+    .footer-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .footer-disclaimer {
+      margin: 24px auto 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .masthead, .article-header, .article-body {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .article-header { animation-delay: 0.15s; }
+    .article-body { animation-delay: 0.3s; }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .masthead-meta { flex-direction: column; gap: 4px; text-align: center; padding: 10px 20px; }
+      .framework-body { grid-template-columns: 1fr; }
+      .framework-divider { height: 1px; width: 100%; }
+      .works-grid { grid-template-columns: 1fr; }
+      .pull-quote { margin: 44px -28px; }
+      .step + .step::before { display: none; }
+      .steps { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="brand-name">Sanjeev <span>Signals</span></div>
+    <div class="brand-tagline">Market Intelligence · Trading Frameworks · Disciplined Execution</div>
+    <div class="masthead-meta">
+      <span>Vol. I — Issue No. 1</span>
+      <span>Framework Series</span>
+      <span>By Sanjeev Singh</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE -->
+  <div class="container">
+    <div class="article-header">
+      <div class="article-category">Trading Framework</div>
+      <h1 class="article-title">Expansion After<br><em>Compression</em></h1>
+      <p class="article-deck">
+        A Level-Driven Framework for Capturing Breakout Moves Without Predicting Direction — because the market rewards preparation, not prophecy.
+      </p>
+      <div class="article-byline">
+        <div class="author-avatar">SS</div>
+        <div class="byline-text">
+          <strong>Sanjeev Singh</strong>
+          F&amp;O Trader · Pure Option Buyer · Real P&amp;L · Independent Systems Researcher — Markets &amp; Behavior at Sanjeev Signals
+        </div>
+      </div>
+    </div>
+
+    <div class="article-body">
+
+      <p>Most retail traders carry one habit that quietly destroys consistency: they try to predict direction. Bullish bias. Bearish bias. Narratives about where the market "should" go. But the market rarely rewards prediction. It rewards preparation and disciplined reaction to price behavior.</p>
+
+      <p>One of the clearest expressions of this principle appears during sideways market conditions. Because when the market goes quiet, something important is almost always happening beneath the surface.</p>
+
+      <h2>The Structural Meaning of a Sideways Market</h2>
+
+      <p>A sideways market is not random drift. It represents a temporary equilibrium between buyers and sellers — demand exists, supply exists, but neither side commands enough dominance to create a sustained trend. This creates a defined trading range, typically bounded by resistance at the top and support at the bottom.</p>
+
+      <p>Inside this range, price rotates while liquidity gradually builds. Two things happen simultaneously: stop losses accumulate above resistance, and stop losses accumulate below support. This clustering of orders creates <strong>liquidity pools</strong> — and liquidity is precisely what drives the next major move.</p>
+
+      <div class="pull-quote">
+        <p>Compression rarely lasts forever. When balance breaks, the market doesn't walk — it runs.</p>
+      </div>
+
+      <h2>Compression Leads to Expansion</h2>
+
+      <p>Sideways markets are periods of volatility compression. Price becomes tighter. Ranges narrow. Momentum disappears. But this state cannot hold indefinitely. Eventually, the balance between supply and demand snaps.</p>
+
+      <p>When it does, the market enters volatility expansion — price begins moving decisively in one direction. The move often accelerates because multiple forces activate simultaneously:</p>
+
+      <div class="key-box">
+        <div class="key-box-title">Forces That Fuel the Breakout Move</div>
+        <ul>
+          <li>Stop losses trigger in cascade, adding fuel to momentum</li>
+          <li>Breakout traders enter, increasing directional pressure</li>
+          <li>Momentum algorithms engage, amplifying the move</li>
+          <li>Liquidity gets consumed rapidly as price sweeps through levels</li>
+        </ul>
+      </div>
+
+      <p>This chain reaction creates the first strong, decisive move out of the range — what experienced traders call the "expansion phase."</p>
+
+      <h2>The Direction Problem</h2>
+
+      <p>Most traders recognize the breakout potential hiding inside compression. But they face one fundamental problem: they do not know which direction the breakout will occur. Predicting direction inside a tight range is notoriously difficult because markets frequently produce fake breakouts, liquidity sweeps, and short-term traps designed to flush undisciplined traders.</p>
+
+      <p>This is why professional traders often avoid prediction entirely. Instead, they prepare for both scenarios simultaneously — and let price decide.</p>
+
+      <h2>The Dual Breakout Order Framework</h2>
+
+      <p>Rather than choosing a direction, the framework places conditional orders on both sides of the range. The logic is elegantly simple: let the market decide the direction, and participate automatically once expansion begins.</p>
+
+      <div class="framework-visual">
+        <div class="framework-header">The Two-Order Structure</div>
+        <div class="framework-body">
+          <div class="framework-side buy">
+            <div class="framework-side-label">Order ①</div>
+            <h3>Buy Stop</h3>
+            <p>Placed slightly above the upper boundary (resistance). If price breaks upward and reaches this level, the order automatically activates — positioning you inside the bullish breakout move.</p>
+          </div>
+          <div class="framework-divider"></div>
+          <div class="framework-side sell">
+            <div class="framework-side-label">Order ②</div>
+            <h3>Sell Stop</h3>
+            <p>Placed slightly below the lower boundary (support). If price breaks downward, this order triggers instead — capturing the downside expansion move without any manual action.</p>
+          </div>
+        </div>
+      </div>
+
+      <p>A common misunderstanding is that both orders might trigger simultaneously. In practice, only the order aligned with the actual directional breakout executes. The market naturally selects the trade. The trader simply waits, prepared for either outcome.</p>
+
+      <h2>A Level-Driven Example</h2>
+
+      <p>Consider a market trading within a well-defined range. Instead of spending energy predicting the next move, a trader prepares two conditional orders:</p>
+
+      <div class="trade-example">
+        <div class="trade-example-label">Example Trade Setup</div>
+        <div class="trade-row">
+          <span class="trade-label">Resistance Level</span>
+          <span class="trade-value resistance">25,600</span>
+        </div>
+        <div class="trade-row">
+          <span class="trade-label">Support Level</span>
+          <span class="trade-value support">25,500</span>
+        </div>
+        <div class="trade-row">
+          <span class="trade-label">Buy Stop Order</span>
+          <span class="trade-value buy">25,620 ↑</span>
+        </div>
+        <div class="trade-row last">
+          <span class="trade-label">Sell Stop Order</span>
+          <span class="trade-value sell">25,480 ↓</span>
+        </div>
+        <div class="trade-note">
+          Scenario A: Price breaks above 25,620 → Buy order triggers. Upside expansion captured.<br>
+          Scenario B: Price breaks below 25,480 → Sell order activates. Downside move captured.<br>
+          Scenario C: Market continues sideways → Neither order triggers. Trader simply waits.
+        </div>
+      </div>
+
+      <div class="rule-box">
+        <p>Once one order triggers, the opposite pending order must be cancelled immediately. This prevents accidental double exposure if price rapidly reverses. Execution discipline is non-negotiable — without it, even a sound framework becomes dangerous.</p>
+      </div>
+
+      <h2>Risk Management Considerations</h2>
+
+      <p>Breakout trading always carries the risk of false moves. Markets frequently execute liquidity sweeps — brief breaks beyond a level before reversing sharply. Experienced traders protect themselves by placing protective stop losses on every trade, avoiding oversized positions that amplify false-move damage, and evaluating the quality of the range before committing capital. A breakout from a tight, well-defined range is generally far more powerful than one from a chaotic or unclear structure.</p>
+
+      <h2>Where This Framework Works Best</h2>
+
+      <div class="works-grid">
+        <div class="works-item">
+          <div class="works-item-num">01</div>
+          <div class="works-item-title">Long Sideways Ranges</div>
+          <p>Extended consolidation periods where liquidity has been building for days or weeks.</p>
+        </div>
+        <div class="works-item">
+          <div class="works-item-num">02</div>
+          <div class="works-item-title">Opening Range Formations</div>
+          <p>Early session tight ranges that precede the day's primary directional move.</p>
+        </div>
+        <div class="works-item">
+          <div class="works-item-num">03</div>
+          <div class="works-item-title">Pre-Event Consolidation</div>
+          <p>Markets coiling ahead of major economic data or events with binary outcomes.</p>
+        </div>
+        <div class="works-item">
+          <div class="works-item-num">04</div>
+          <div class="works-item-title">Volatility Contraction</div>
+          <p>Clear ATR or Bollinger Band compression signaling stored energy in the market.</p>
+        </div>
+      </div>
+
+      <p>In all these situations, the probability of a large, decisive expansion move increases significantly — making the dual-order framework a high-value tool in a trader's arsenal.</p>
+
+      <div class="final-principle">
+        <p>The trader builds a structure that allows price to make the decision.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">Step 1</div>
+            <div class="step-text">Levels Define<br>Structure</div>
+          </div>
+          <div class="step">
+            <div class="step-num">Step 2</div>
+            <div class="step-text">Price Confirms<br>Direction</div>
+          </div>
+          <div class="step">
+            <div class="step-num">Step 3</div>
+            <div class="step-text">Orders Execute<br>Automatically</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Markets alternate endlessly between two states: compression and expansion. Sideways ranges represent compression. Breakouts represent expansion. Most traders become frustrated during compression — waiting feels unproductive. But experienced traders recognize it as preparation. Because when the market finally expands, the move can be decisive and fast.</p>
+
+      <p>And the traders who prepared their levels in advance are the ones ready to participate — without hesitation, without prediction, and without emotional bias clouding their execution.</p>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">Sanjeev <span>Signals</span></div>
+    <div class="footer-sub">F&amp;O Trader · Pure Option Buyer · Real P&amp;L · Zero Certifications</div>
+    <p class="footer-disclaimer">
+      This newsletter is for educational and informational purposes only. Nothing herein constitutes financial advice or a solicitation to buy or sell any financial instrument. Trading involves substantial risk of loss. Always conduct your own research and consult a qualified financial advisor before making any trading decisions.
+    </p>
+  </footer>
+
+</body>
+</html>

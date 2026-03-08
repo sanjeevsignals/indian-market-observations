@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oil Price → Stock Market | Macro Chain | Sanjeev Signals</title>
+<meta name="description" content="How a crude oil price shock travels through inflation, interest rates, GDP and finally reaches the stock market. Decoded by Sanjeev Singh.">
+<meta property="og:title" content="Oil Price → Inflation → Interest Rates → GDP → Stock Market">
+<meta property="og:description" content="Professional macro traders don't just watch oil. They watch the chain reaction.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://sanjeevsingh.in/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Oil Price → Inflation → Interest Rates → GDP → Stock Market">
+<meta name="twitter:description" content="Professional macro traders don't just watch oil. They watch the chain reaction.">
+<meta name="author" content="Sanjeev Singh">
+<style>
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* ── PALETTE ── */
+:root {
+  --navy:       #0D1B2A;
+  --gold:       #B8963E;
+  --gold-light: #D4AE5A;
+  --blue:       #1E6FA8;
+  --blue-pale:  #EBF4FA;
+  --red:        #C0392B;
+  --red-pale:   #FDECEA;
+  --green:      #1A7A4A;
+  --green-pale: #E8F5EE;
+  --amber:      #D97706;
+  --gray-mid:   #6B7A8D;
+  --gray-light: #B0BBC6;
+  --gray-bg:    #F4F6F8;
+  --rule:       #D8DFE6;
+  --white:      #FFFFFF;
+  --text:       #1A2535;
+  --text-light: #4A5568;
+}
+
+body {
+  background: var(--white);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--navy);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 48px;
+}
+.topbar-brand {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  text-transform: uppercase;
+  padding: 14px 0;
+}
+.topbar-sub {
+  font-family: Georgia, serif;
+  font-size: 11px;
+  font-style: italic;
+  color: var(--gold-light);
+  padding: 14px 0;
+}
+.topbar-rule { height: 2px; background: var(--gold); }
+
+/* ── HEADER ── */
+header {
+  padding: 52px 32px 44px;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.doc-type {
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(184,150,62,0.4);
+  padding: 5px 16px;
+  margin-bottom: 28px;
+}
+.main-title {
+  font-family: Georgia, serif;
+  font-size: clamp(20px, 4vw, 38px);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+.chain-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.chain-item {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(10px, 1.8vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 2px;
+}
+.ci-1 { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+.ci-2 { background: var(--red-pale); color: var(--red); border: 1px solid #FCA5A5; }
+.ci-3 { background: var(--blue-pale); color: var(--blue); border: 1px solid #93C5FD; }
+.ci-4 { background: var(--green-pale); color: var(--green); border: 1px solid #6EE7B7; }
+.ci-5 { background: #F3E8FF; color: #6D28D9; border: 1px solid #C4B5FD; }
+.chain-arrow {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: var(--gray-mid);
+  font-weight: 300;
+}
+.subtitle {
+  font-family: Georgia, serif;
+  font-size: clamp(13px, 1.8vw, 15px);
+  color: var(--gray-mid);
+  font-style: italic;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── CONTENT WRAP ── */
+.content-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 32px 60px;
+}
+
+/* ── SECTION ── */
+.section {
+  margin-top: 52px;
+  border-left: 3px solid var(--rule);
+  padding-left: 28px;
+  position: relative;
+}
+.section-num {
+  position: absolute;
+  left: -20px;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+.s1 .section-num { background: #92400E; }
+.s2 .section-num { background: var(--red); }
+.s3 .section-num { background: var(--blue); }
+.s4 .section-num { background: var(--green); }
+.s5 .section-num { background: #6D28D9; }
+
+.s1 { border-left-color: #FCD34D; }
+.s2 { border-left-color: #FCA5A5; }
+.s3 { border-left-color: #93C5FD; }
+.s4 { border-left-color: #6EE7B7; }
+.s5 { border-left-color: #C4B5FD; }
+
+
+.section-title {
+  font-family: Georgia, serif;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.section p {
+  font-size: 14.5px;
+  color: var(--text-light);
+  margin-bottom: 14px;
+  line-height: 1.75;
+}
+.section p strong { color: var(--text); font-weight: 700; }
+
+/* ── BULLET LIST ── */
+.bullet-list {
+  list-style: none;
+  margin: 12px 0 16px;
+  padding: 0;
+}
+.bullet-list li {
+  font-family: Georgia, serif;
+  font-size: 14px;
+  color: var(--text-light);
+  padding: 5px 0 5px 20px;
+  position: relative;
+  line-height: 1.65;
+}
+.bullet-list li::before {
+  content: '·';
+  position: absolute;
+  left: 6px;
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+/* ── CHAIN BLOCK ── */
+.chain-block {
+  background: var(--gray-bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 18px 20px;
+  margin: 16px 0;
+}
+.chain-block-title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  margin-bottom: 12px;
+}
+.chain-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.chain-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: Georgia, serif;
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.chain-step-arrow {
+  font-family: Arial, sans-serif;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 14px;
+  min-width: 18px;
+  padding-top: 1px;
+}
+
+/* ── DATA INSIGHT BOX ── */
+.insight-box {
+  border-radius: 4px;
+  padding: 18px 20px;
+  margin: 20px 0;
+  border-left: 3px solid transparent;
+}
+.insight-box-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.insight-box ul {
+  list-style: none;
+  padding: 0;
+}
+.insight-box ul li {
+  font-family: Georgia, serif;
+  font-size: 13.5px;
+  line-height: 1.7;
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+.insight-box ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  font-size: 13px;
+}
+
+.ib-amber { background: #FFFBEB; border-left-color: var(--amber); }
+.ib-amber .insight-box-label { color: var(--amber); }
+.ib-amber ul li { color: #78350F; }
+.ib-amber ul li::before { color: var(--amber); }
+
+.ib-red { background: var(--red-pale); border-left-color: var(--red); }
+.ib-red .insight-box-label { color: var(--red); }
+.ib-red ul li { color: #7F1D1D; }
+.ib-red ul li::before { color: var(--red); }
+
+.ib-blue { background: var(--blue-pale); border-left-color: var(--blue); }
+.ib-blue .insight-box-label { color: var(--blue); }
+.ib-blue ul li { color: #1E3A5F; }
+.ib-blue ul li::before { color: var(--blue); }
+
+.ib-green { background: var(--green-pale); border-left-color: var(--green); }
+.ib-green .insight-box-label { color: var(--green); }
+.ib-green ul li { color: #14532D; }
+.ib-green ul li::before { color: var(--green); }
+
+.ib-purple { background: #F3E8FF; border-left-color: #6D28D9; }
+.ib-purple .insight-box-label { color: #6D28D9; }
+.ib-purple ul li { color: #3B0764; }
+.ib-purple ul li::before { color: #6D28D9; }
+
+/* ── RESULT TAG ── */
+.result-line {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-top: 8px;
+}
+.rt-amber  { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+.rt-red    { background: var(--red-pale); color: var(--red); border: 1px solid #FCA5A5; }
+.rt-blue   { background: var(--blue-pale); color: var(--blue); border: 1px solid #93C5FD; }
+.rt-green  { background: var(--green-pale); color: var(--green); border: 1px solid #6EE7B7; }
+.rt-purple { background: #F3E8FF; color: #6D28D9; border: 1px solid #C4B5FD; }
+
+/* ── SECTOR IMPACT TABLE ── */
+.impact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 16px 0;
+}
+.impact-col { padding: 0; }
+.impact-col-header {
+  padding: 10px 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.ic-neg .impact-col-header { background: var(--red-pale); color: var(--red); border-bottom: 1px solid #FCA5A5; }
+.ic-pos .impact-col-header { background: var(--green-pale); color: var(--green); border-bottom: 1px solid #6EE7B7; border-left: 1px solid var(--rule); }
+.impact-item {
+  padding: 8px 16px;
+  font-family: Georgia, serif;
+  font-size: 13.5px;
+  color: var(--text-light);
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.5;
+}
+.ic-neg .impact-item { background: #FFFAFA; }
+.ic-pos .impact-item { background: #FAFFFE; border-left: 1px solid var(--rule); }
+.impact-item:last-child { border-bottom: none; }
+
+/* ── TRADER INSIGHT BOX ── */
+.trader-insight {
+  background: var(--navy);
+  border-left: 3px solid var(--gold);
+  padding: 36px 40px;
+  margin-top: 56px;
+  border-radius: 2px;
+}
+.ti-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.ti-title {
+  font-family: Georgia, serif;
+  font-size: clamp(17px, 2.5vw, 22px);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+.ti-body {
+  font-family: Georgia, serif;
+  font-size: 14.5px;
+  color: var(--gray-light);
+  line-height: 1.8;
+  font-style: italic;
+}
+.ti-body strong { color: var(--gold-light); font-style: normal; }
+.ti-question {
+  font-family: Georgia, serif;
+  font-size: clamp(15px, 2vw, 18px);
+  font-style: italic;
+  color: var(--white);
+  margin: 20px 0;
+  padding: 16px 20px;
+  border-left: 2px solid var(--gold);
+  background: rgba(255,255,255,0.04);
+  line-height: 1.6;
+}
+.ti-conclusion {
+  font-family: Georgia, serif;
+  font-size: 14.5px;
+  color: var(--gray-light);
+  line-height: 1.8;
+  font-style: italic;
+  margin-top: 16px;
+}
+.ti-conclusion strong { color: var(--gold-light); font-style: normal; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy);
+  border-top: 2px solid var(--gold);
+  padding: 32px 32px 28px;
+  text-align: center;
+}
+.footer-brand {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.footer-author {
+  font-family: Georgia, serif;
+  font-size: 12px;
+  color: var(--gray-light);
+  font-style: italic;
+  margin-bottom: 18px;
+}
+.footer-rule {
+  width: 32px; height: 1px;
+  background: var(--gold);
+  margin: 0 auto 16px;
+}
+.footer-tagline {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .topbar { justify-content: center; padding: 0 16px; }
+  .topbar-sub { display: none; }
+  header { padding: 36px 16px 28px; }
+  .content-wrap { padding: 0 16px 48px; }
+  .section { padding-left: 24px; margin-top: 40px; }
+  .section-num { left: -15px; width: 28px; height: 28px; font-size: 11px; }
+  .trader-insight { padding: 24px 20px; }
+  footer { padding: 28px 16px 24px; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .ic-pos .impact-col-header { border-left: none; border-top: 3px solid var(--green); }
+  .ic-pos .impact-item { border-left: none; }
+}
+
+@media (max-width: 480px) {
+  .chain-flow { gap: 4px; }
+  .chain-item { font-size: 10px; padding: 5px 10px; }
+  .chain-arrow { font-size: 13px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">Sanjeev Signals</div>
+  <div class="topbar-sub">Decoded by Sanjeev Singh &nbsp;&middot;&nbsp; F&amp;O Trader &nbsp;&middot;&nbsp; Pure Option Buyer</div>
+</div>
+<div class="topbar-rule"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="doc-type">Macro Analysis &nbsp;&middot;&nbsp; Chain Reaction</div>
+  <h1 class="main-title">How Oil Moves the Entire Economy</h1>
+  <div class="chain-flow">
+    <span class="chain-item ci-1">Oil Price</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-item ci-2">Inflation</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-item ci-3">Interest Rates</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-item ci-4">GDP</span>
+    <span class="chain-arrow">→</span>
+    <span class="chain-item ci-5">Stock Market</span>
+  </div>
+  <p class="subtitle">Professional macro traders don&rsquo;t just watch oil. They watch the chain reaction.</p>
+</header>
+
+<!-- CONTENT -->
+<div class="content-wrap">
+
+  <!-- SECTION 1 -->
+  <div class="section s1">
+    <div class="section-num">1</div>
+    <h2 class="section-title">Oil Price Shock</h2>
+    <p>When crude oil rises sharply, it is not just an energy story.</p>
+    <p>Oil is embedded in almost every part of the economy:</p>
+    <ul class="bullet-list">
+      <li>Transportation</li>
+      <li>Manufacturing</li>
+      <li>Logistics</li>
+      <li>Aviation</li>
+      <li>Chemicals</li>
+      <li>Agriculture</li>
+    </ul>
+    <p>So when oil rises, cost structures across the economy rise simultaneously.</p>
+    <p>For import-dependent countries like <strong>India</strong>, the effect is even stronger because the country imports about <strong>80&ndash;85%</strong> of its crude requirement.</p>
+    <div class="insight-box ib-amber">
+      <div class="insight-box-label">Macro Data Insight</div>
+      <ul>
+        <li>A $10 increase in crude oil prices can raise India&rsquo;s import bill by roughly $15&ndash;20 billion annually.</li>
+        <li>Historically, a 10&ndash;15% oil price rise increases overall energy costs across sectors by roughly 3&ndash;5%.</li>
+      </ul>
+    </div>
+    <span class="result-line rt-amber">Result: Higher input costs everywhere</span>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section s2">
+    <div class="section-num">2</div>
+    <h2 class="section-title">Inflation Transmission</h2>
+    <p>Once oil rises, inflation starts spreading through the system.</p>
+    <div class="chain-block">
+      <div class="chain-block-title">Cost-Push Transmission</div>
+      <div class="chain-steps">
+        <div class="chain-step"><span class="chain-step-arrow">Oil</span><span>↑</span></div>
+        <div class="chain-step"><span class="chain-step-arrow">→</span><span>Fuel prices ↑</span></div>
+        <div class="chain-step"><span class="chain-step-arrow">→</span><span>Transport costs ↑</span></div>
+        <div class="chain-step"><span class="chain-step-arrow">→</span><span>Food prices ↑</span></div>
+        <div class="chain-step"><span class="chain-step-arrow">→</span><span>Manufacturing costs ↑</span></div>
+        <div class="chain-step"><span class="chain-step-arrow">→</span><span>Consumer prices ↑</span></div>
+      </div>
+    </div>
+    <p>This is called <strong>cost-push inflation</strong>.</p>
+    <p>Even if demand stays the same, prices rise because production becomes more expensive.</p>
+    <div class="insight-box ib-red">
+      <div class="insight-box-label">Macro Data Insight</div>
+      <ul>
+        <li>In India, a 10% increase in crude oil prices typically raises CPI inflation by around 0.30&ndash;0.40%.</li>
+        <li>Fuel and transport together contribute roughly 15&ndash;18% weight to India&rsquo;s consumer inflation basket.</li>
+      </ul>
+    </div>
+    <span class="result-line rt-red">Result: Cost-push inflation spreads economy-wide</span>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section s3">
+    <div class="section-num">3</div>
+    <h2 class="section-title">Central Bank Reaction</h2>
+    <p>When inflation rises, central banks usually respond by tightening monetary policy.</p>
+    <p>In India this means the <strong>Reserve Bank of India</strong> may raise interest rates.</p>
+    <p>Higher interest rates cause:</p>
+    <ul class="bullet-list">
+      <li>Borrowing cost ↑</li>
+      <li>Corporate investment ↓</li>
+      <li>Consumer loans ↓</li>
+      <li>Housing demand ↓</li>
+    </ul>
+    <p>Money becomes more expensive.</p>
+    <div class="insight-box ib-blue">
+      <div class="insight-box-label">Macro Data Insight</div>
+      <ul>
+        <li>Historically, when inflation rises 1% above target, central banks often respond with 0.25&ndash;0.75% policy rate increases over time.</li>
+        <li>In emerging economies, oil-driven inflation spikes have triggered 25&ndash;50 basis point rate hikes in multiple cycles.</li>
+      </ul>
+    </div>
+    <span class="result-line rt-blue">Result: Money becomes expensive — growth slows</span>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section s4">
+    <div class="section-num">4</div>
+    <h2 class="section-title">GDP Growth Slows</h2>
+    <p>Now the slowdown starts appearing in macro data.</p>
+    <p>Higher costs + higher interest rates lead to:</p>
+    <ul class="bullet-list">
+      <li>Lower consumption</li>
+      <li>Lower corporate investment</li>
+      <li>Slower business expansion</li>
+    </ul>
+    <p>This is where economists say: oil price shocks eventually translate into <strong>slower GDP growth</strong>.</p>
+    <div class="insight-box ib-green">
+      <div class="insight-box-label">Macro Data Insight</div>
+      <ul>
+        <li>For India, a $10 rise in crude oil prices can reduce GDP growth by roughly 0.3&ndash;0.5%.</li>
+        <li>Research across emerging markets suggests a 10% oil price shock can lower economic growth by 0.2&ndash;0.4% over time.</li>
+      </ul>
+    </div>
+    <span class="result-line rt-green">A large oil spike can shave ~0.3&ndash;0.5% off GDP growth</span>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section s5">
+    <div class="section-num">5</div>
+    <h2 class="section-title">Stock Market Impact</h2>
+    <p>Finally the effect reaches financial markets.</p>
+    <p>Equity markets react because <strong>corporate profitability gets squeezed</strong>.</p>
+    <p>Typical sector impact:</p>
+    <div class="impact-grid">
+      <div class="impact-col ic-neg">
+        <div class="impact-col-header">Negative Impact</div>
+        <div class="impact-item">Airlines</div>
+        <div class="impact-item">Paint companies</div>
+        <div class="impact-item">Logistics</div>
+        <div class="impact-item">Cement</div>
+        <div class="impact-item">Consumer goods</div>
+      </div>
+      <div class="impact-col ic-pos">
+        <div class="impact-col-header">Mixed / Positive</div>
+        <div class="impact-item">Oil producers</div>
+        <div class="impact-item">Energy companies</div>
+        <div class="impact-item">Exploration firms</div>
+        <div class="impact-item">Refineries (selective)</div>
+        <div class="impact-item">Gas distributors</div>
+      </div>
+    </div>
+    <p>Higher oil &rarr; inflation &rarr; interest rates ↑ &rarr; <strong>equity valuations compress.</strong></p>
+    <div class="insight-box ib-purple">
+      <div class="insight-box-label">Market Data Insight</div>
+      <ul>
+        <li>Historically, every 1% increase in interest rates can compress equity valuation multiples by roughly 5&ndash;10%.</li>
+        <li>Oil price shocks have often triggered 5&ndash;15% corrections in energy-sensitive sectors like aviation and logistics.</li>
+      </ul>
+    </div>
+    <span class="result-line rt-purple">Result: Equity valuations compress across sectors</span>
+  </div>
+
+  <!-- TRADER INSIGHT -->
+  <div class="trader-insight">
+    <div class="ti-label">The Trader&rsquo;s Real Insight</div>
+    <div class="ti-title">Professional macro traders do not just watch oil.<br>They watch the chain reaction.</div>
+    <div class="ti-body">
+      The real question is never: <strong>&ldquo;Oil is rising.&rdquo;</strong>
+    </div>
+    <div class="ti-question">
+      Will this oil move be strong enough to change <strong>inflation expectations</strong>?
+    </div>
+    <div class="ti-conclusion">
+      Because once <strong>inflation expectations change</strong>, the entire system reacts.<br><br>
+      And that is when oil stops being a commodity story &mdash; and becomes a <strong>macro story</strong>.
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Sanjeev Signals</div>
+  <div class="footer-author">Decoded by Sanjeev Singh &nbsp;&middot;&nbsp; F&amp;O Trader &nbsp;&middot;&nbsp; Pure Option Buyer</div>
+  <div class="footer-rule"></div>
+  <div class="footer-tagline">Trading is not risk management &mdash; it is nervous system management.</div>
+</footer>
+
+</body>
+</html>

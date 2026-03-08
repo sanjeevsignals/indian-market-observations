@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA Final Tax — Smart Revision Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --deep: #0A0A0F;
+    --surface: #13131A;
+    --card: #1C1C28;
+    --border: #2A2A3A;
+    --text: #E8E8F0;
+    --muted: #7A7A9A;
+    --green: #4CAF7D;
+    --red: #E05C5C;
+    --blue: #5C8BE0;
+    --purple: #9B6FE0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--deep);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(92,139,224,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(155,111,224,0.03) 0%, transparent 60%);
+    animation: bgShift 20s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @keyframes bgShift {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(2%, 2%) rotate(1deg); }
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+  /* Header */
+  header {
+    padding: 40px 0 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .logo-area h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .logo-area p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .badge {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 22px;
+    flex: 1;
+    min-width: 140px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .stat-card:hover { transform: translateY(-2px); border-color: var(--gold); }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+
+  .stat-card.gold::before { background: var(--gold); }
+  .stat-card.green::before { background: var(--green); }
+  .stat-card.blue::before { background: var(--blue); }
+  .stat-card.purple::before { background: var(--purple); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-card.green .stat-num { color: var(--green); }
+  .stat-card.blue .stat-num { color: var(--blue); }
+  .stat-card.purple .stat-num { color: var(--purple); }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box:focus { border-color: var(--gold); }
+  .search-box::placeholder { color: var(--muted); }
+
+  .filter-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 18px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--gold);
+    color: var(--deep);
+    border-color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* Topic sections */
+  .topic-section {
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .topic-header {
+    background: var(--card);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    gap: 12px;
+  }
+
+  .topic-header:hover { background: #20202E; }
+
+  .topic-title-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+  }
+
+  .topic-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .topic-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .topic-meta {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .topic-badges {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .tag-amended { background: rgba(224,92,92,0.15); color: var(--red); border: 1px solid rgba(224,92,92,0.3); }
+  .tag-high { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+  .tag-medium { background: rgba(92,139,224,0.15); color: var(--blue); border: 1px solid rgba(92,139,224,0.3); }
+  .tag-new { background: rgba(76,175,125,0.15); color: var(--green); border: 1px solid rgba(76,175,125,0.3); }
+
+  .chevron {
+    color: var(--muted);
+    transition: transform 0.3s;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .topic-section.open .chevron { transform: rotate(180deg); }
+
+  /* Provisions list */
+  .provisions-list {
+    display: none;
+    padding: 0;
+  }
+
+  .topic-section.open .provisions-list { display: block; }
+
+  .provision-item {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .provision-item:last-child { border-bottom: none; }
+  .provision-item:hover { background: rgba(201,168,76,0.04); }
+  .provision-item.done { opacity: 0.5; }
+  .provision-item.done .prov-title { text-decoration: line-through; }
+
+  .prov-checkbox {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all 0.2s;
+  }
+
+  .provision-item.done .prov-checkbox {
+    background: var(--green);
+    border-color: var(--green);
+  }
+
+  .prov-checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 0.75rem;
+    display: none;
+    font-weight: 700;
+  }
+
+  .provision-item.done .prov-checkbox::after { display: block; }
+
+  .prov-content {}
+
+  .prov-section {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .prov-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .prov-detail {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .prov-amendment {
+    font-size: 0.75rem;
+    background: rgba(224,92,92,0.1);
+    color: var(--red);
+    border: 1px solid rgba(224,92,92,0.25);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .prov-amendment strong { color: #FF8080; }
+
+  .prov-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .revision-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+  }
+
+  .importance-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 30px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+
+  /* Empty state */
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+
+  .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .logo-area h1 { font-size: 1.5rem; }
+    .provision-item { grid-template-columns: auto 1fr; }
+    .prov-right { display: none; }
+    .stats-bar { gap: 10px; }
+    .stat-card { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <h1>📚 TaxRevise Pro</h1>
+        <p>CA Final · AY 2024-25 · Latest Amendments</p>
+      </div>
+      <span class="badge">NIDHI's STUDY TOOL</span>
+    </div>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-card gold">
+      <div class="stat-num" id="totalCount">0</div>
+      <div class="stat-label">Total Provisions</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-num" id="doneCount">0</div>
+      <div class="stat-label">Revised ✓</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num" id="amendedCount">0</div>
+      <div class="stat-label">Amended Sections</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-num" id="highCount">0</div>
+      <div class="stat-label">High Priority</div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Overall Revision Progress</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input class="search-box" type="text" id="searchBox" placeholder="🔍  Search provisions, sections..." oninput="filterProvisions()">
+    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="setFilter('amended', this)">🔴 Amended</button>
+    <button class="filter-btn" onclick="setFilter('high', this)">⭐ High Priority</button>
+    <button class="filter-btn" onclick="setFilter('pending', this)">⏳ Pending</button>
+  </div>
+
+  <div id="topicsContainer"></div>
+</div>
+
+<script>
+const data = [
+  {
+    id: "income_from_salary",
+    icon: "💼",
+    name: "Income from Salaries",
+    color: "#C9A84C",
+    provisions: [
+      {
+        section: "Sec 10(13A)",
+        title: "House Rent Allowance Exemption",
+        detail: "Least of: Actual HRA received | 50%/40% of salary (metro/non-metro) | Actual rent − 10% of salary",
+        amendment: null,
+        priority: "high",
+        tags: ["high"]
+      },
+      {
+        section: "Sec 16",
+        title: "Standard Deduction from Salary",
+        detail: "Flat deduction of ₹50,000 from gross salary without any conditions",
+        amendment: "AY 2024-25: Increased to ₹75,000 under New Tax Regime (Finance Act 2023)",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 17(2)",
+        title: "Perquisites — Employer Contribution to NPS",
+        detail: "Employer contribution to NPS account of employee is a perquisite",
+        amendment: "Exemption limit raised from 10% to 14% of salary for private sector employees (AY 2024-25)",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 10(14)",
+        title: "Special Allowances — Leave Travel Concession",
+        detail: "Exemption for travel within India, twice in a block of 4 years. Economy airfare/AC1 train fare.",
+        amendment: null,
+        priority: "medium",
+        tags: ["medium"]
+      }
+    ]
+  },
+  {
+    id: "capital_gains",
+    icon: "📈",
+    name: "Capital Gains",
+    color: "#5C8BE0",
+    provisions: [
+      {
+        section: "Sec 112A",
+        title: "LTCG on Listed Equity Shares / Equity MF",
+        detail: "Tax @ 10% on LTCG exceeding ₹1 lakh. Cost of acquisition: FMV as on 31.01.2018 (grandfathering).",
+        amendment: "Finance Act 2024: Exemption limit increased to ₹1.25 lakh. Tax rate remains 10%.",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 111A",
+        title: "STCG on Listed Equity (STT Paid)",
+        detail: "Tax @ 15% on STCG on listed equity shares where STT is paid",
+        amendment: "Finance Act 2024: Rate increased to 20% w.e.f. 23.07.2024",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 112",
+        title: "LTCG on Other Assets",
+        detail: "Tax @ 20% with indexation benefit OR 10% without indexation (whichever is beneficial for the assessee)",
+        amendment: "Finance Act 2024: Indexation benefit REMOVED for property/assets transferred after 23.07.2024. Rate: 12.5%",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 54 / 54F",
+        title: "Exemption on Sale of Residential Property",
+        detail: "Investment in new residential house within 1 year before or 2 years after sale (or 3 years for construction)",
+        amendment: "Max cap of ₹10 crore for investment under Sec 54 & 54F (Finance Act 2023)",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 45(5A)",
+        title: "Capital Gains — Joint Development Agreement",
+        detail: "Taxable in year of completion certificate. Stamp duty value of share + monetary consideration = full value of consideration",
+        amendment: null,
+        priority: "medium",
+        tags: ["medium"]
+      }
+    ]
+  },
+  {
+    id: "pgbp",
+    icon: "🏭",
+    name: "Profits & Gains of Business/Profession",
+    color: "#9B6FE0",
+    provisions: [
+      {
+        section: "Sec 43B",
+        title: "Certain Deductions on Actual Payment Basis",
+        detail: "Tax, duty, cess, interest on loan, leave encashment, employer PF contribution — only if paid before ITR due date",
+        amendment: "Finance Act 2023: MSME payments added — disallowed if not paid within 45 days to MSME",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 32",
+        title: "Depreciation — Key Rates",
+        detail: "Plant & Machinery: 15% | Computers: 40% | Buildings (residential): 5% | Intangible assets: 25%",
+        amendment: null,
+        priority: "high",
+        tags: ["high"]
+      },
+      {
+        section: "Sec 35D",
+        title: "Preliminary Expenses — Amortization",
+        detail: "1/5th of qualifying preliminary expenses deductible each year for 5 years. Cap: 5% of project cost or capital employed",
+        amendment: null,
+        priority: "medium",
+        tags: ["medium"]
+      },
+      {
+        section: "Sec 44AD",
+        title: "Presumptive Taxation for Business",
+        detail: "8% of turnover (6% for digital receipts) deemed as profit. Applicable if turnover ≤ ₹2 crore",
+        amendment: "Finance Act 2023: Limit increased to ₹3 crore if cash receipts ≤ 5% of total turnover",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 44ADA",
+        title: "Presumptive Taxation for Professionals",
+        detail: "50% of gross receipts deemed as profit for specified professionals. Limit: ₹50 lakh",
+        amendment: "Finance Act 2023: Limit increased to ₹75 lakh if cash receipts ≤ 5% of gross receipts",
+        priority: "high",
+        tags: ["amended", "high"]
+      }
+    ]
+  },
+  {
+    id: "deductions",
+    icon: "💡",
+    name: "Deductions (Chapter VIA)",
+    color: "#4CAF7D",
+    provisions: [
+      {
+        section: "Sec 80C",
+        title: "Deductions — Investments & Payments",
+        detail: "Max ₹1.5 lakh: LIC premium, PPF, ELSS, NSC, tuition fees, home loan principal, FD (5yr), etc.",
+        amendment: "Not available under New Tax Regime",
+        priority: "high",
+        tags: ["high"]
+      },
+      {
+        section: "Sec 80D",
+        title: "Medical Insurance Premium",
+        detail: "Self/family: ₹25,000 (₹50,000 if senior citizen) | Parents: ₹25,000 (₹50,000 senior) | Preventive health check: ₹5,000 within limit",
+        amendment: null,
+        priority: "high",
+        tags: ["high"]
+      },
+      {
+        section: "Sec 80CCD(1B)",
+        title: "NPS — Additional Deduction",
+        detail: "Additional ₹50,000 over and above 80CCE limit for contribution to NPS. Available under both regimes.",
+        amendment: "New Tax Regime: ₹50,000 deduction under 80CCD(1B) still available",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 80IAC",
+        title: "Deduction for Eligible Startups",
+        detail: "100% deduction for 3 consecutive years out of first 10 years if incorporated after 01.04.2016",
+        amendment: "Finance Act 2024: Extended to startups incorporated till 01.04.2030 (earlier 01.04.2024)",
+        priority: "medium",
+        tags: ["amended", "medium"]
+      }
+    ]
+  },
+  {
+    id: "tax_regime",
+    icon: "⚖️",
+    name: "New vs Old Tax Regime",
+    color: "#E05C5C",
+    provisions: [
+      {
+        section: "Sec 115BAC",
+        title: "New Tax Regime — Slabs (AY 2024-25)",
+        detail: "0: Nil | 3-7L: 5% | 7-10L: 10% | 10-12L: 15% | 12-15L: 20% | >15L: 30% | Rebate u/s 87A up to ₹7L income → NIL tax",
+        amendment: "Finance Act 2023: New regime is DEFAULT now. Basic exemption ₹3L. Standard deduction ₹75,000 added.",
+        priority: "high",
+        tags: ["amended", "high", "new"]
+      },
+      {
+        section: "Sec 87A",
+        title: "Tax Rebate",
+        detail: "Old Regime: Rebate up to ₹12,500 if income ≤ ₹5 lakh | New Regime: Rebate up to ₹25,000 if income ≤ ₹7 lakh",
+        amendment: "Finance Act 2023: New regime rebate limit raised to ₹25,000 for income up to ₹7 lakh",
+        priority: "high",
+        tags: ["amended", "high"]
+      },
+      {
+        section: "Sec 115BAC(2)",
+        title: "Exemptions NOT allowed in New Regime",
+        detail: "HRA, LTA, deductions u/s 80C/80D/80TTA etc. NOT available | Only 80CCD(1B), 80CCH(2), 80JJAA allowed",
+        amendment: null,
+        priority: "high",
+        tags: ["high"]
+      }
+    ]
+  },
+  {
+    id: "tds",
+    icon: "🏦",
+    name: "TDS Provisions",
+    color: "#C9A84C",
+    provisions: [
+      {
+        section: "Sec 194A",
+        title: "TDS on Interest (other than securities)",
+        detail: "Rate: 10% | Threshold: ₹40,000 (₹50,000 for senior citizens) for banks",
+        amendment: null,
+        priority: "medium",
+        tags: ["medium"]
+      },
+      {
+        section: "Sec 194C",
+        title: "TDS on Contractor Payments",
+        detail: "Individual/HUF: 1% | Others: 2% | Threshold: ₹30,000 single or ₹1 lakh aggregate in FY",
+        amendment: null,
+        priority: "medium",
+        tags: ["medium"]
+      },
+      {
+        section: "Sec 194R",
+        title: "TDS on Benefits/Perquisites in Business",
+        detail: "10% TDS on any benefit/perquisite exceeding ₹20,000 in a year arising from business/profession",
+        amendment: "Introduced Finance Act 2022. Very frequently tested in exams.",
+        priority: "high",
+        tags: ["amended", "high", "new"]
+      },
+      {
+        section: "Sec 194S",
+        title: "TDS on Virtual Digital Assets (Crypto)",
+        detail: "TDS @ 1% on transfer of VDA if consideration > ₹50,000 (₹10,000 for specified persons)",
+        amendment: "Introduced Finance Act 2022. TDS must be deducted at source on crypto transactions.",
+        priority: "high",
+        tags: ["amended", "high", "new"]
+      },
+      {
+        section: "Sec 206AB",
+        title: "Higher TDS for Non-filers",
+        detail: "Double the applicable rate or 5% (whichever higher) if deductee has not filed ITR for last 2 years AND TDS > ₹50,000",
+        amendment: "Introduced Finance Act 2021. Still highly relevant and tested.",
+        priority: "high",
+        tags: ["high", "new"]
+      }
+    ]
+  }
+];
+
+let activeFilter = 'all';
+let doneItems = new Set(JSON.parse(localStorage.getItem('ca_done') || '[]'));
+
+function init() {
+  renderAll();
+  updateStats();
+}
+
+function renderAll() {
+  const container = document.getElementById('topicsContainer');
+  const search = document.getElementById('searchBox').value.toLowerCase();
+  container.innerHTML = '';
+
+  let anyVisible = false;
+
+  data.forEach(topic => {
+    const filtered = topic.provisions.filter(p => {
+      const matchSearch = !search || 
+        p.title.toLowerCase().includes(search) || 
+        p.section.toLowerCase().includes(search) || 
+        p.detail.toLowerCase().includes(search) ||
+        (p.amendment && p.amendment.toLowerCase().includes(search));
+      
+      const matchFilter = 
+        activeFilter === 'all' ||
+        (activeFilter === 'amended' && p.amendment) ||
+        (activeFilter === 'high' && p.priority === 'high') ||
+        (activeFilter === 'pending' && !doneItems.has(topic.id + '_' + p.section));
+
+      return matchSearch && matchFilter;
+    });
+
+    if (filtered.length === 0) return;
+    anyVisible = true;
+
+    const section = document.createElement('div');
+    section.className = 'topic-section';
+    section.id = 'topic_' + topic.id;
+
+    const amendedCount = filtered.filter(p => p.amendment).length;
+    const doneCount = filtered.filter(p => doneItems.has(topic.id + '_' + p.section)).length;
+
+    section.innerHTML = `
+      <div class="topic-header" onclick="toggleSection('${topic.id}')">
+        <div class="topic-title-area">
+          <div class="topic-icon" style="background: ${topic.color}22; color: ${topic.color};">${topic.icon}</div>
+          <div>
+            <div class="topic-name">${topic.name}</div>
+            <div class="topic-meta">${filtered.length} provisions · ${doneCount}/${filtered.length} revised · ${amendedCount} amended</div>
+          </div>
+        </div>
+        <div class="topic-badges">
+          ${amendedCount > 0 ? `<span class="tag tag-amended">🔴 ${amendedCount} amended</span>` : ''}
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      <div class="provisions-list">
+        ${filtered.map(p => renderProvision(topic.id, p)).join('')}
+      </div>
+    `;
+
+    container.appendChild(section);
+  });
+
+  if (!anyVisible) {
+    container.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><p>Koi provision nahi mila. Search change karo!</p></div>`;
+  }
+}
+
+function renderProvision(topicId, p) {
+  const key = topicId + '_' + p.section;
+  const isDone = doneItems.has(key);
+  const importanceColor = p.priority === 'high' ? '#C9A84C' : p.priority === 'medium' ? '#5C8BE0' : '#7A7A9A';
+  
+  return `
+    <div class="provision-item ${isDone ? 'done' : ''}" id="item_${key}" onclick="toggleDone('${key}')">
+      <div class="prov-checkbox"></div>
+      <div class="prov-content">
+        <div class="prov-section">${p.section}</div>
+        <div class="prov-title">${p.title}</div>
+        <div class="prov-detail">${p.detail}</div>
+        ${p.amendment ? `<div class="prov-amendment">⚡ <strong>Amendment:</strong> ${p.amendment}</div>` : ''}
+      </div>
+      <div class="prov-right">
+        <div class="importance-dot" style="background: ${importanceColor};"></div>
+        <div class="revision-count" id="rev_${key}">Rev: ${getRevCount(key)}</div>
+      </div>
+    </div>
+  `;
+}
+
+function getRevCount(key) {
+  return parseInt(localStorage.getItem('rev_' + key) || '0');
+}
+
+function toggleDone(key) {
+  const count = getRevCount(key) + 1;
+  localStorage.setItem('rev_' + key, count);
+  
+  if (doneItems.has(key)) {
+    doneItems.delete(key);
+  } else {
+    doneItems.add(key);
+  }
+  localStorage.setItem('ca_done', JSON.stringify([...doneItems]));
+  
+  const item = document.getElementById('item_' + key);
+  if (item) {
+    item.classList.toggle('done', doneItems.has(key));
+    const revEl = document.getElementById('rev_' + key);
+    if (revEl) revEl.textContent = 'Rev: ' + count;
+  }
+  
+  updateStats();
+  updateTopicMeta();
+}
+
+function updateTopicMeta() {
+  data.forEach(topic => {
+    const section = document.getElementById('topic_' + topic.id);
+    if (!section) return;
+    const meta = section.querySelector('.topic-meta');
+    if (!meta) return;
+    const visibleProvisions = topic.provisions;
+    const doneCount = visibleProvisions.filter(p => doneItems.has(topic.id + '_' + p.section)).length;
+    const amendedCount = visibleProvisions.filter(p => p.amendment).length;
+    meta.textContent = `${visibleProvisions.length} provisions · ${doneCount}/${visibleProvisions.length} revised · ${amendedCount} amended`;
+  });
+}
+
+function toggleSection(id) {
+  const section = document.getElementById('topic_' + id);
+  if (section) section.classList.toggle('open');
+}
+
+function updateStats() {
+  let total = 0, amended = 0, high = 0;
+  data.forEach(t => {
+    t.provisions.forEach(p => {
+      total++;
+      if (p.amendment) amended++;
+      if (p.priority === 'high') high++;
+    });
+  });
+
+  document.getElementById('totalCount').textContent = total;
+  document.getElementById('doneCount').textContent = doneItems.size;
+  document.getElementById('amendedCount').textContent = amended;
+  document.getElementById('highCount').textContent = high;
+
+  const pct = total > 0 ? Math.round((doneItems.size / total) * 100) : 0;
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+
+function filterProvisions() {
+  renderAll();
+}
+
+init();
+</script>
+</body>
+</html>

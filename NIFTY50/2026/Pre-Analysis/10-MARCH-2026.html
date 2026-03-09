@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nifty Intraday Trading Map | Sanjeev Signals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0f0f0f;
+      --paper: #f7f4ef;
+      --cream: #ede8df;
+      --rule: #c8bfaf;
+      --bull: #1a6644;
+      --bear: #8b1a1a;
+      --trap: #7a4800;
+      --accent: #c0392b;
+      --muted: #6b6358;
+      --level-bg: #f0ebe3;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      border-bottom: 3px solid var(--ink);
+      padding: 18px 0 14px;
+      text-align: center;
+      position: relative;
+      background: var(--paper);
+    }
+    .masthead-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      letter-spacing: 0.12em;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .masthead-brand span {
+      color: var(--accent);
+    }
+    .masthead-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .masthead-rule {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .masthead-rule::before, .masthead-rule::after {
+      content: '';
+      height: 1px;
+      width: 60px;
+      background: var(--rule);
+    }
+    .masthead-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* LAYOUT */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
+
+    /* HEADLINE BLOCK */
+    .headline-block {
+      padding: 36px 0 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .doc-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin: 8px 0 6px;
+    }
+    .sub-headline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* OHLC STRIP */
+    .ohlc-strip {
+      display: flex;
+      gap: 0;
+      margin: 24px 0 0;
+      border: 1px solid var(--rule);
+      background: var(--level-bg);
+      overflow: hidden;
+    }
+    .ohlc-cell {
+      flex: 1;
+      padding: 12px 16px;
+      border-right: 1px solid var(--rule);
+    }
+    .ohlc-cell:last-child { border-right: none; }
+    .ohlc-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+    }
+    .ohlc-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+    .ohlc-val.positive { color: var(--bull); }
+    .ohlc-val.negative { color: var(--bear); }
+
+    /* BODY TEXT */
+    .body-section {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .body-section p {
+      color: #2a2520;
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .body-section p:last-child { margin-bottom: 0; }
+    .body-section strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* SECTION HEADING */
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* KEY LEVELS */
+    .levels-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .level-group {}
+    .level-group-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .level-group-label.bull-label { color: var(--bull); }
+    .level-group-label.bear-label { color: var(--bear); }
+    .level-group-label::before {
+      content: '';
+      width: 10px;
+      height: 2px;
+      display: inline-block;
+    }
+    .bull-label::before { background: var(--bull); }
+    .bear-label::before { background: var(--bear); }
+
+    .level-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 14px;
+      background: var(--level-bg);
+      border-left: 3px solid transparent;
+      margin-bottom: 6px;
+      font-family: 'DM Mono', monospace;
+    }
+    .level-item.resistance { border-left-color: var(--bear); }
+    .level-item.support { border-left-color: var(--bull); }
+    .level-num {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+    .level-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* SCENARIO CARDS */
+    .scenarios-section {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .scenario-card {
+      margin-bottom: 24px;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+    .scenario-card:last-child { margin-bottom: 0; }
+    .scenario-header {
+      padding: 11px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .scenario-header.bull { background: #e8f3ec; border-bottom: 1px solid #b3d4bc; }
+    .scenario-header.trap { background: #f5edd8; border-bottom: 1px solid #d4b87a; }
+    .scenario-header.bear { background: #f5e8e8; border-bottom: 1px solid #d4a0a0; }
+
+    .scenario-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+    }
+    .scenario-header.bull .scenario-num { color: var(--bull); }
+    .scenario-header.trap .scenario-num { color: var(--trap); }
+    .scenario-header.bear .scenario-num { color: var(--bear); }
+
+    .scenario-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .scenario-header.bull .scenario-title { color: var(--bull); }
+    .scenario-header.trap .scenario-title { color: var(--trap); }
+    .scenario-header.bear .scenario-title { color: var(--bear); }
+
+    .scenario-body {
+      padding: 16px 18px;
+      background: var(--paper);
+    }
+    .scenario-body p {
+      font-size: 0.94rem;
+      line-height: 1.75;
+      color: #2a2520;
+      margin-bottom: 12px;
+    }
+    .scenario-targets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .target-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      letter-spacing: 0.08em;
+      border: 1px solid;
+    }
+    .bull .target-chip { color: var(--bull); border-color: #b3d4bc; background: #f0f8f2; }
+    .trap .target-chip { color: var(--trap); border-color: #d4b87a; background: #fdf6e8; }
+    .bear .target-chip { color: var(--bear); border-color: #d4a0a0; background: #fdf0f0; }
+
+    /* BATTLEGROUND */
+    .battleground {
+      padding: 36px 0;
+      border-bottom: 1px solid var(--rule);
+      text-align: center;
+    }
+    .battleground-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .battleground-level {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--ink);
+      display: block;
+    }
+    .battleground-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 14px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .battleground-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 24px;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+    .rule-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      padding: 10px 14px;
+      border: 1px solid var(--rule);
+      background: var(--level-bg);
+    }
+    .rule-arrow {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .rule-line.up .rule-arrow { color: var(--bull); }
+    .rule-line.down .rule-arrow { color: var(--bear); }
+    .rule-line.neutral .rule-arrow { color: var(--muted); }
+    .rule-trigger { color: var(--ink); font-weight: 500; }
+    .rule-outcome { color: var(--muted); }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 48px;
+      padding-top: 20px;
+      border-top: 3px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+    }
+    .footer-brand span { color: var(--accent); }
+    .footer-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .footer-disclaimer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    @media (max-width: 560px) {
+      .levels-grid { grid-template-columns: 1fr; }
+      .footer-disclaimer { text-align: left; }
+      .ohlc-strip { flex-wrap: wrap; }
+      .ohlc-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+      .ohlc-cell:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-brand">Sanjeev <span>Signals</span></div>
+    <div class="masthead-tagline">Trading is not risk management. It is nervous system management.</div>
+    <div class="masthead-rule">
+      <span class="masthead-date">Pre-Market Analysis · NIFTY 50</span>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- HEADLINE -->
+    <div class="headline-block">
+      <span class="doc-label">Intraday Trading Map</span>
+      <h1 class="headline">Nifty 50 — Tomorrow's Battlefield</h1>
+      <div class="sub-headline">By Sanjeev Singh · Sanjeev Signals</div>
+
+      <div class="ohlc-strip">
+        <div class="ohlc-cell">
+          <span class="ohlc-label">Index</span>
+          <span class="ohlc-val">NIFTY 50</span>
+        </div>
+        <div class="ohlc-cell">
+          <span class="ohlc-label">Open</span>
+          <span class="ohlc-val">23,868</span>
+        </div>
+        <div class="ohlc-cell">
+          <span class="ohlc-label">Close</span>
+          <span class="ohlc-val positive">24,005</span>
+        </div>
+        <div class="ohlc-cell">
+          <span class="ohlc-label">Change</span>
+          <span class="ohlc-val positive">+137 pts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTEXT -->
+    <div class="body-section">
+      <p>After a volatile session, the market managed to reclaim 24,000 and close above it. That late push higher suggests buyers stepped in toward the end of the day.</p>
+      <p>Now the real question for tomorrow is simple: <strong>Can the market hold above 24,000, or was this just a temporary squeeze?</strong></p>
+      <p>Most of tomorrow's action will likely revolve around how price behaves around that level.</p>
+    </div>
+
+    <!-- KEY LEVELS -->
+    <div class="levels-grid">
+      <div class="level-group">
+        <div class="level-group-label bear-label">Resistance Levels</div>
+        <div class="level-item resistance">
+          <span class="level-num">24,050</span>
+          <span class="level-tag">R1</span>
+        </div>
+        <div class="level-item resistance">
+          <span class="level-num">24,120</span>
+          <span class="level-tag">R2</span>
+        </div>
+        <div class="level-item resistance">
+          <span class="level-num">24,200</span>
+          <span class="level-tag">R3</span>
+        </div>
+      </div>
+      <div class="level-group">
+        <div class="level-group-label bull-label">Support Levels</div>
+        <div class="level-item support">
+          <span class="level-num">23,980</span>
+          <span class="level-tag">S1</span>
+        </div>
+        <div class="level-item support">
+          <span class="level-num">23,920</span>
+          <span class="level-tag">S2</span>
+        </div>
+        <div class="level-item support">
+          <span class="level-num">23,850</span>
+          <span class="level-tag">S3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENARIOS -->
+    <div class="scenarios-section">
+      <div class="section-heading">Scenarios for Tomorrow</div>
+
+      <!-- Scenario 1 -->
+      <div class="scenario-card bull">
+        <div class="scenario-header bull">
+          <span class="scenario-num">01</span>
+          <span class="scenario-title">Bullish Follow-Through</span>
+        </div>
+        <div class="scenario-body bull">
+          <p>If the market holds above 24,050, buyers may try to extend the move. The cleaner setup would be a small dip after the open followed by support holding, rather than chasing a breakout immediately.</p>
+          <div class="scenario-targets">
+            <span class="target-chip">24,120</span>
+            <span class="target-chip">24,200</span>
+            <span class="target-chip">24,280</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario 2 -->
+      <div class="scenario-card trap">
+        <div class="scenario-header trap">
+          <span class="scenario-num">02</span>
+          <span class="scenario-title">Bull Trap</span>
+        </div>
+        <div class="scenario-body trap">
+          <p>If price pushes above 24,050 but quickly drops back below 24,000, that could turn into a classic trap. Breakout failures often move fast once buyers realize the move isn't sticking.</p>
+          <div class="scenario-targets">
+            <span class="target-chip">23,920</span>
+            <span class="target-chip">23,880</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario 3 -->
+      <div class="scenario-card bear">
+        <div class="scenario-header bear">
+          <span class="scenario-num">03</span>
+          <span class="scenario-title">Early Weakness</span>
+        </div>
+        <div class="scenario-body bear">
+          <p>If the market opens and stays below 23,980, sellers could regain control fairly quickly. This would basically mean today's late-day bounce starts getting unwound.</p>
+          <div class="scenario-targets">
+            <span class="target-chip">23,920</span>
+            <span class="target-chip">23,850</span>
+            <span class="target-chip">23,780</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BATTLEGROUND -->
+    <div class="battleground">
+      <div class="battleground-label">The Level That Matters Most</div>
+      <span class="battleground-level">24,000</span>
+      <p class="battleground-desc">That's the battleground right now. If price holds above it, buyers keep the short-term edge. If it slips back below and stays there, momentum could shift the other way.</p>
+
+      <div class="battleground-rules">
+        <div class="rule-line up">
+          <span class="rule-arrow">↑</span>
+          <span class="rule-trigger">Above 24,050</span>
+          <span class="rule-outcome">→ Buyers likely in control</span>
+        </div>
+        <div class="rule-line down">
+          <span class="rule-arrow">↓</span>
+          <span class="rule-trigger">Below 23,980</span>
+          <span class="rule-outcome">→ Sellers gaining traction</span>
+        </div>
+        <div class="rule-line neutral">
+          <span class="rule-arrow">—</span>
+          <span class="rule-trigger">In between</span>
+          <span class="rule-outcome">→ Intraday noise</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>
+        <div class="footer-brand">Sanjeev <span>Signals</span></div>
+        <div class="footer-author">By Sanjeev Singh · Independent F&O Researcher</div>
+      </div>
+      <div class="footer-disclaimer">
+        For educational purposes only. Not SEBI registered investment advice. All analysis reflects personal research and is not a recommendation to buy or sell any security. Trade at your own risk.
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

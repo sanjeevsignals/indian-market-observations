@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIFTY 50 — Structured Trading Plan · 11 March 2026 | Sanjeev Signals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ═══════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════ */
+    :root {
+      --ink:         #0e0d0b;
+      --paper:       #f6f2eb;
+      --level-bg:    #eee9e0;
+      --rule:        #c4b9a8;
+      --muted:       #6a6055;
+      --faint:       #a09488;
+
+      --bull:        #1b6645;
+      --bull-bg:     #eaf3ed;
+      --bull-rule:   #afd0bb;
+
+      --bear:        #8b1c1c;
+      --bear-bg:     #f5e9e9;
+      --bear-rule:   #d4a0a0;
+
+      --noise:       #5a4e00;
+      --noise-bg:    #faf4d8;
+      --noise-rule:  #d4c260;
+
+      --accent:      #bf3528;
+    }
+
+    /* ═══════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════ */
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.75;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════ */
+    .masthead {
+      background: var(--ink);
+      padding: 24px 24px 18px;
+      text-align: center;
+    }
+    .masthead-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      letter-spacing: 0.14em;
+      line-height: 1;
+      color: #ffffff;
+    }
+    .masthead-brand em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .masthead-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #a09488;
+      margin-top: 7px;
+    }
+    .masthead-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      padding: 7px 20px;
+      border: 1px solid #2a2724;
+      background: #161310;
+    }
+    .masthead-strip span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6a6055;
+    }
+    .masthead-strip span.hi { color: var(--accent); }
+    .masthead-strip .pipe {
+      color: #2e2b27;
+      font-size: 0.75rem;
+      letter-spacing: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       PAGE WRAPPER
+    ═══════════════════════════════════════ */
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 28px 72px;
+    }
+
+    /* ═══════════════════════════════════════
+       SHARED UTILITIES
+    ═══════════════════════════════════════ */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ═══════════════════════════════════════
+       HEADLINE BLOCK
+    ═══════════════════════════════════════ */
+    .headline-block {
+      padding: 36px 0 26px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 2px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .headline-block h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      letter-spacing: 0.07em;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .author-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════════
+       MARKET CONTEXT
+    ═══════════════════════════════════════ */
+    .context-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .context-section > p {
+      font-size: 0.97rem;
+      line-height: 1.82;
+      color: #2c2722;
+      margin-bottom: 14px;
+    }
+    .context-section > p:last-of-type {
+      margin-bottom: 0;
+    }
+    .context-section strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .context-callouts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0 20px;
+    }
+    .callout {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--level-bg);
+      border-left: 3px solid var(--rule);
+    }
+    .callout-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      line-height: 1;
+      color: var(--rule);
+      flex-shrink: 0;
+      user-select: none;
+    }
+    .callout-text {
+      font-size: 0.86rem;
+      line-height: 1.62;
+      color: var(--muted);
+      font-style: italic;
+      padding-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTROL LEVEL
+    ═══════════════════════════════════════ */
+    .control-section {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .control-card {
+      background: var(--ink);
+      text-align: center;
+    }
+    .control-top {
+      padding: 32px 32px 28px;
+    }
+    .control-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: #3a3530;
+    }
+    .control-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 12vw, 6rem);
+      letter-spacing: 0.06em;
+      line-height: 1;
+      color: #ffffff;
+      display: block;
+      margin-top: 8px;
+    }
+    .control-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #5a5248;
+      margin-top: 8px;
+    }
+    .control-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid #1e1b18;
+    }
+    .control-split-cell {
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .control-split-cell:first-child {
+      border-right: 1px solid #1e1b18;
+    }
+    .cs-cond {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      display: block;
+    }
+    .cs-result {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 4px;
+    }
+    .control-split-cell.bear .cs-cond   { color: #d47070; }
+    .control-split-cell.bear .cs-result { color: #7a4040; }
+    .control-split-cell.bull .cs-cond   { color: #5dbb88; }
+    .control-split-cell.bull .cs-result { color: #3a7a5a; }
+
+    /* ═══════════════════════════════════════
+       SCENARIO CARDS
+    ═══════════════════════════════════════ */
+    .scenarios-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .scenario-card {
+      margin-bottom: 18px;
+    }
+    .scenario-card:last-child {
+      margin-bottom: 0;
+    }
+    .scenario-header {
+      display: flex;
+      align-items: stretch;
+    }
+    .scenario-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 18px;
+      min-width: 86px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .badge-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      display: block;
+    }
+    .badge-plan {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      display: block;
+      margin-top: 3px;
+    }
+    .scenario-title-block {
+      padding: 14px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .scenario-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+    .scenario-trigger {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 5px;
+      display: block;
+      line-height: 1.45;
+    }
+    .scenario-body {
+      padding: 18px 20px;
+    }
+    .scenario-body p {
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: #2c2722;
+      margin-bottom: 16px;
+    }
+    .scenario-body p:last-of-type {
+      margin-bottom: 0;
+    }
+    .targets-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      margin-top: 16px;
+    }
+    .targets-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .target-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      padding: 6px 14px;
+      letter-spacing: 0.05em;
+      border: 1px solid;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chip-num {
+      font-size: 0.58rem;
+      opacity: 0.55;
+    }
+
+    /* Primary scenario: Bearish */
+    .scenario-card.primary .scenario-header {
+      background: var(--bear);
+      border: 1px solid var(--bear-rule);
+      border-bottom: none;
+    }
+    .scenario-card.primary .scenario-badge {
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .scenario-card.primary .badge-label   { color: #e8b0b0; }
+    .scenario-card.primary .badge-plan    { color: #ffffff; }
+    .scenario-card.primary .scenario-title   { color: #ffffff; }
+    .scenario-card.primary .scenario-trigger { color: #e8b0b0; }
+    .scenario-card.primary .scenario-body {
+      background: var(--bear-bg);
+      border: 1px solid var(--bear-rule);
+      border-top: 1px solid #c09090;
+    }
+    .scenario-card.primary .target-chip {
+      color: var(--bear);
+      border-color: var(--bear-rule);
+      background: #fdf3f3;
+    }
+
+    /* Secondary scenario: Bullish */
+    .scenario-card.secondary .scenario-header {
+      background: var(--bull);
+      border: 1px solid var(--bull-rule);
+      border-bottom: none;
+    }
+    .scenario-card.secondary .scenario-badge {
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .scenario-card.secondary .badge-label   { color: #a8d4bc; }
+    .scenario-card.secondary .badge-plan    { color: #ffffff; }
+    .scenario-card.secondary .scenario-title   { color: #ffffff; }
+    .scenario-card.secondary .scenario-trigger { color: #a8d4bc; }
+    .scenario-card.secondary .scenario-body {
+      background: var(--bull-bg);
+      border: 1px solid var(--bull-rule);
+      border-top: 1px solid #8ab8a0;
+    }
+    .scenario-card.secondary .target-chip {
+      color: var(--bull);
+      border-color: var(--bull-rule);
+      background: #f3faf5;
+    }
+
+    /* ═══════════════════════════════════════
+       NOISE ZONE
+    ═══════════════════════════════════════ */
+    .noise-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .noise-strip {
+      background: var(--noise-bg);
+      border: 1px solid var(--noise-rule);
+      border-left: 4px solid var(--noise);
+      padding: 18px 22px;
+    }
+    .noise-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .noise-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--noise);
+      font-weight: 500;
+      border: 1px solid var(--noise-rule);
+      padding: 3px 8px;
+    }
+    .noise-range {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--noise);
+      letter-spacing: 0.07em;
+    }
+    .noise-strip p {
+      font-size: 0.91rem;
+      line-height: 1.75;
+      color: #4a4200;
+    }
+    .noise-strip strong {
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════
+       MARKET PSYCHOLOGY
+    ═══════════════════════════════════════ */
+    .psychology-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .psychology-section > p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #2c2722;
+      margin-bottom: 18px;
+    }
+    .psych-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .psych-card {
+      padding: 16px 18px;
+      background: var(--level-bg);
+      border-left: 3px solid var(--rule);
+    }
+    .psych-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .psych-val {
+      font-size: 0.9rem;
+      line-height: 1.62;
+      color: var(--ink);
+    }
+    .psych-conclusion {
+      padding: 16px 20px;
+      background: var(--level-bg);
+      border-left: 3px solid var(--ink);
+      font-size: 0.9rem;
+      font-style: italic;
+      line-height: 1.75;
+      color: #2c2722;
+    }
+    .psych-conclusion strong {
+      font-weight: 600;
+      font-style: normal;
+      color: var(--ink);
+    }
+
+    /* ═══════════════════════════════════════
+       EXECUTION FRAMEWORK
+    ═══════════════════════════════════════ */
+    .execution-section {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .exec-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .exec-rule {
+      display: grid;
+      grid-template-columns: 128px 44px 1fr;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .exec-condition {
+      padding: 14px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-right: 1px solid;
+      display: flex;
+      align-items: center;
+    }
+    .exec-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      border-right: 1px solid;
+    }
+    .exec-outcome {
+      padding: 14px 18px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      line-height: 1.4;
+    }
+
+    .exec-rule.bull-exec {
+      border: 1px solid var(--bull-rule);
+      background: var(--bull-bg);
+    }
+    .exec-rule.bull-exec .exec-condition { color: var(--bull); border-color: var(--bull-rule); }
+    .exec-rule.bull-exec .exec-arrow     { color: var(--bull); border-color: var(--bull-rule); }
+    .exec-rule.bull-exec .exec-outcome   { color: var(--bull); }
+
+    .exec-rule.bear-exec {
+      border: 1px solid var(--bear-rule);
+      background: var(--bear-bg);
+    }
+    .exec-rule.bear-exec .exec-condition { color: var(--bear); border-color: var(--bear-rule); }
+    .exec-rule.bear-exec .exec-arrow     { color: var(--bear); border-color: var(--bear-rule); }
+    .exec-rule.bear-exec .exec-outcome   { color: var(--bear); }
+
+    .exec-rule.noise-exec {
+      border: 1px solid var(--noise-rule);
+      background: var(--noise-bg);
+    }
+    .exec-rule.noise-exec .exec-condition { color: var(--noise); border-color: var(--noise-rule); }
+    .exec-rule.noise-exec .exec-arrow     { color: var(--noise); border-color: var(--noise-rule); }
+    .exec-rule.noise-exec .exec-outcome   { color: var(--noise); }
+
+    /* ═══════════════════════════════════════
+       CORE PRINCIPLE
+    ═══════════════════════════════════════ */
+    .principle-section {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--rule);
+      text-align: center;
+    }
+    .principle-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 24px;
+    }
+    .principle-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .principle-line {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.13em;
+      line-height: 1.1;
+    }
+    .principle-line.l1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); color: var(--ink); }
+    .principle-line.l2 { font-size: clamp(1.4rem, 3.5vw, 2.1rem); color: var(--muted); margin-top: 4px; }
+    .principle-line.l3 { font-size: clamp(1.0rem, 2.5vw, 1.5rem); color: var(--rule); margin-top: 4px; }
+    .principle-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--rule);
+      margin: 5px 0;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer {
+      margin-top: 52px;
+      padding-top: 22px;
+      border-top: 3px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.65rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .footer-brand em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .footer-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .footer-profile {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      color: var(--faint);
+      margin-top: 4px;
+      line-height: 1.65;
+    }
+    .footer-right {
+      max-width: 340px;
+    }
+    .footer-disclaimer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+    .footer-sebi {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.07em;
+      color: var(--faint);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule);
+      line-height: 1.65;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .page { padding: 0 18px 56px; }
+
+      .context-callouts { grid-template-columns: 1fr; }
+
+      .psych-grid { grid-template-columns: 1fr; }
+
+      .exec-rule {
+        grid-template-columns: 1fr;
+      }
+      .exec-condition {
+        border-right: none;
+        border-bottom: 1px solid;
+      }
+      .exec-rule.bull-exec  .exec-condition { border-bottom-color: var(--bull-rule); }
+      .exec-rule.bear-exec  .exec-condition { border-bottom-color: var(--bear-rule); }
+      .exec-rule.noise-exec .exec-condition { border-bottom-color: var(--noise-rule); }
+      .exec-arrow { display: none; }
+      .exec-outcome { padding: 12px 16px 14px; }
+
+      .control-split {
+        grid-template-columns: 1fr;
+      }
+      .control-split-cell:first-child {
+        border-right: none;
+        border-bottom: 1px solid #1e1b18;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+      .footer-right {
+        max-width: 100%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ MASTHEAD ═══════ -->
+  <header class="masthead">
+    <div class="masthead-brand">Sanjeev <em>Signals</em></div>
+    <div class="masthead-tagline">Pre-Market Clarity &nbsp;&middot;&nbsp; Rule-Based Execution</div>
+    <div class="masthead-strip">
+      <span class="hi">NIFTY 50</span>
+      <span class="pipe">|</span>
+      <span>11 March 2026</span>
+      <span class="pipe">|</span>
+      <span>Structured Trading Plan</span>
+    </div>
+  </header>
+
+  <!-- ═══════ MAIN ═══════ -->
+  <main class="page">
+
+    <!-- HEADLINE -->
+    <div class="headline-block">
+      <div class="eyebrow">Pre-Market Analysis</div>
+      <h1>NIFTY 50 &mdash; Structured Trading Plan for Tomorrow</h1>
+      <div class="author-line">By Sanjeev Singh &nbsp;&middot;&nbsp; Sanjeev Signals &nbsp;&middot;&nbsp; Independent F&amp;O Researcher</div>
+    </div>
+
+    <!-- MARKET CONTEXT -->
+    <section class="context-section">
+      <div class="section-label">Market Context</div>
+      <p>The recent daily candle shows a <strong>sharp recovery from the lower support area near 23,697</strong>, followed by immediate rejection around 24,300. The structure is telling a clear story.</p>
+      <div class="context-callouts">
+        <div class="callout">
+          <span class="callout-num">1</span>
+          <span class="callout-text">Buyers were active at the lower liquidity zone near 23,697.</span>
+        </div>
+        <div class="callout">
+          <span class="callout-num">2</span>
+          <span class="callout-text">Sellers are still defending the higher supply area around 24,300.</span>
+        </div>
+      </div>
+      <p>In simple terms, this bounce appears more like <strong>short covering inside a broader bearish structure</strong> &mdash; not a confirmed trend reversal. Because of that, tomorrow should be approached with a <strong>level-driven framework, not prediction</strong>.</p>
+    </section>
+
+    <!-- CONTROL LEVEL -->
+    <section class="control-section">
+      <div class="section-label">Key Control Level</div>
+      <div class="control-card">
+        <div class="control-top">
+          <div class="control-eyebrow">Decision Level</div>
+          <span class="control-num">24,300</span>
+          <div class="control-sub">The most important level on the chart right now</div>
+        </div>
+        <div class="control-split">
+          <div class="control-split-cell bear">
+            <span class="cs-cond">Below 24,300</span>
+            <span class="cs-result">Sell-side structure intact</span>
+          </div>
+          <div class="control-split-cell bull">
+            <span class="cs-cond">Above 24,300</span>
+            <span class="cs-result">Bias begins to shift</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section class="scenarios-section">
+      <div class="section-heading">Scenario Analysis</div>
+
+      <!-- PRIMARY: Bearish -->
+      <div class="scenario-card primary">
+        <div class="scenario-header">
+          <div class="scenario-badge">
+            <span class="badge-label">Plan</span>
+            <span class="badge-plan">Primary</span>
+          </div>
+          <div class="scenario-title-block">
+            <div class="scenario-title">Bearish Continuation</div>
+            <span class="scenario-trigger">Trigger &mdash; Price enters 24,250&ndash;24,300 and fails to break above</span>
+          </div>
+        </div>
+        <div class="scenario-body">
+          <p>If price moves into the 24,250&ndash;24,300 area and fails to break above it, the expectation is <strong>continuation to the downside</strong>. Look for rejection or failure near resistance, then trade in the direction of the prevailing structure.</p>
+          <div class="targets-label">Potential Downside Levels</div>
+          <div class="targets-row">
+            <span class="target-chip"><span class="chip-num">&#9312;</span> 24,078</span>
+            <span class="target-chip"><span class="chip-num">&#9313;</span> 24,028</span>
+            <span class="target-chip"><span class="chip-num">&#9314;</span> 23,697</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECONDARY: Bullish -->
+      <div class="scenario-card secondary">
+        <div class="scenario-header">
+          <div class="scenario-badge">
+            <span class="badge-label">Plan</span>
+            <span class="badge-plan">Secondary</span>
+          </div>
+          <div class="scenario-title-block">
+            <div class="scenario-title">Bullish Continuation</div>
+            <span class="scenario-trigger">Trigger &mdash; Clear acceptance above 24,300, not a brief spike</span>
+          </div>
+        </div>
+        <div class="scenario-body">
+          <p>The bullish case only becomes relevant if price <strong>accepts above 24,300</strong>. A brief spike does not qualify. This scenario requires sustained price action above the level to confirm a shift in structure.</p>
+          <div class="targets-label">Potential Upside Levels</div>
+          <div class="targets-row">
+            <span class="target-chip"><span class="chip-num">&#9312;</span> 24,480&ndash;24,520</span>
+            <span class="target-chip"><span class="chip-num">&#9313;</span> 24,600</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOISE ZONE -->
+    <section class="noise-section">
+      <div class="section-label">Noise / Rotation Zone</div>
+      <div class="noise-strip">
+        <div class="noise-header">
+          <span class="noise-tag">Caution Zone</span>
+          <span class="noise-range">24,028 &mdash; 24,250</span>
+        </div>
+        <p>If price spends time between 24,028 and 24,250, the market is likely <strong>rotating liquidity rather than trending</strong>. This area can produce choppy movement and false signals. For many traders, the better decision here is simply <strong>patience</strong>.</p>
+      </div>
+    </section>
+
+    <!-- MARKET PSYCHOLOGY -->
+    <section class="psychology-section">
+      <div class="section-label">Market Psychology</div>
+      <p>The current structure reflects a classic situation. Understanding this distinction prevents reactive trading:</p>
+      <div class="psych-grid">
+        <div class="psych-card">
+          <div class="psych-label">What the Bounce Looks Like</div>
+          <div class="psych-val">Strong recovery from lower support. A visually convincing move higher.</div>
+        </div>
+        <div class="psych-card">
+          <div class="psych-label">What the Bounce Actually Is</div>
+          <div class="psych-val">Likely short covering &mdash; not fresh buying inside a bearish trend.</div>
+        </div>
+      </div>
+      <div class="psych-conclusion">
+        Strong bounce from support plus immediate supply pressure at resistance usually signals <strong>temporary relief inside a bearish environment</strong> &mdash; not a confirmed reversal. Context matters more than the candle shape.
+      </div>
+    </section>
+
+    <!-- EXECUTION FRAMEWORK -->
+    <section class="execution-section">
+      <div class="section-heading">Simple Execution Framework</div>
+      <div class="exec-rules">
+        <div class="exec-rule bull-exec">
+          <div class="exec-condition">Above 24,300</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Bullish continuation becomes possible</div>
+        </div>
+        <div class="exec-rule bear-exec">
+          <div class="exec-condition">Below 24,300</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Sell-side pressure remains dominant</div>
+        </div>
+        <div class="exec-rule noise-exec">
+          <div class="exec-condition">24,028 &ndash; 24,250</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Liquidity rotation zone &mdash; exercise patience</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE PRINCIPLE -->
+    <section class="principle-section">
+      <div class="principle-label">Core Principle</div>
+      <div class="principle-stack">
+        <div class="principle-line l1">Levels Decide.</div>
+        <div class="principle-divider"></div>
+        <div class="principle-line l2">Bias Follows.</div>
+        <div class="principle-divider"></div>
+        <div class="principle-line l3">Execution Stays Disciplined.</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-left">
+        <div class="footer-brand">Sanjeev <em>Signals</em></div>
+        <div class="footer-author">&mdash; Sanjeev Singh</div>
+        <div class="footer-profile">
+          Real P&amp;L Practitioner &nbsp;&middot;&nbsp; Independent F&amp;O Researcher<br>
+          NIFTY 50 Analysis &nbsp;&middot;&nbsp; Options Buying &nbsp;&middot;&nbsp; Behavioral Markets
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-disclaimer">
+          This analysis is published for educational purposes only. It does not constitute investment advice or a solicitation to trade any security or derivative instrument.
+        </div>
+        <div class="footer-sebi">
+          Sanjeev Singh is not a SEBI Registered Investment Advisor. All views are personal research and reflect the author&rsquo;s independent analysis. Trading in F&amp;O carries significant risk. Trade at your own discretion and risk.
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

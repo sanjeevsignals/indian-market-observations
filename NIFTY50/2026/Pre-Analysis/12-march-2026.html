@@ -3,8 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NIFTY 50 - Structured Trading Plan - 12 March 2026 | Sanjeev Signals</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet" />
+
+  <!-- Primary SEO -->
+  <title>NIFTY 50 Morning Plan · 12 March 2026 | Sanjeev Signals</title>
+  <meta name="description" content="NIFTY 50 pre-market structured trading plan for 12 March 2026. Key levels, scenarios, and execution framework by Sanjeev Singh." />
+  <link rel="canonical" href="https://sanjeevsignals.github.io/indian-market-observations/NIFTY50/2026/Pre-Analysis/2026-03-12-nifty-pre-analysis.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article" />
+  <meta property="og:title"       content="NIFTY 50 Morning Plan · 12 March 2026 | Sanjeev Signals" />
+  <meta property="og:description" content="Key levels 24,078 / 23,837 / 23,697. Sell scenario, breakdown trade, and bullish invalidation framework." />
+  <meta property="og:url"         content="https://sanjeevsignals.github.io/indian-market-observations/NIFTY50/2026/Pre-Analysis/2026-03-12-nifty-pre-analysis.html" />
+  <meta property="og:site_name"   content="Sanjeev Signals" />
+  <meta property="og:image"       content="https://sanjeevsignals.github.io/assets/og-default.png" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="NIFTY 50 Morning Plan · 12 March 2026 | Sanjeev Signals" />
+  <meta name="twitter:description" content="Key levels 24,078 / 23,837 / 23,697. Sell scenario, breakdown trade, and bullish invalidation framework." />
+  <meta name="twitter:image"       content="https://sanjeevsignals.github.io/assets/og-default.png" />
+
+  <!-- Favicon (inline SVG — no external file dependency) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0d0b'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='serif' font-size='20' font-weight='bold' fill='%23bf3528'%3ES%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts — preconnect first to reduce latency -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" />
   <style>
 
     /* =====================================================
@@ -24,8 +49,6 @@
       --mast-bg:      #161310;
       --mast-border:  #2a2724;
       --mast-pipe:    #2e2b27;
-      --mast-text:    #6a6055;
-      --mast-label:   #a09488;
 
       /* Bearish */
       --bear:         #8b1c1c;
@@ -66,6 +89,9 @@
 
       /* White */
       --white:        #ffffff;
+
+      /* Scenario badge separator — white at low opacity */
+      --badge-sep:    rgba(255, 255, 255, 0.12);
     }
 
     /* =====================================================
@@ -114,7 +140,7 @@
       font-size: 0.62rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--mast-label);
+      color: var(--faint);
       margin-top: 7px;
     }
     .masthead-strip {
@@ -131,7 +157,7 @@
       font-size: 0.62rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--mast-text);
+      color: var(--muted);
     }
     .masthead-strip span.hi { color: var(--accent); }
     .masthead-strip .pipe {
@@ -248,7 +274,7 @@
     }
     .candle-val {
       font-family: 'DM Mono', monospace;
-      font-size: 1rem;
+      font-size: clamp(0.78rem, 2vw, 1rem);
       font-weight: 500;
       letter-spacing: 0.04em;
       color: var(--bear);
@@ -316,7 +342,11 @@
       grid-template-columns: 110px 1fr;
       align-items: stretch;
       overflow: hidden;
+      border: 1px solid var(--rule);
     }
+    .level-row.resistance-row { border-color: var(--bear-rule); }
+    .level-row.decision-row   { border-color: var(--rule); }
+    .level-row.support-row    { border-color: var(--bull-rule); }
     .level-price {
       padding: 13px 16px;
       font-family: 'DM Mono', monospace;
@@ -353,14 +383,10 @@
       text-transform: uppercase;
       color: var(--muted);
       background: var(--paper);
-      border: 1px solid var(--rule);
-      border-left: none;
       display: flex;
       align-items: center;
     }
-    .level-row.resistance-row .level-desc { border-color: var(--bear-rule); }
-    .level-row.decision-row   .level-desc { border-color: var(--rule); }
-    .level-row.support-row    .level-desc { border-color: var(--bull-rule); }
+    /* level-desc inherits row border-color via parent; no override needed */
 
     /* =====================================================
        SCENARIO CARDS
@@ -474,13 +500,13 @@
       border-left: 3px solid;
     }
 
-    /* S1 — Bearish Continuation (Primary) */
+    /* S1 — Sell Scenario (Primary) */
     .scenario-card.s1 .scenario-header {
       background: var(--bear);
       border: 1px solid var(--bear-rule);
       border-bottom: none;
     }
-    .scenario-card.s1 .scenario-badge   { border-right: 1px solid rgba(255,255,255,0.12); }
+    .scenario-card.s1 .scenario-badge   { border-right: 1px solid var(--badge-sep); }
     .scenario-card.s1 .badge-label      { color: var(--bear-tint); }
     .scenario-card.s1 .badge-plan       { color: var(--white); }
     .scenario-card.s1 .scenario-title   { color: var(--white); }
@@ -507,7 +533,7 @@
       border: 1px solid var(--breakdown-rule);
       border-bottom: none;
     }
-    .scenario-card.s2 .scenario-badge   { border-right: 1px solid rgba(255,255,255,0.12); }
+    .scenario-card.s2 .scenario-badge   { border-right: 1px solid var(--badge-sep); }
     .scenario-card.s2 .badge-label      { color: var(--breakdown-tint); }
     .scenario-card.s2 .badge-plan       { color: var(--white); }
     .scenario-card.s2 .scenario-title   { color: var(--white); }
@@ -528,13 +554,13 @@
       background: var(--breakdown-light);
     }
 
-    /* S3 — Bullish Recovery (Low Probability) */
+    /* S3 — Bullish Invalidation (Low Probability) */
     .scenario-card.s3 .scenario-header {
       background: var(--bull);
       border: 1px solid var(--bull-rule);
       border-bottom: none;
     }
-    .scenario-card.s3 .scenario-badge   { border-right: 1px solid rgba(255,255,255,0.12); }
+    .scenario-card.s3 .scenario-badge   { border-right: 1px solid var(--badge-sep); }
     .scenario-card.s3 .badge-label      { color: var(--bull-tint); }
     .scenario-card.s3 .badge-plan       { color: var(--white); }
     .scenario-card.s3 .scenario-title   { color: var(--white); }
@@ -596,13 +622,16 @@
       font-size: 0.91rem;
       line-height: 1.75;
       color: var(--noise-text);
+      margin-bottom: 0;
+    }
+    .noise-strip p + .noise-bullets {
+      margin-top: 14px;
     }
     .noise-strip strong { font-weight: 600; }
     .noise-bullets {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 12px;
     }
     .noise-chip {
       font-family: 'DM Mono', monospace;
@@ -713,9 +742,9 @@
       letter-spacing: 0.13em;
       line-height: 1.1;
     }
-    .principle-line.l1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); color: var(--ink); }
-    .principle-line.l2 { font-size: clamp(1.4rem, 3.5vw, 2.1rem); color: var(--muted); margin-top: 4px; }
-    .principle-line.l3 { font-size: clamp(1.0rem, 2.5vw, 1.5rem); color: var(--rule);  margin-top: 4px; }
+    .principle-line.l1 { font-size: clamp(1.3rem, 3.8vw, 2.2rem); color: var(--ink); }
+    .principle-line.l2 { font-size: clamp(1.1rem, 3.0vw, 1.7rem); color: var(--muted); margin-top: 4px; }
+    .principle-line.l3 { font-size: clamp(0.85rem, 2.2vw, 1.25rem); color: var(--rule);  margin-top: 4px; }
     .principle-divider {
       width: 1px;
       height: 14px;
@@ -835,37 +864,37 @@
     <!-- HEADLINE -->
     <div class="headline-block">
       <div class="eyebrow">Opening Control Framework</div>
-      <h1>NIFTY 50 &mdash; Structured Trading Plan for Tomorrow</h1>
+      <h1>NIFTY 50 &mdash; Morning Plan &mdash; 12 March 2026</h1>
       <div class="author-line">By Sanjeev Singh &nbsp;&middot;&nbsp; Sanjeev Signals &nbsp;&middot;&nbsp; Independent F&amp;O Researcher</div>
     </div>
 
     <!-- CANDLE CONTEXT -->
-    <section class="candle-section">
-      <div class="section-label">Market Context &mdash; Today&rsquo;s Daily Candle</div>
+    <section class="candle-section" aria-labelledby="lbl-candle">
+      <div class="section-label" id="lbl-candle">Market Context &mdash; Today&rsquo;s Daily Candle</div>
 
       <div class="candle-grid">
         <div class="candle-cell">
           <span class="candle-lbl">Open</span>
-          <span class="candle-val">24,231</span>
+          <span class="candle-val">24,231.85</span>
         </div>
         <div class="candle-cell c2">
           <span class="candle-lbl">High</span>
-          <span class="candle-val">24,298</span>
+          <span class="candle-val">24,298.45</span>
         </div>
         <div class="candle-cell c3">
           <span class="candle-lbl">Low</span>
-          <span class="candle-val">23,837</span>
+          <span class="candle-val">23,837.05</span>
         </div>
         <div class="candle-cell c4">
           <span class="candle-lbl">Close</span>
-          <span class="candle-val">23,848</span>
+          <span class="candle-val">23,848.20</span>
         </div>
       </div>
 
       <div class="candle-reads">
         <div class="candle-read">
           <span class="cr-num">&#9312;</span>
-          <span class="cr-text"><strong>Opening zone rejected.</strong> Price opened at 24,231, barely touched 24,298, then sold off immediately &mdash; no follow-through from buyers.</span>
+          <span class="cr-text"><strong>Opening zone rejected.</strong> Price opened at 24,231.85, touched 24,298.45 briefly, then sold off immediately &mdash; no follow-through from buyers.</span>
         </div>
         <div class="candle-read">
           <span class="cr-num">&#9313;</span>
@@ -873,7 +902,7 @@
         </div>
         <div class="candle-read">
           <span class="cr-num">&#9314;</span>
-          <span class="cr-text"><strong>Close near day low (23,848 vs low of 23,837).</strong> No end-of-day buying. Sellers held control right into the close.</span>
+          <span class="cr-text"><strong>Close near day low (23,848.20 vs low of 23,837.05).</strong> No end-of-day buying. Sellers held control right into the close.</span>
         </div>
       </div>
 
@@ -883,16 +912,16 @@
     </section>
 
     <!-- KEY LEVELS -->
-    <section class="levels-section">
-      <div class="section-label">Key Levels for Tomorrow</div>
+    <section class="levels-section" aria-labelledby="lbl-levels">
+      <div class="section-label" id="lbl-levels">Key Levels for Tomorrow</div>
       <div class="levels-list">
         <div class="level-row resistance-row">
           <div class="level-price resistance">24,078</div>
-          <div class="level-desc">Strong resistance &mdash; supply area</div>
+          <div class="level-desc">Primary resistance &mdash; supply area</div>
         </div>
         <div class="level-row resistance-row">
           <div class="level-price resistance">24,028</div>
-          <div class="level-desc">Immediate supply &mdash; pullback sell zone</div>
+          <div class="level-desc">Pullback supply zone</div>
         </div>
         <div class="level-row decision-row">
           <div class="level-price decision">23,837</div>
@@ -910,10 +939,10 @@
     </section>
 
     <!-- SCENARIOS -->
-    <section class="scenarios-section">
-      <div class="section-heading">Scenario Analysis</div>
+    <section class="scenarios-section" aria-labelledby="lbl-scenarios">
+      <div class="section-heading" id="lbl-scenarios">Scenario Analysis</div>
 
-      <!-- S1: Bearish Continuation — Primary -->
+      <!-- S1: Sell Scenario — Primary -->
       <div class="scenario-card s1">
         <div class="scenario-header">
           <div class="scenario-badge">
@@ -921,7 +950,7 @@
             <span class="badge-plan">Primary</span>
           </div>
           <div class="scenario-title-block">
-            <div class="scenario-title">Bearish Continuation</div>
+            <div class="scenario-title">Sell Scenario</div>
             <span class="scenario-trigger">Trigger &mdash; Pullback into 24,028&ndash;24,078, followed by rejection</span>
           </div>
         </div>
@@ -959,7 +988,7 @@
         </div>
       </div>
 
-      <!-- S3: Bullish Recovery — Low Probability -->
+      <!-- S3: Bullish Invalidation — Low Probability -->
       <div class="scenario-card s3">
         <div class="scenario-header">
           <div class="scenario-badge">
@@ -967,12 +996,12 @@
             <span class="badge-plan">Probability</span>
           </div>
           <div class="scenario-title-block">
-            <div class="scenario-title">Bullish Recovery</div>
-            <span class="scenario-trigger">Trigger &mdash; Price accepts and holds above 24,078</span>
+            <div class="scenario-title">Bullish Invalidation</div>
+            <span class="scenario-trigger">Trigger &mdash; Price accepts above 24,078, bearish structure begins to weaken</span>
           </div>
         </div>
         <div class="scenario-body">
-          <p>Bullish structure only becomes relevant if price <strong>accepts above 24,078</strong> &mdash; not just a spike. Given current bearish distribution, this remains the low-probability case and requires clear evidence, not anticipation.</p>
+          <p>If price accepts above 24,078, the <strong>bearish structure begins to weaken</strong>. This does not flip the bias immediately &mdash; it simply invalidates the sell-side setup. Monitor for follow-through rather than chasing.</p>
           <div class="targets-label">Upside Targets</div>
           <div class="targets-row">
             <span class="target-chip"><span class="chip-num">&#9312;</span> 24,200</span>
@@ -984,8 +1013,8 @@
     </section>
 
     <!-- NOISE ZONE -->
-    <section class="noise-section">
-      <div class="section-label">Noise / Trap Zone</div>
+    <section class="noise-section" aria-labelledby="lbl-noise">
+      <div class="section-label" id="lbl-noise">Noise / Trap Zone</div>
       <div class="noise-strip">
         <div class="noise-header">
           <span class="noise-tag">Caution Zone</span>
@@ -1001,8 +1030,8 @@
     </section>
 
     <!-- EXECUTION FRAMEWORK -->
-    <section class="execution-section">
-      <div class="section-heading">Clean One-Line Plan</div>
+    <section class="execution-section" aria-labelledby="lbl-execution">
+      <div class="section-heading" id="lbl-execution">Execution Rules</div>
       <div class="exec-rules">
         <div class="exec-rule bear-exec">
           <div class="exec-condition">Below 24,078</div>
@@ -1028,14 +1057,14 @@
     </section>
 
     <!-- CORE PRINCIPLE -->
-    <section class="principle-section">
-      <div class="principle-label">Execution Rule</div>
+    <section class="principle-section" aria-labelledby="lbl-principle">
+      <div class="principle-label" id="lbl-principle">Core Rule</div>
       <div class="principle-stack">
-        <div class="principle-line l1">No Prediction.</div>
-        <div class="principle-divider"></div>
-        <div class="principle-line l2">No Anticipation.</div>
-        <div class="principle-divider"></div>
-        <div class="principle-line l3">Wait for Price Reaction at Levels.</div>
+        <div class="principle-line l1">No Prediction. No Anticipation.</div>
+        <div class="principle-divider" aria-hidden="true"></div>
+        <div class="principle-line l2">Levels Decide. Bias Follows.</div>
+        <div class="principle-divider" aria-hidden="true"></div>
+        <div class="principle-line l3">Execution Stays Disciplined.</div>
       </div>
     </section>
 

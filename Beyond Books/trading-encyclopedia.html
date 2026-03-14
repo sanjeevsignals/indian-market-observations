@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Trading Encyclopedia — Forex & Crypto | Sanjeev Signals</title>
+<meta name="description" content="The only trading resource you need — from foundations to institutional mechanics. Pre-Market Clarity. Rule-Based Execution.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
+:root {
+  --bg:           #f8f6f1;
+  --bg-2:         #f0ece3;
+  --bg-3:         #e8e2d8;
+  --surface:      #ffffff;
+  --surface-2:    #faf8f4;
+  --border:       #e2dbd0;
+  --border-2:     #ccc4b5;
+  --border-3:     #b5ab9c;
+
+  --ink:          #15130c;
+  --ink-2:        #332f25;
+  --ink-3:        #5e5748;
+  --ink-4:        #918a7c;
+  --ink-5:        #b8b1a6;
+  --ink-6:        #d5cfc8;
+
+  --orange:       #e85d0a;
+  --orange-dk:    #c94e08;
+  --orange-lt:    #f07030;
+  --orange-tint:  #fff3e8;
+  --orange-tint2: #fde0c0;
+  --orange-line:  #f5c49a;
+  --orange-glow:  rgba(232,93,10,0.14);
+
+  --green:        #166534;
+  --green-bg:     #f0fdf4;
+  --green-bd:     #a7f3c0;
+  --green-tx:     #15803d;
+  --red:          #991b1b;
+  --red-bg:       #fef2f2;
+  --red-bd:       #fca5a5;
+  --red-tx:       #b91c1c;
+  --amber:        #92400e;
+  --amber-bg:     #fffbeb;
+  --amber-bd:     #fcd34d;
+  --amber-tx:     #b45309;
+
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --r-xs:   3px;
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-xl:   24px;
+  --r-full: 999px;
+
+  --sh-xs: 0 1px 2px rgba(21,19,12,0.05);
+  --sh-sm: 0 1px 3px rgba(21,19,12,0.06), 0 3px 10px rgba(21,19,12,0.04);
+  --sh-md: 0 4px 14px rgba(21,19,12,0.08), 0 8px 28px rgba(21,19,12,0.05);
+  --sh-lg: 0 8px 28px rgba(21,19,12,0.10), 0 20px 56px rgba(21,19,12,0.07);
+  --sh-or: 0 4px 20px rgba(232,93,10,0.22);
+
+  --sidebar-w: 268px;
+  --content-max: 860px;
+}
+
+/* ══════════════════════════════════════════════
+   RESET
+══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════════════
+   SCROLL PROGRESS BAR
+══════════════════════════════════════════════ */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(to right, var(--orange-dk), var(--orange), var(--orange-lt));
+  z-index: 999;
+  transition: width 0.1s linear;
+}
+
+/* ══════════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes revealLine {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.au { animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.ai { animation: fadeIn 0.45s ease both; }
+.al { animation: slideInLeft 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+.d1 { animation-delay: 0.06s; }
+.d2 { animation-delay: 0.14s; }
+.d3 { animation-delay: 0.24s; }
+.d4 { animation-delay: 0.36s; }
+.d5 { animation-delay: 0.50s; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+              transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════ */
+.page {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════ */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-2) transparent;
+}
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+
+.sb-top {
+  padding: 28px 20px 0 24px;
+  flex-shrink: 0;
+}
+
+/* Brand */
+.sb-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sb-brand__pip {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 0 3px var(--orange-tint2);
+  flex-shrink: 0;
+}
+
+.sb-brand__name {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+/* Doc card */
+.sb-doc {
+  background: var(--orange-tint);
+  border: 1px solid var(--orange-line);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  margin-bottom: 24px;
+}
+
+.sb-doc__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 5px;
+}
+
+.sb-doc__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 5px;
+}
+
+.sb-doc__sub {
+  font-size: 11px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+.sb-doc__pills {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.sb-pill {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--orange-dk);
+  background: white;
+  border: 1px solid var(--orange-line);
+  padding: 2px 7px;
+  border-radius: var(--r-full);
+  letter-spacing: 0.06em;
+}
+
+/* Nav label */
+.sb-nav-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-5);
+  padding: 0 4px;
+  margin-bottom: 6px;
+}
+
+/* Nav list */
+.sb-nav {
+  list-style: none;
+  padding: 0 4px;
+  flex: 1;
+}
+
+.sb-nav__item { margin-bottom: 1px; }
+
+.sb-nav__link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: var(--r-md);
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+}
+
+.sb-nav__link::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px; height: 70%;
+  background: var(--orange);
+  border-radius: 0 2px 2px 0;
+  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.sb-nav__link:hover { background: var(--orange-tint); }
+.sb-nav__link:hover::before { transform: translateY(-50%) scaleY(1); }
+.sb-nav__link:hover .sb-nav__num { color: var(--orange); }
+.sb-nav__link:hover .sb-nav__text { color: var(--ink); }
+
+.sb-nav__num {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--ink-6);
+  width: 20px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.sb-nav__text {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-4);
+  line-height: 1.3;
+  transition: color 0.15s;
+}
+
+.sb-nav__badge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--orange);
+  background: var(--orange-tint);
+  border: 1px solid var(--orange-line);
+  padding: 1px 6px;
+  border-radius: var(--r-full);
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+}
+
+/* Sidebar bottom */
+.sb-bottom {
+  padding: 18px 24px 28px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.sb-formula {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  line-height: 2;
+  color: var(--ink-5);
+}
+
+.sb-formula strong {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* ══════════════════════════════════════════════
+   MAIN
+══════════════════════════════════════════════ */
+.main { flex: 1; min-width: 0; }
+
+/* ══════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════ */
+.hero {
+  background: var(--ink);
+  padding: 80px 72px 72px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Texture overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 600px 400px at 85% -10%, rgba(232,93,10,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 400px 300px at 10% 110%, rgba(232,93,10,0.10) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Grid lines */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+.hero-inner { position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange-lt);
+  margin-bottom: 24px;
+}
+
+.hero-eyebrow__line {
+  width: 28px; height: 2px;
+  background: linear-gradient(to right, var(--orange-dk), var(--orange-lt));
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.hero-title {
+  font-size: clamp(32px, 3.8vw, 54px);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #f2ede4;
+  margin-bottom: 22px;
+  max-width: 700px;
+}
+
+.hero-title em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--orange-lt), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: #8a8278;
+  max-width: 520px;
+  line-height: 1.78;
+  margin-bottom: 48px;
+}
+
+/* Stats row */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--r-lg);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(4px);
+  width: fit-content;
+  overflow: hidden;
+}
+
+.hero-stat {
+  padding: 18px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.hero-stat:last-child { border-right: none; }
+
+.hero-stat__n {
+  font-size: 27px;
+  font-weight: 900;
+  color: var(--orange-lt);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.hero-stat__l {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: #52504c;
+}
+
+/* ══════════════════════════════════════════════
+   CONTENT AREA
+══════════════════════════════════════════════ */
+.content {
+  padding: 80px 72px 108px;
+  max-width: var(--content-max);
+}
+
+/* ══════════════════════════════════════════════
+   STAGE SECTIONS
+══════════════════════════════════════════════ */
+.stage {
+  margin-bottom: 104px;
+  scroll-margin-top: 48px;
+}
+
+.stage-head { margin-bottom: 4px; }
+
+.stage-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: var(--orange-tint);
+  border: 1px solid var(--orange-line);
+  padding: 4px 10px;
+  border-radius: var(--r-xs);
+  margin-bottom: 10px;
+}
+
+.stage-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.028em;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.stage-sub {
+  font-size: 14.5px;
+  color: var(--ink-4);
+  margin-bottom: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.stage-rule {
+  height: 1px;
+  background: linear-gradient(to right,
+    var(--orange-tint2) 0%,
+    var(--orange-line) 8%,
+    var(--border) 40%,
+    transparent 100%);
+  margin-bottom: 36px;
+  transform-origin: left;
+}
+
+/* ══════════════════════════════════════════════
+   PROSE
+══════════════════════════════════════════════ */
+.prose {
+  font-size: 15.5px;
+  color: var(--ink-2);
+  line-height: 1.88;
+}
+
+.prose p { margin-bottom: 20px; }
+.prose p:last-child { margin-bottom: 0; }
+
+.prose strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.prose h4 {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--ink);
+  margin: 40px 0 14px;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prose h4::before {
+  content: '';
+  width: 18px; height: 2px;
+  background: var(--orange);
+  border-radius: 2px;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+/* ══════════════════════════════════════════════
+   CALLOUT BLOCKS
+══════════════════════════════════════════════ */
+.callout {
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+  margin: 32px 0;
+  font-size: 14.5px;
+  line-height: 1.75;
+  position: relative;
+}
+
+.callout__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 10px;
+}
+
+.callout__label::before {
+  content: '';
+  width: 14px; height: 2px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Orange variant */
+.callout--orange {
+  background: var(--orange-tint);
+  border: 1px solid var(--orange-line);
+  border-left: 4px solid var(--orange);
+  color: var(--ink-2);
+}
+.callout--orange .callout__label { color: var(--orange); }
+.callout--orange .callout__label::before { background: var(--orange); }
+
+/* Dark variant */
+.callout--dark {
+  background: var(--ink);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 4px solid var(--orange);
+  color: #a09890;
+}
+.callout--dark .callout__label { color: var(--orange-lt); }
+.callout--dark .callout__label::before { background: var(--orange-lt); }
+.callout--dark strong { color: #f0ede8; }
+
+/* Rule variant */
+.callout--rule {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--border-3);
+  color: var(--ink-2);
+}
+.callout--rule .callout__label { color: var(--ink-3); }
+.callout--rule .callout__label::before { background: var(--border-3); }
+
+/* ══════════════════════════════════════════════
+   CONCEPT CARDS
+══════════════════════════════════════════════ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 14px;
+  margin: 32px 0;
+}
+
+.card-grid--2 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+.c-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 20px 20px 22px;
+  box-shadow: var(--sh-sm);
+  transition: box-shadow 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.c-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--orange), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.c-card:hover {
+  box-shadow: var(--sh-md);
+  border-color: var(--orange-line);
+  transform: translateY(-3px);
+}
+
+.c-card:hover::after { transform: scaleX(1); }
+
+.c-card--accent {
+  background: var(--orange-tint);
+  border-color: var(--orange-line);
+}
+
+.c-card__icon {
+  font-size: 20px;
+  margin-bottom: 12px;
+  display: block;
+  line-height: 1;
+}
+
+.c-card__title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 7px;
+  letter-spacing: -0.01em;
+}
+
+.c-card__body {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.62;
+}
+
+/* ══════════════════════════════════════════════
+   TABLES
+══════════════════════════════════════════════ */
+.tbl-wrap {
+  overflow-x: auto;
+  margin: 28px 0;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh-sm);
+  background: var(--surface);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+thead th {
+  background: var(--bg-2);
+  padding: 13px 18px;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+
+thead th:first-child {
+  border-left: 3px solid var(--orange);
+}
+
+tbody td {
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-2);
+  vertical-align: top;
+  line-height: 1.58;
+}
+
+tbody td:first-child {
+  border-left: 3px solid transparent;
+}
+
+tbody tr:hover td { background: var(--surface-2); }
+tbody tr:hover td:first-child { border-left-color: var(--orange-line); }
+tbody tr:last-child td { border-bottom: none; }
+
+/* Tags */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.tag-g { color: var(--green-tx); background: var(--green-bg); border: 1px solid var(--green-bd); }
+.tag-r { color: var(--red-tx);   background: var(--red-bg);   border: 1px solid var(--red-bd); }
+.tag-a { color: var(--amber-tx); background: var(--amber-bg); border: 1px solid var(--amber-bd); }
+.tag-o { color: var(--orange-dk); background: var(--orange-tint); border: 1px solid var(--orange-line); }
+
+/* ══════════════════════════════════════════════
+   RULE / CHECKLIST LISTS
+══════════════════════════════════════════════ */
+.rule-list {
+  list-style: none;
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.rule-list li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.7;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.rule-list li:last-child { border-bottom: none; }
+
+.rule-list li::before {
+  content: '—';
+  color: var(--orange);
+  font-weight: 800;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* ══════════════════════════════════════════════
+   FORMULA / CODE BLOCKS
+══════════════════════════════════════════════ */
+.formula-block {
+  background: #111009;
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  margin: 28px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #9e9890;
+  line-height: 1.95;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Top accent bar */
+.formula-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--orange-dk), var(--orange), var(--orange-lt), transparent 75%);
+}
+
+/* Subtle grid lines */
+.formula-block::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 100% 28px;
+  pointer-events: none;
+}
+
+.formula-block__label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: block;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.f-key     { color: var(--orange-lt); font-weight: 700; position: relative; z-index: 1; }
+.f-val     { color: #ddd7cf; position: relative; z-index: 1; }
+.f-comment { color: #3e3c38; position: relative; z-index: 1; }
+.f-dim     { color: #2e2c28; position: relative; z-index: 1; }
+.f-green   { color: #4ade80; position: relative; z-index: 1; }
+.f-red     { color: #f87171; position: relative; z-index: 1; }
+span[class^="f-"] { position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════════════
+   NUMBERED STEPS
+══════════════════════════════════════════════ */
+.steps {
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 44px;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--orange-line), var(--border), transparent);
+}
+
+.step__num {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--orange-tint);
+  border: 1.5px solid var(--orange-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--sh-xs);
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.step:hover .step__num {
+  background: var(--orange-tint2);
+  border-color: var(--orange);
+  box-shadow: var(--sh-or);
+}
+
+.step__body {
+  padding-bottom: 32px;
+  flex: 1;
+}
+
+.step__title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 5px;
+  padding-top: 9px;
+  letter-spacing: -0.01em;
+}
+
+.step__desc {
+  font-size: 13.5px;
+  color: var(--ink-3);
+  line-height: 1.68;
+}
+
+/* ══════════════════════════════════════════════
+   RESOURCE CARDS
+══════════════════════════════════════════════ */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.r-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 18px 20px 20px;
+  box-shadow: var(--sh-sm);
+  transition: box-shadow 0.22s, transform 0.22s, border-color 0.22s;
+  display: flex;
+  flex-direction: column;
+}
+
+.r-card:hover {
+  box-shadow: var(--sh-md);
+  transform: translateY(-3px);
+  border-color: var(--orange-line);
+}
+
+.r-card__type {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 7px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+}
+
+.r-card__title {
+  font-size: 14px;
+  font-weight: 750;
+  color: var(--ink);
+  margin-bottom: 3px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.r-card__author {
+  font-size: 11.5px;
+  color: var(--ink-4);
+  margin-bottom: 9px;
+  font-style: italic;
+}
+
+.r-card__desc {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.62;
+  flex: 1;
+}
+
+.r-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 13px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+}
+
+.r-card__level {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+}
+
+.r-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  text-decoration: none;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+
+.r-card__link:hover { color: var(--orange-dk); }
+
+.r-card__link::after {
+  content: '↗';
+  font-size: 10px;
+  transition: transform 0.15s;
+}
+
+.r-card__link:hover::after { transform: translate(2px, -2px); }
+
+/* ══════════════════════════════════════════════
+   HIGHLIGHT BOXES (stat grid)
+══════════════════════════════════════════════ */
+.h-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.h-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 20px 22px;
+  box-shadow: var(--sh-xs);
+  position: relative;
+  overflow: hidden;
+}
+
+.h-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.h-box--orange::before { background: var(--orange); }
+.h-box--green::before  { background: var(--green-tx); }
+.h-box--red::before    { background: var(--red-tx); }
+
+.h-box__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.h-box--orange .h-box__label { color: var(--orange); }
+.h-box--green  .h-box__label { color: var(--green-tx); }
+.h-box--red    .h-box__label { color: var(--red-tx); }
+
+.h-box__val {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.h-box--orange .h-box__val { color: var(--orange); }
+.h-box--green  .h-box__val { color: var(--green-tx); }
+.h-box--red    .h-box__val { color: var(--red-tx); }
+
+.h-box__desc {
+  font-size: 12.5px;
+  color: var(--ink-3);
+  line-height: 1.55;
+}
+
+/* Checklist boxes */
+.check-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.chk-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  box-shadow: var(--sh-xs);
+}
+
+.chk-box__label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chk-box--yes .chk-box__label { color: var(--green-tx); }
+.chk-box--no  .chk-box__label { color: var(--red-tx); }
+
+.chk-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.chk-list li {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.chk-list li::before {
+  flex-shrink: 0;
+  font-size: 11px;
+  margin-top: 1px;
+  font-weight: 700;
+}
+
+.chk-box--yes .chk-list li::before { content: '✓'; color: var(--green-tx); }
+.chk-box--no  .chk-list li::before { content: '✕'; color: var(--red-tx); }
+
+/* ══════════════════════════════════════════════
+   ROADMAP
+══════════════════════════════════════════════ */
+.roadmap {
+  margin: 36px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.roadmap-phase { display: flex; }
+
+.roadmap-left {
+  width: 96px;
+  flex-shrink: 0;
+  text-align: right;
+  padding-right: 24px;
+  padding-top: 6px;
+}
+
+.roadmap-phase-lbl {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.roadmap-phase-days {
+  font-size: 10.5px;
+  color: var(--ink-5);
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
+.roadmap-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.roadmap-dot {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: var(--orange);
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--orange-line);
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.roadmap-connector {
+  width: 2px;
+  flex: 1;
+  background: linear-gradient(to bottom, var(--orange-line), var(--border));
+  min-height: 28px;
+}
+
+.roadmap-phase:last-child .roadmap-connector { display: none; }
+
+.roadmap-right {
+  flex: 1;
+  padding-left: 20px;
+  padding-bottom: 36px;
+}
+
+.roadmap-right__title {
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+  padding-top: 4px;
+  letter-spacing: -0.01em;
+}
+
+.roadmap-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.roadmap-items li {
+  font-size: 13.5px;
+  color: var(--ink-3);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.55;
+}
+
+.roadmap-items li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--orange-line);
+}
+
+/* ══════════════════════════════════════════════
+   SECTION SEPARATOR
+══════════════════════════════════════════════ */
+.sep {
+  position: relative;
+  height: 1px;
+  background: var(--border);
+  margin: 0 0 104px;
+}
+
+.sep::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 60px; height: 2px;
+  background: linear-gradient(to right, var(--orange), transparent);
+  border-radius: 2px;
+}
+
+/* ══════════════════════════════════════════════
+   TOOL TABLE LINKS
+══════════════════════════════════════════════ */
+.tbl-link {
+  color: var(--orange);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s;
+  border-bottom: 1px dashed var(--orange-line);
+}
+.tbl-link:hover { color: var(--orange-dk); border-bottom-style: solid; }
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+.page-footer {
+  background: var(--ink);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 500px 200px at 0% 50%, rgba(232,93,10,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.footer-inner {
+  position: relative;
+  z-index: 1;
+  padding: 40px 72px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-left {}
+
+.footer-brand {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.footer-brand::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.footer-tagline {
+  font-size: 11.5px;
+  color: #3e3c38;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.footer-disclaimer {
+  font-size: 10.5px;
+  color: #38362e;
+  max-width: 460px;
+  line-height: 1.7;
+  text-align: right;
+}
+
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .page { flex-direction: column; }
+  .sidebar {
+    position: relative; width: 100%; height: auto;
+    border-right: none; border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+  .sb-bottom { display: none; }
+  .sb-nav { display: flex; flex-wrap: wrap; gap: 4px; padding: 0 20px; }
+  .sb-nav__item { flex-shrink: 0; }
+  .hero { padding: 48px 32px 44px; }
+  .content { padding: 48px 32px 72px; }
+  .footer-inner { padding: 32px; flex-direction: column; }
+  .footer-disclaimer { text-align: left; }
+}
+
+@media (max-width: 600px) {
+  .h-grid { grid-template-columns: 1fr; }
+  .check-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-wrap: wrap; width: 100%; }
+  .hero-stat { flex: 1; min-width: 100px; }
+}
+
+/* ══════════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
+</style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="progress-bar"></div>
+
+<div class="page">
+
+<!-- ════════════ SIDEBAR ════════════ -->
+<aside class="sidebar">
+  <div class="sb-top">
+    <div class="sb-brand ai">
+      <div class="sb-brand__pip"></div>
+      <div class="sb-brand__name">Sanjeev Signals</div>
+    </div>
+
+    <div class="sb-doc au d1">
+      <div class="sb-doc__eyebrow">Complete Encyclopedia</div>
+      <div class="sb-doc__title">Forex & Crypto Trading</div>
+      <div class="sb-doc__sub">Zero to professional. No detours.</div>
+      <div class="sb-doc__pills">
+        <span class="sb-pill">9 Stages</span>
+        <span class="sb-pill">Forex</span>
+        <span class="sb-pill">Crypto</span>
+      </div>
+    </div>
+
+    <div class="sb-nav-label au d2">Contents</div>
+  </div>
+
+  <ul class="sb-nav au d3">
+    <li class="sb-nav__item">
+      <a href="#s1" class="sb-nav__link">
+        <span class="sb-nav__num">01</span>
+        <span class="sb-nav__text">Market Foundations</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s2" class="sb-nav__link">
+        <span class="sb-nav__num">02</span>
+        <span class="sb-nav__text">Price Action & Structure</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s3" class="sb-nav__link">
+        <span class="sb-nav__num">03</span>
+        <span class="sb-nav__text">Smart Money Concepts</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s4" class="sb-nav__link">
+        <span class="sb-nav__num">04</span>
+        <span class="sb-nav__text">Strategy Engineering</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s5" class="sb-nav__link">
+        <span class="sb-nav__num">05</span>
+        <span class="sb-nav__text">Risk & Capital Management</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s6" class="sb-nav__link">
+        <span class="sb-nav__num">06</span>
+        <span class="sb-nav__text">Execution & Trade Mgmt</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s7" class="sb-nav__link">
+        <span class="sb-nav__num">07</span>
+        <span class="sb-nav__text">Trading Psychology</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s8" class="sb-nav__link">
+        <span class="sb-nav__num">08</span>
+        <span class="sb-nav__text">Institutional Mechanics</span>
+      </a>
+    </li>
+    <li class="sb-nav__item">
+      <a href="#s9" class="sb-nav__link">
+        <span class="sb-nav__num">09</span>
+        <span class="sb-nav__text">Resources & Roadmap</span>
+        <span class="sb-nav__badge">START</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="sb-bottom au d4">
+    <div class="sb-formula">
+      <strong>Levels Decide</strong> →<br>
+      <strong>Bias Follows</strong> →<br>
+      <strong>Execution Stays Structured</strong>
+    </div>
+  </div>
+</aside>
+
+<!-- ════════════ MAIN ════════════ -->
+<main class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow au">
+      <span class="hero-eyebrow__line"></span>
+      Sanjeev Signals · Trading Education
+    </div>
+    <h1 class="hero-title au d1">
+      <em>Everything</em> you need.<br>One place. Zero detours.
+    </h1>
+    <p class="hero-desc au d2">
+      From what a market actually is, to how institutions engineer price, to the exact psychological discipline that separates consistent traders from everyone else. Written for practitioners. Zero filler.
+    </p>
+    <div class="hero-stats au d3">
+      <div class="hero-stat">
+        <div class="hero-stat__n">9</div>
+        <div class="hero-stat__l">Stages</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat__n">90+</div>
+        <div class="hero-stat__l">Concepts</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat__n">30+</div>
+        <div class="hero-stat__l">Resources</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat__n">1</div>
+        <div class="hero-stat__l">Place to Bookmark</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════ STAGE 1 ═══════ -->
+<section id="s1" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 01</div>
+    <h2 class="stage-title">Market Foundations</h2>
+    <p class="stage-sub">What a market is, who moves it, and why price behaves the way it does</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>Before chart patterns, before indicators, before any strategy — you must understand the mechanical reality of what a financial market is. A market is a two-sided auction. Buyers and sellers continuously negotiate price until a transaction occurs. That is the entire system. Everything else is derivative of this single fact.</p>
+    <p>The Forex market is the largest and most liquid financial market on earth, processing over <strong>$7.5 trillion in daily volume</strong>. It has no centralised exchange — it is a decentralised, over-the-counter network of banks, institutions, brokers, and retail participants. Crypto markets are younger, more fragmented, and operate 24/7/365 across multiple exchanges, each with their own order books and liquidity profiles.</p>
+    <p>Most retail traders lose because they enter this arena with a flawed mental model: they believe the market is a puzzle to be solved by finding the right indicator combination. It is not. <strong>The market is a mechanism for transferring money from impatient, reactive participants to patient, process-driven ones.</strong> Understanding the participants — who they are and what they need — is the single most important foundation you can build.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="c-card">
+      <span class="c-card__icon">🏦</span>
+      <div class="c-card__title">Central Banks</div>
+      <div class="c-card__body">Fed, ECB, BoJ, BoE. Set interest rates and monetary policy. Their decisions cause the largest structural moves in Forex. Their communications are market-moving events.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🏢</span>
+      <div class="c-card__title">Commercial Banks & Institutions</div>
+      <div class="c-card__body">Goldman, JPMorgan, hedge funds, asset managers. Execute large orders over time to avoid moving the market against themselves. Create the zones retail calls "support and resistance."</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">⚖️</span>
+      <div class="c-card__title">Market Makers</div>
+      <div class="c-card__body">Provide liquidity by taking the other side of trades. Profit from spread and inventory management. They move price toward resting orders — not away from them.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">👤</span>
+      <div class="c-card__title">Retail Traders</div>
+      <div class="c-card__body">Approximately 70–80% of retail accounts lose money. Retail provides liquidity for institutions. Understanding this is not discouraging — it is clarifying.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>Session Structure — When the Market Actually Moves</h4>
+    <p>Forex has four major trading sessions. Each has a distinct personality in terms of volume, volatility, and the type of price behaviour it produces. Most meaningful directional moves originate during London and New York sessions or their overlap.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Session</th><th>IST Timing</th><th>Key Pairs</th><th>Character</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Tokyo</strong></td><td><span class="tag tag-a">05:30 – 14:30</span></td><td>USD/JPY, AUD/USD, NZD/USD</td><td>Low volatility. Range formation. Stop accumulation for London raid.</td></tr>
+        <tr><td><strong>London</strong></td><td><span class="tag tag-g">13:30 – 22:30</span></td><td>GBP/USD, EUR/USD, EUR/GBP</td><td>Highest volume. Trend initiation. Asian range raids common at open.</td></tr>
+        <tr><td><strong>New York</strong></td><td><span class="tag tag-g">18:00 – 00:30</span></td><td>USD pairs, Gold, US indices</td><td>Second highest volume. Continuation or reversal of London move.</td></tr>
+        <tr><td><strong>London–NY Overlap</strong></td><td><span class="tag tag-o">18:00 – 22:30</span></td><td>All majors</td><td>Most explosive intraday window. Highest-quality setups form here.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout--orange">
+    <span class="callout__label">Core Principle</span>
+    Markets move toward liquidity, not toward indicators. Price travels to areas where orders are resting — stop clusters, equal highs, equal lows, unfilled imbalances — because large participants need those pools to execute size without moving the market against themselves.
+  </div>
+
+  <div class="prose">
+    <h4>Key Pairs — Know What You're Trading</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Category</th><th>Pairs</th><th>Spread</th><th>Suitable For</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Majors</strong></td><td>EUR/USD, GBP/USD, USD/JPY, USD/CHF</td><td><span class="tag tag-g">Tight</span></td><td>All levels. Most liquidity. Start here.</td></tr>
+        <tr><td><strong>Minors</strong></td><td>EUR/GBP, GBP/JPY, AUD/JPY</td><td><span class="tag tag-a">Medium</span></td><td>Intermediate+. Higher volatility, more complex correlations.</td></tr>
+        <tr><td><strong>Exotics</strong></td><td>USD/TRY, USD/ZAR, USD/MXN</td><td><span class="tag tag-r">Wide</span></td><td>Avoid until advanced. Thin liquidity destroys edge.</td></tr>
+        <tr><td><strong>Crypto Majors</strong></td><td>BTC/USDT, ETH/USDT, SOL/USDT</td><td><span class="tag tag-a">Variable</span></td><td>Higher volatility. Smaller position sizes required. 24/7.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 2 ═══════ -->
+<section id="s2" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 02</div>
+    <h2 class="stage-title">Price Action & Structure</h2>
+    <p class="stage-sub">Reading the market's language before you add a single indicator</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>Price action is the study of price movement itself — stripped of all derivative tools. A candlestick chart is a record of human decision-making under uncertainty. Every candle tells you who was in control during that period and at what price control changed. Learning to read this is the most foundational and most transferable skill in all of trading.</p>
+    <p><strong>Market structure is the backbone of every analysis decision.</strong> Before asking "where do I enter," the prior question must always be: what is the current market structure, and what phase is the market in?</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="c-card c-card--accent">
+      <span class="c-card__icon">📈</span>
+      <div class="c-card__title">Uptrend</div>
+      <div class="c-card__body">Higher Highs (HH) + Higher Lows (HL). Buyers in control. Only look for long setups aligned with trend direction.</div>
+    </div>
+    <div class="c-card c-card--accent">
+      <span class="c-card__icon">📉</span>
+      <div class="c-card__title">Downtrend</div>
+      <div class="c-card__body">Lower Highs (LH) + Lower Lows (LL). Sellers in control. Only look for short setups aligned with trend direction.</div>
+    </div>
+    <div class="c-card c-card--accent">
+      <span class="c-card__icon">↔️</span>
+      <div class="c-card__title">Range / Consolidation</div>
+      <div class="c-card__body">No clear sequence. Market building orders. Most breakouts from range are false. Wait for structural resolution before committing.</div>
+    </div>
+    <div class="c-card c-card--accent">
+      <span class="c-card__icon">🔀</span>
+      <div class="c-card__title">Distribution</div>
+      <div class="c-card__body">Institutions exiting at the top. Looks like a range. Rejection wicks and volume divergence are the tells. Precedes major structural shifts.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>Break of Structure vs Change of Character</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Event</th><th>What It Means</th><th>Trading Implication</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>BOS — Break of Structure</strong></td>
+          <td>Price closes beyond a prior swing high (bullish) or swing low (bearish) in the trend direction</td>
+          <td>Trend continuation confirmed. Wait for pullback entries toward the move's origin.</td>
+        </tr>
+        <tr>
+          <td><strong>CHoCH — Change of Character</strong></td>
+          <td>Price breaks against the prevailing trend. First signal that the trend may be reversing.</td>
+          <td>Reduce directional conviction. Wait for structural confirmation in the new direction.</td>
+        </tr>
+        <tr>
+          <td><strong>Internal BOS</strong></td>
+          <td>Lower-timeframe structural break within a higher-timeframe swing</td>
+          <td>Entry trigger in the context of an HTF setup. Used for precise entry timing only.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>Candlestick Patterns That Actually Matter</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Pattern</th><th>What It Shows</th><th>Reliability</th><th>Context Required</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Engulfing</strong></td><td>Full body overtake of prior candle. Aggressive shift in control.</td><td><span class="tag tag-g">High</span></td><td>Must occur at structural level or POI</td></tr>
+        <tr><td><strong>Pin Bar / Rejection Wick</strong></td><td>Long wick shows price was rejected from a level. Institutional response visible.</td><td><span class="tag tag-g">High</span></td><td>At key S/R, order block, or liquidity zone</td></tr>
+        <tr><td><strong>Inside Bar</strong></td><td>Compression within prior range. Energy building before expansion.</td><td><span class="tag tag-a">Medium</span></td><td>After trend move — signals pause, not reversal</td></tr>
+        <tr><td><strong>Hammer / Shooting Star</strong></td><td>Rejection of directional move with strong close opposite</td><td><span class="tag tag-g">High</span></td><td>At swing high/low with displacement confirmation</td></tr>
+        <tr><td><strong>Doji</strong></td><td>Equal open/close. Market indecision only.</td><td><span class="tag tag-r">Low standalone</span></td><td>Meaningless alone. Only significant at structural extremes.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout--dark">
+    <span class="callout__label">Non-Negotiable</span>
+    A candlestick pattern at a random location is meaningless. The <strong>same pattern at a structurally significant location</strong> — order block, fair value gap, liquidity sweep completion — is a high-probability signal. Location is the multiplier. The pattern is only the trigger.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 3 ═══════ -->
+<section id="s3" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 03</div>
+    <h2 class="stage-title">Smart Money Concepts</h2>
+    <p class="stage-sub">Order blocks, fair value gaps, liquidity — the institutional footprint on price</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>Traditional technical analysis — horizontal support/resistance at "obvious" levels, RSI overbought/oversold, MACD crossovers — is widely known, widely used, and therefore <strong>widely targeted by institutional participants who know exactly where retail stops are clustered.</strong> This is not conspiracy. This is market structure.</p>
+    <p>Smart Money Concepts maps institutional order flow by identifying the specific price formations that result from large-order execution. The core insight: institutions cannot enter size at a single price — they need to distribute entries across a zone, and that zone leaves a traceable mark on the chart.</p>
+
+    <h4>Order Blocks</h4>
+    <p>An order block is the last opposing candle — or cluster of candles — before a significant impulsive move. It represents the zone where institutional orders were placed. When price returns, remaining unfilled orders may defend the level again.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Formation</th><th>Bias</th><th>Invalidation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Bullish OB</strong></td><td>Last bearish candle before strong up-displacement. Candle body = zone.</td><td><span class="tag tag-g">Long on return</span></td><td>Clean close below OB low</td></tr>
+        <tr><td><strong>Bearish OB</strong></td><td>Last bullish candle before strong down-displacement. Candle body = zone.</td><td><span class="tag tag-r">Short on return</span></td><td>Clean close above OB high</td></tr>
+        <tr><td><strong>Breaker Block</strong></td><td>Failed OB that loses defence and flips role. Former support → resistance.</td><td>Opposite of original</td><td>Second clean break through zone</td></tr>
+        <tr><td><strong>Mitigation Block</strong></td><td>OB from a prior failed swing. Price returns to fill remaining orders.</td><td>Context-dependent</td><td>Full body close through zone</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>Fair Value Gaps (FVG)</h4>
+    <p>A Fair Value Gap is a three-candle formation where the wicks of candles 1 and 3 do not overlap — leaving an untraded price zone. Markets fill these gaps with statistical regularity because the imbalance represents unfulfilled orders in the book.</p>
+  </div>
+
+  <div class="formula-block">
+    <span class="formula-block__label">FVG Identification Rules</span>
+    <span class="f-key">Bullish FVG </span><span class="f-val">= Candle[1].High &lt; Candle[3].Low</span><br>
+    <span class="f-comment">              Gap between top wick of C1 and bottom wick of C3</span><br><br>
+    <span class="f-key">Bearish FVG </span><span class="f-val">= Candle[3].High &lt; Candle[1].Low</span><br>
+    <span class="f-comment">              Gap between top wick of C3 and bottom wick of C1</span><br><br>
+    <span class="f-key">Optimal Entry</span><span class="f-val"> = 50% equilibrium point of the FVG</span><br>
+    <span class="f-key">Invalidation </span><span class="f-val">= Full candle close through the entire FVG</span>
+  </div>
+
+  <div class="prose">
+    <h4>Liquidity Concepts</h4>
+  </div>
+
+  <div class="card-grid card-grid--2">
+    <div class="c-card">
+      <div class="c-card__title">Equal Highs / Equal Lows</div>
+      <div class="c-card__body">Two or more similar swing highs/lows create a liquidity pool — retail stop clusters. Price is engineered to sweep these before reversing. The sweep is the signal, not the level itself.</div>
+    </div>
+    <div class="c-card">
+      <div class="c-card__title">Buy-Side / Sell-Side Liquidity</div>
+      <div class="c-card__body">BSL rests above highs — stops from short sellers, buy-stop orders. SSL rests below lows. Institutions target these pools to fill their size at favourable prices.</div>
+    </div>
+    <div class="c-card">
+      <div class="c-card__title">Liquidity Void</div>
+      <div class="c-card__body">Price moved too fast through an area, leaving no traded volume. Creates a vacuum — price revisits this zone rapidly when it re-enters from the other direction.</div>
+    </div>
+    <div class="c-card">
+      <div class="c-card__title">Inducement</div>
+      <div class="c-card__body">A minor swing high/low appearing to be a breakout level — drawing in retail entries and stops — before price reverses to its actual target. The bait before the move.</div>
+    </div>
+  </div>
+
+  <div class="callout callout--orange">
+    <span class="callout__label">Multi-Timeframe Principle</span>
+    HTF (Daily/Weekly) defines the liquidity pool price is targeting. MTF (4H/1H) identifies the Point of Interest to watch. LTF (15M/5M) provides the entry trigger. Trading without this three-tier hierarchy is operating blind on every single trade.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 4 ═══════ -->
+<section id="s4" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 04</div>
+    <h2 class="stage-title">Strategy Engineering</h2>
+    <p class="stage-sub">Building a repeatable, rule-based system you can actually execute under pressure</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>A strategy is a written, rule-based decision tree with no ambiguous conditions. If your trading plan requires you to "feel" whether a setup is valid, you do not have a strategy — you have a preference. Preferences don't scale. Rules do.</p>
+    <p>The first principle of strategy engineering: <strong>one setup, mastered completely, is worth more than ten setups understood partially.</strong> Most traders lose because they know about fifteen approaches and execute none consistently. Pick the single highest-probability pattern from your price action study and build your entire system around it for a minimum of three months before adding anything else.</p>
+
+    <h4>Universal Trade Setup Template</h4>
+  </div>
+
+  <div class="formula-block">
+    <span class="formula-block__label">8-Step Trade Framework</span>
+    <span class="f-key">01 Context  </span><span class="f-val">→ Determine HTF bias via market structure</span><br>
+    <span class="f-key">02 Target   </span><span class="f-val">→ Identify the next liquidity pool price is hunting</span><br>
+    <span class="f-key">03 POI      </span><span class="f-val">→ Find OB / FVG on MTF aligned with HTF bias</span><br>
+    <span class="f-key">04 Trigger  </span><span class="f-val">→ Wait for LTF BOS / CHoCH at the POI</span><br>
+    <span class="f-key">05 Entry    </span><span class="f-val">→ Limit at OB/FVG midpoint or market at trigger</span><br>
+    <span class="f-key">06 Stop     </span><span class="f-val">→ Below / above the structural origin of the POI</span><br>
+    <span class="f-key">07 Target   </span><span class="f-val">→ Next opposing liquidity pool / minimum 2R</span><br>
+    <span class="f-key">08 Review   </span><span class="f-val">→ Journal entry, rationale, emotion, outcome — always</span>
+  </div>
+
+  <div class="prose">
+    <h4>ICT Kill Zones — Highest Probability Windows (IST)</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Kill Zone</th><th>IST Time</th><th>Ideal Setup Type</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>London Open KZ</strong></td><td><span class="tag tag-g">13:30 – 15:30</span></td><td>Asian range sweep → reversal → London trend direction entry</td></tr>
+        <tr><td><strong>New York AM KZ</strong></td><td><span class="tag tag-g">18:00 – 20:00</span></td><td>Continuation of London move or reversal if London was a fake-out</td></tr>
+        <tr><td><strong>NY Silver Bullet</strong></td><td><span class="tag tag-a">20:00 – 21:00</span></td><td>FVG fill setup in direction of the day's established bias</td></tr>
+        <tr><td><strong>NY Close KZ</strong></td><td><span class="tag tag-a">22:00 – 00:00</span></td><td>End-of-day liquidity grabs. Use with caution — thin volume.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>How to Backtest — The Right Way</h4>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step__num">1</div>
+      <div class="step__body">
+        <div class="step__title">Write exact rules — every condition, no exceptions</div>
+        <div class="step__desc">Specific enough that someone else could execute your system without asking you a single clarifying question. Vague rules produce inconsistent data.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step__num">2</div>
+      <div class="step__body">
+        <div class="step__title">Use TradingView Replay or Forex Tester on raw price charts</div>
+        <div class="step__desc">No forward-looking. Scroll back 12+ months, advance candle by candle. Mark only what was visible at that moment — never what came after.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step__num">3</div>
+      <div class="step__body">
+        <div class="step__title">Log every trade — wins and losses with equal discipline</div>
+        <div class="step__desc">Document date, pair, entry, SL, TP, outcome, RR achieved, and whether you followed your rules exactly. The last column is the most revealing.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step__num">4</div>
+      <div class="step__body">
+        <div class="step__title">Minimum 100 trades across different market conditions</div>
+        <div class="step__desc">Trending, ranging, high volatility, low volatility. An edge that only appears in one condition type is not a durable edge.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step__num">5</div>
+      <div class="step__body">
+        <div class="step__title">Calculate your true expectancy — not just win rate</div>
+        <div class="step__desc">Expectancy = (Win Rate × Avg Win) – (Loss Rate × Avg Loss). A 40% win rate at 1:3 RR has positive expectancy. A 70% win rate at 1:0.5 does not.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step__num">6</div>
+      <div class="step__body">
+        <div class="step__title">Forward test on demo for 30 live-market trades before real capital</div>
+        <div class="step__desc">Execution in real-time with genuine session noise is fundamentally different from replay. Demo proves your rules work under live conditions.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout--rule">
+    <span class="callout__label">Strategy Audit Test</span>
+    Can you describe your complete trading strategy — every entry condition, exact stop placement, exact target, and how you define a valid setup — in under 60 seconds? If not, simplify before you trade a single dollar.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 5 ═══════ -->
+<section id="s5" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 05</div>
+    <h2 class="stage-title">Risk & Capital Management</h2>
+    <p class="stage-sub">The only part of trading entirely within your control</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>Risk management is not a feature you add to a strategy. It is the foundation everything else sits on. A trader with a 40% win rate and disciplined risk management will outperform a trader with a 70% win rate and careless position sizing — every time, given enough trades. The math is non-negotiable.</p>
+    <p><strong>The goal is simple: ensure that no single loss, no losing streak, and no black swan event can end your ability to trade.</strong> Survival is the prerequisite for compounding.</p>
+  </div>
+
+  <div class="h-grid">
+    <div class="h-box h-box--orange">
+      <span class="h-box__label">Risk Per Trade</span>
+      <div class="h-box__val">0.5–2%</div>
+      <div class="h-box__desc">Of total account capital. New traders start at 0.5%. Scale up only after 3+ months of consistent rule-adherent execution.</div>
+    </div>
+    <div class="h-box h-box--red">
+      <span class="h-box__label">Max Daily Drawdown</span>
+      <div class="h-box__val">3–5%</div>
+      <div class="h-box__desc">When hit, session ends. No exceptions. No "one more trade." This single rule will save your account multiple times per year.</div>
+    </div>
+    <div class="h-box h-box--green">
+      <span class="h-box__label">Minimum Risk:Reward</span>
+      <div class="h-box__val">1:2</div>
+      <div class="h-box__desc">Every trade must offer minimum 2R before entry. At 40% win rate with 1:2 RR, expectancy is still positive.</div>
+    </div>
+    <div class="h-box h-box--red">
+      <span class="h-box__label">Monthly Drawdown Limit</span>
+      <div class="h-box__val">10%</div>
+      <div class="h-box__desc">Account drops 10% in a month — stop trading for the rest of the month. Review. Adjust. Return next month sized down.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>Position Sizing Formula</h4>
+  </div>
+
+  <div class="formula-block">
+    <span class="formula-block__label">Calculating Correct Lot Size — Step by Step</span>
+    <span class="f-key">Step 1 </span><span class="f-val">Risk Amount = Account Size × Risk %</span><br>
+    <span class="f-comment">        e.g. ₹5,00,000 × 1% = ₹5,000 at risk</span><br><br>
+    <span class="f-key">Step 2 </span><span class="f-val">Stop Loss (pips) = |Entry Price − Stop Loss Price|</span><br>
+    <span class="f-comment">        e.g. 1.08500 − 1.08200 = 30 pips</span><br><br>
+    <span class="f-key">Step 3 </span><span class="f-val">Pip Value ≈ $10 per standard lot (USD-quoted pairs)</span><br><br>
+    <span class="f-key">Step 4 </span><span class="f-val">Lot Size = Risk Amount ÷ (SL in Pips × Pip Value in ₹)</span><br>
+    <span class="f-comment">        e.g. ₹5,000 ÷ (30 × ₹830) = 0.20 lots</span><br><br>
+    <span class="f-green">→ Never calculate lot size before you know your stop loss location.</span>
+  </div>
+
+  <div class="prose">
+    <h4>The Mathematics of Survival</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Risk Per Trade</th><th>Starting Capital</th><th>After 10 Consecutive Losses</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0.5%</td><td>₹10,00,000</td><td>₹9,51,107</td><td><span class="tag tag-g">Recoverable</span></td></tr>
+        <tr><td>1%</td><td>₹10,00,000</td><td>₹9,04,382</td><td><span class="tag tag-g">Recoverable</span></td></tr>
+        <tr><td>2%</td><td>₹10,00,000</td><td>₹8,17,073</td><td><span class="tag tag-g">Recoverable</span></td></tr>
+        <tr><td>5%</td><td>₹10,00,000</td><td>₹5,98,736</td><td><span class="tag tag-a">Compromised</span></td></tr>
+        <tr><td>10%</td><td>₹10,00,000</td><td>₹3,48,678</td><td><span class="tag tag-r">Critically Low</span></td></tr>
+        <tr><td>20%</td><td>₹10,00,000</td><td>₹1,07,374</td><td><span class="tag tag-r">Account Destroyed</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout--dark">
+    <span class="callout__label">The Uncomfortable Truth</span>
+    <strong>Ten consecutive losses is not unusual. It happens to every professional trader multiple times per year.</strong> At 1% risk, ten losses leaves you at 90% capital — recoverable. At 10% risk, ten losses leaves you at 35% — psychologically and practically compromised. Risk management is not conservative. It is the only genuinely aggressive move available to a developing trader.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 6 ═══════ -->
+<section id="s6" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 06</div>
+    <h2 class="stage-title">Execution & Trade Management</h2>
+    <p class="stage-sub">Entry mechanics, SL placement, partials, trailing — the operational layer</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>Strategy tells you what to trade. Execution is how you actually put it on. Most traders have reasonable strategies and disastrous execution. They enter too early, exit too early, move their stop on a whim, and take partial profits at the wrong moment. Execution is a discipline independent of strategy — it must be practised separately and deliberately.</p>
+    <p><strong>There are only two moments that matter in a trade: when you enter and where you place your stop.</strong> Everything else — partials, trailing, full exit — follows from that initial structural logic. If the stop is placed correctly, the rest becomes mechanical.</p>
+
+    <h4>Order Types — When to Use Each</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Order Type</th><th>When to Use</th><th>Advantage</th><th>Risk</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Market Order</strong></td>
+          <td>Confirmed BOS/CHoCH on LTF at a POI. Time-sensitive triggers.</td>
+          <td>Guaranteed fill</td>
+          <td>Slippage in fast markets. Invitation to emotional entries.</td>
+        </tr>
+        <tr>
+          <td><strong>Limit Order</strong></td>
+          <td>Price returning to a known OB/FVG zone. Pre-planned, preset.</td>
+          <td>Better fill price. Zero emotional component at entry.</td>
+          <td>Price may not return. Missed trade vs. bad trade — know the difference.</td>
+        </tr>
+        <tr>
+          <td><strong>Stop Entry</strong></td>
+          <td>Entering on breakout confirmation — waiting for price to move first.</td>
+          <td>Directional confirmation before capital commitment</td>
+          <td>Worse entry. False breakouts stop you out immediately.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>Stop Loss Placement — Structural, Never Arbitrary</h4>
+  </div>
+
+  <ul class="rule-list">
+    <li>Place SL beyond the structural origin that made the setup valid. OB entry → SL below OB low (long) or above OB high (short).</li>
+    <li>Add 3–7 pip buffer beyond the structure to account for spread and minor wicks. Not so wide it materially changes your position size.</li>
+    <li>Never move a stop loss wider after entry. The original structure was your thesis. Thesis invalidated → trade closed, not modified.</li>
+    <li>Moving stop to breakeven after 1R profit is acceptable. Structural protection — not an emotional move.</li>
+    <li>A stop placed at a "round number" or "comfortable loss amount" is not a stop loss. It is an arbitrary exit with no relationship to price structure.</li>
+  </ul>
+
+  <div class="prose">
+    <h4>Partial Profits vs Full Target — The Tradeoffs</h4>
+  </div>
+
+  <div class="card-grid card-grid--2">
+    <div class="c-card">
+      <span class="c-card__icon">✂️</span>
+      <div class="c-card__title">Partials at 1R → BE on Remainder</div>
+      <div class="c-card__body">Close 50% at 1R, move stop to breakeven on remainder. Reduces psychological pressure significantly. Lowers average RR mathematically — use only if it genuinely improves your execution discipline.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🎯</span>
+      <div class="c-card__title">Full Target Strategy</div>
+      <div class="c-card__body">No partials — full position at defined target. Maximises RR on winning trades. Requires higher psychological tolerance when winners reverse to breakeven before reaching target.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🔄</span>
+      <div class="c-card__title">Trailing Stop</div>
+      <div class="c-card__body">Trail behind structural swing lows in a long. Captures extended moves in strong trends. Fails in choppy, ranging conditions — use only when trend is clearly established.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">📊</span>
+      <div class="c-card__title">Scaling Into a Winner</div>
+      <div class="c-card__body">Adding to a winning position only after initial SL is at breakeven. Valid advanced technique. Adding to a losing position is account-destroying behaviour, not "averaging down."</div>
+    </div>
+  </div>
+
+  <div class="callout callout--orange">
+    <span class="callout__label">Absolute Rule</span>
+    Never add to a losing trade. The market does not know your entry price. It does not owe you a recovery. Adding to a loser is not averaging down — it is doubling a thesis that the market has already told you, in price, is wrong.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 7 ═══════ -->
+<section id="s7" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 07</div>
+    <h2 class="stage-title">Trading Psychology</h2>
+    <p class="stage-sub">Trading is not risk management. It is nervous system management.</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>You can understand every concept in this document and still lose money consistently. Not because the knowledge is wrong — but because executing a rule-based system in the presence of real money, real uncertainty, and a real-time loss feedback loop is one of the most psychologically demanding activities a human being can engage in.</p>
+    <p>The mechanics of a profitable trade can be described in under two minutes. The reason most traders cannot execute those mechanics consistently has nothing to do with knowledge. It has everything to do with what happens in the thirty seconds between identifying a setup and pressing the button.</p>
+    <p><strong>Emotions are not the enemy. They are information.</strong> Fear signals overexposure. Euphoria after a winning streak signals impending overtrading. The goal is not to eliminate these signals — it is to build a process that operates correctly regardless of their intensity.</p>
+
+    <h4>The 7 Cognitive Biases That Destroy Traders</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Bias</th><th>How It Shows Up</th><th>Antidote</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Recency Bias</strong></td><td>"3 losses in a row — this strategy doesn't work." Overweights the most recent sample.</td><td>Evaluate performance over 100+ trade samples, never the last 5.</td></tr>
+        <tr><td><strong>Confirmation Bias</strong></td><td>Only seeing chart evidence that supports your current directional view. Ignoring opposing signals.</td><td>Actively construct the bear case before every long thesis.</td></tr>
+        <tr><td><strong>Loss Aversion</strong></td><td>Widening stops to avoid realising a loss. Holding losers far beyond the plan.</td><td>Stop loss is non-negotiable and non-moveable after entry.</td></tr>
+        <tr><td><strong>Gambler's Fallacy</strong></td><td>"4 losses in a row — a win is due." Markets have no memory of your account balance.</td><td>Every trade is statistically independent. Treat it that way.</td></tr>
+        <tr><td><strong>FOMO</strong></td><td>Entering setups that don't meet criteria because price is "moving fast."</td><td>One missed trade is one data point. Chasing costs 30%+ more in average entry.</td></tr>
+        <tr><td><strong>Overconfidence</strong></td><td>Increasing position size after a winning streak. Skipping checklist steps.</td><td>Position size is set by rules — never by recent performance.</td></tr>
+        <tr><td><strong>Anchoring</strong></td><td>"I bought at 1.0850. I won't close until price returns there." The market doesn't know your entry.</td><td>Trade what price is doing now, not where your original entry was.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>The Trade Journal — Your Most Important Tool</h4>
+    <p>A trade journal is not a record of profits and losses — your broker statement does that. A trade journal is a record of decision-making quality, independent of outcome. A bad decision that made money is still a bad decision. A good decision that lost money is still a good decision. Only journals reveal which type you are actually making.</p>
+  </div>
+
+  <div class="formula-block">
+    <span class="formula-block__label">Minimum Journal Entry — Every Single Trade</span>
+    <span class="f-key">Date / Time       </span><span class="f-val">: [when]</span><br>
+    <span class="f-key">Pair / Instrument </span><span class="f-val">: [what]</span><br>
+    <span class="f-key">Setup Type        </span><span class="f-val">: [OB entry / FVG fill / BOS trigger / etc.]</span><br>
+    <span class="f-key">HTF Context       </span><span class="f-val">: [bullish / bearish / ranging — state why in one sentence]</span><br>
+    <span class="f-key">Entry / SL / TP   </span><span class="f-val">: [exact prices]</span><br>
+    <span class="f-key">Risk %            </span><span class="f-val">: [% of account at risk]</span><br>
+    <span class="f-key">Emotional State   </span><span class="f-val">: [calm / anxious / FOMO / revenge / bored / confident]</span><br>
+    <span class="f-key">Rule Adherence    </span><span class="f-val">: [did I follow my setup rules exactly? Y / N]</span><br>
+    <span class="f-key">Outcome           </span><span class="f-val">: [win / loss / BE] [actual RR achieved]</span><br>
+    <span class="f-key">Review Note       </span><span class="f-val">: [one sentence — what does this trade teach me?]</span>
+  </div>
+
+  <div class="callout callout--dark">
+    <span class="callout__label">The Identity Shift</span>
+    Stop identifying as "a trader who makes money." Start identifying as "someone who executes a process." Money is the output of a correctly executed process run at statistical scale. When you measure yourself by process adherence rather than daily P&L, the psychological pressure drops — and paradoxically, the results improve.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 8 ═══════ -->
+<section id="s8" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 08</div>
+    <h2 class="stage-title">Institutional Market Mechanics</h2>
+    <p class="stage-sub">How smart money engineers price — and how to stop being on the wrong side of it</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>Retail traders and institutional participants occupy the same market but operate within fundamentally different constraints. A hedge fund managing $2 billion cannot simply "click buy" on EUR/USD at the price it wants — its order is so large that the act of buying would push price against itself before the position is built. This constraint shapes every aspect of how institutional order flow is engineered.</p>
+    <p>Understanding institutional mechanics is not about replicating institutional behaviour. It is about understanding <strong>why price does the things that confuse retail traders</strong> — the fake breakouts, the unexplained reversals from "obvious" support, the moves that trigger stops before the real direction begins.</p>
+
+    <h4>The Four-Phase Institutional Model</h4>
+  </div>
+
+  <div class="card-grid">
+    <div class="c-card">
+      <span class="c-card__icon">🏗️</span>
+      <div class="c-card__title">Phase 1 — Accumulation</div>
+      <div class="c-card__body">Institutions build positions in a range, absorbing retail selling. Price appears directionless. Quietly increasing volume on dips is the tell. This phase can persist for days to weeks.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🎭</span>
+      <div class="c-card__title">Phase 2 — Manipulation</div>
+      <div class="c-card__body">A deliberate move below the range low to trigger retail stops, flush weak hands, and fill remaining buy orders at discount before the real move begins. Retail calls this a "false breakout." It is intentional.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🚀</span>
+      <div class="c-card__title">Phase 3 — Distribution</div>
+      <div class="c-card__body">The actual directional move begins. Strong and impulsive, leaving imbalances and FVGs. Retail chases here. Institutions are already positioned and beginning to distribute to retail buyers.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🔁</span>
+      <div class="c-card__title">Phase 4 — Re-accumulation</div>
+      <div class="c-card__body">Mid-trend consolidation. The cycle repeats on a smaller scale before the next leg. These HTF consolidations become LTF entry zones for the continuation setup.</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>Crypto-Specific Institutional Tools</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Tool / Metric</th><th>What It Tells You</th><th>Bullish Signal</th><th>Bearish Signal</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Funding Rate</strong></td>
+          <td>Rate paid between longs and shorts to keep perp price anchored to spot</td>
+          <td><span class="tag tag-g">Negative (shorts paying longs)</span></td>
+          <td><span class="tag tag-r">Highly positive (longs overleveraged)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Exchange Inflows</strong></td>
+          <td>BTC moving to exchanges signals intent to sell</td>
+          <td><span class="tag tag-g">Low / declining inflows</span></td>
+          <td><span class="tag tag-r">Spike in exchange inflows</span></td>
+        </tr>
+        <tr>
+          <td><strong>Open Interest</strong></td>
+          <td>Total outstanding contracts in futures markets</td>
+          <td><span class="tag tag-g">OI rising with price (trend confirmation)</span></td>
+          <td><span class="tag tag-r">OI rising as price falls (short pressure)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Long/Short Ratio</strong></td>
+          <td>Proportion of longs vs shorts on perp exchanges</td>
+          <td><span class="tag tag-a">Extreme short bias (contrarian long)</span></td>
+          <td><span class="tag tag-a">Extreme long bias (contrarian short)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>Forex-Specific Institutional Tools</h4>
+  </div>
+
+  <div class="card-grid card-grid--2">
+    <div class="c-card">
+      <span class="c-card__icon">📋</span>
+      <div class="c-card__title">COT Report (Commitment of Traders)</div>
+      <div class="c-card__body">Published weekly by CFTC. Net positions of commercial hedgers, large speculators, and small speculators. Commercial hedger extremes historically precede major reversals. HTF bias tool only — not a timing tool.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🗓️</span>
+      <div class="c-card__title">Options Expiry (OPEX)</div>
+      <div class="c-card__body">Large FX options expire at 10AM NY time. Price gravitates toward major strike prices ("max pain") before expiry. Watch for unusual mid-week price magnetism toward large round numbers.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">🏛️</span>
+      <div class="c-card__title">Central Bank Communication</div>
+      <div class="c-card__body">FOMC, ECB, BoE. The rate decision matters less than the forward guidance language. Learn to read the statement and the press conference — not just the headline number.</div>
+    </div>
+    <div class="c-card">
+      <span class="c-card__icon">📆</span>
+      <div class="c-card__title">High-Impact News Events</div>
+      <div class="c-card__body">NFP, CPI, GDP, Retail Sales. Avoid open positions within 15 minutes of red-folder events. Spreads widen dramatically; stops are structurally unsafe regardless of placement.</div>
+    </div>
+  </div>
+
+  <div class="callout callout--orange">
+    <span class="callout__label">The Core Institutional Insight</span>
+    Every "obvious" support level visible to retail traders is also visible to institutional desks — and they know exactly how many retail stops are clustered there. The obviousness of a level is not a reason to trust it. It is a reason to ask whether price will be engineered through it before the real directional move begins.
+  </div>
+</section>
+<div class="sep"></div>
+
+<!-- ═══════ STAGE 9 ═══════ -->
+<section id="s9" class="stage reveal">
+  <div class="stage-head">
+    <div class="stage-kicker">Stage 09</div>
+    <h2 class="stage-title">Resources, Tools & 90-Day Roadmap</h2>
+    <p class="stage-sub">The exact path from zero to consistent execution — every resource named and linked</p>
+  </div>
+  <div class="stage-rule"></div>
+
+  <div class="prose">
+    <p>You do not need more information. You need the right information, in the right sequence, applied to deliberate practice. Every item below is curated for quality over quantity. Each serves a specific purpose at a specific stage of development — not all at once.</p>
+
+    <h4>Essential Books — Sequenced by Stage</h4>
+  </div>
+
+  <div class="resource-grid">
+    <div class="r-card">
+      <div class="r-card__type">📚 Book — Psychology</div>
+      <div class="r-card__title">Trading in the Zone</div>
+      <div class="r-card__author">Mark Douglas</div>
+      <div class="r-card__desc">The definitive book on trading psychology. Addresses the mental framework required for consistent execution. Read before anything else.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">Beginner — Read First</span>
+        <a class="r-card__link" href="https://www.amazon.com/Trading-Zone-Confidence-Discipline-Attitude/dp/0735201447" target="_blank" rel="noopener">Amazon</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">📚 Book — Psychology</div>
+      <div class="r-card__title">The Disciplined Trader</div>
+      <div class="r-card__author">Mark Douglas</div>
+      <div class="r-card__desc">Douglas's earlier work. More practical exercises for building process discipline. Read second after Trading in the Zone.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">Beginner</span>
+        <a class="r-card__link" href="https://www.amazon.com/Disciplined-Trader-Developing-Winning-Attitudes/dp/0132157578" target="_blank" rel="noopener">Amazon</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">📚 Book — Price Action</div>
+      <div class="r-card__title">Price Action Trading Secrets</div>
+      <div class="r-card__author">Rayner Teo</div>
+      <div class="r-card__desc">Accessible, practical, and honest about what works. Best bridge between raw price action concepts and actual rule-based strategy construction.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://www.tradingwithrayner.com/price-action-trading-secrets/" target="_blank" rel="noopener">TradingwithRayner</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">📚 Book — Probability</div>
+      <div class="r-card__title">Fooled by Randomness</div>
+      <div class="r-card__author">Nassim Taleb</div>
+      <div class="r-card__desc">Survivorship bias, luck vs skill, and how to correctly evaluate trading results. Changes how you read your own P&L. Not a how-to — a how-to-think.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://www.amazon.com/Fooled-Randomness-Hidden-Markets-Incerto/dp/0812975219" target="_blank" rel="noopener">Amazon</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">📚 Book — Risk</div>
+      <div class="r-card__title">The Black Swan</div>
+      <div class="r-card__author">Nassim Taleb</div>
+      <div class="r-card__desc">Tail risk and why risk management must account for outcomes your backtesting never encountered. Advanced mindset reading — not optional for serious traders.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-r">Advanced</span>
+        <a class="r-card__link" href="https://www.amazon.com/Black-Swan-Improbable-Robustness-Fragility/dp/081297381X" target="_blank" rel="noopener">Amazon</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">📚 Book — Market Mechanics</div>
+      <div class="r-card__title">How Markets Really Work</div>
+      <div class="r-card__author">Larry Connors & Cesar Alvarez</div>
+      <div class="r-card__desc">Quantitative analysis of actual market behaviour patterns. Challenges widely-held beliefs about price movement with data, not opinion.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://www.amazon.com/How-Markets-Really-Work-Quantitative/dp/1118227851" target="_blank" rel="noopener">Amazon</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>YouTube & Online Learning — Curated Quality Only</h4>
+  </div>
+
+  <div class="resource-grid">
+    <div class="r-card">
+      <div class="r-card__type">▶ YouTube — ICT / SMC</div>
+      <div class="r-card__title">The Inner Circle Trader (ICT)</div>
+      <div class="r-card__author">Michael Huddleston</div>
+      <div class="r-card__desc">Source material for most Smart Money Concepts in this document. Start with the 2022 Mentorship playlist. Extract the framework — ignore the noise around it.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://youtube.com/@InnerCircleTrader" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">▶ YouTube — Forex / Price Action</div>
+      <div class="r-card__title">TradingwithRayner</div>
+      <div class="r-card__author">Rayner Teo</div>
+      <div class="r-card__desc">Clear, systematic, zero hype. Best for understanding trend structure, price action, and building a rule-based system from absolute scratch.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">Beginner → Intermediate</span>
+        <a class="r-card__link" href="https://www.youtube.com/channel/UCFSn-h8wTnhpKJMteN76Abg" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">▶ YouTube — Price Action</div>
+      <div class="r-card__title">The Trading Channel</div>
+      <div class="r-card__author">Steven Hart</div>
+      <div class="r-card__desc">Professional since 2011. Deep-dives into price action and live trade walkthroughs. 165+ structured educational videos — one of the most thorough free libraries available.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://www.youtube.com/@thetradingchannel" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">▶ YouTube — Crypto Macro</div>
+      <div class="r-card__title">Into The Cryptoverse</div>
+      <div class="r-card__author">Benjamin Cowen (PhD)</div>
+      <div class="r-card__desc">Data-driven on-chain and macro cycle analysis for BTC and crypto. Avoids hype entirely. Use for broader market context — not intraday trade signals.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://youtube.com/@intothecryptoverse" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">🎓 Free Course — Forex Foundations</div>
+      <div class="r-card__title">School of Pipsology</div>
+      <div class="r-card__author">BabyPips.com</div>
+      <div class="r-card__desc">The most comprehensive free structured forex education on the internet. Beginner to intermediate, fully sequenced. Read this before touching a real account.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">Beginner — Free</span>
+        <a class="r-card__link" href="https://www.babypips.com/learn/forex" target="_blank" rel="noopener">babypips.com</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">🌐 Website — Blog + Academy</div>
+      <div class="r-card__title">TradingwithRayner</div>
+      <div class="r-card__author">Rayner Teo</div>
+      <div class="r-card__desc">Free articles, strategy guides, and structured courses on price action, forex, and stocks. One of the most honest and thorough free educational resources available anywhere.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">All Levels — Free</span>
+        <a class="r-card__link" href="https://www.tradingwithrayner.com" target="_blank" rel="noopener">Website</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>Free Education Websites — Structured Learning</h4>
+  </div>
+
+  <div class="resource-grid">
+    <div class="r-card">
+      <div class="r-card__type">🌐 Website — Structured Course</div>
+      <div class="r-card__title">DailyFX Education</div>
+      <div class="r-card__author">IG Group</div>
+      <div class="r-card__desc">Three-tier structured learning: Beginner, Intermediate, Advanced. Free live webinars, guides on price action, risk, and psychology. Backed by a regulated institution — no upsell agenda.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">All Levels — Free</span>
+        <a class="r-card__link" href="https://www.dailyfx.com/education" target="_blank" rel="noopener">dailyfx.com</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">🌐 Website — Reference</div>
+      <div class="r-card__title">Investopedia — Forex</div>
+      <div class="r-card__author">Investopedia</div>
+      <div class="r-card__desc">The standard reference for every financial term. Leverage, margin, spread, pip, lot size — all precisely explained. Also has a free paper trading simulator.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">Reference — Free</span>
+        <a class="r-card__link" href="https://www.investopedia.com/forex-4689817" target="_blank" rel="noopener">investopedia.com</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">🌐 Website — News + Analysis</div>
+      <div class="r-card__title">FXStreet Education</div>
+      <div class="r-card__author">FXStreet</div>
+      <div class="r-card__desc">Combines live market news with structured education. Useful for reading how professionals frame market commentary in real time. High-quality free articles and guides.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-a">Intermediate</span>
+        <a class="r-card__link" href="https://www.fxstreet.com/education" target="_blank" rel="noopener">fxstreet.com</a>
+      </div>
+    </div>
+    <div class="r-card">
+      <div class="r-card__type">🌐 Website — Live Data</div>
+      <div class="r-card__title">Investing.com</div>
+      <div class="r-card__author">Investing.com</div>
+      <div class="r-card__desc">Real-time economic calendar, live forex rates, crypto prices, and global market data in one dashboard. Strongest single alternative to Forex Factory across all asset classes.</div>
+      <div class="r-card__footer">
+        <span class="r-card__level tag tag-g">All Levels — Free</span>
+        <a class="r-card__link" href="https://www.investing.com" target="_blank" rel="noopener">investing.com</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>Essential Tools & Platforms</h4>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Tool</th><th>Purpose</th><th>Cost</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong><a class="tbl-link" href="https://www.tradingview.com" target="_blank" rel="noopener">TradingView</a></strong></td><td>Charting, Replay backtesting, multi-timeframe analysis, alerts</td><td>Free / Pro $12.95/mo</td><td><span class="tag tag-g">Essential</span></td></tr>
+        <tr><td><strong>MT4 / MT5</strong> <span style="font-size:11px;color:var(--ink-4)">(via broker)</span></td><td>Forex execution platform. Provided free by most regulated brokers.</td><td>Free</td><td><span class="tag tag-g">Essential</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://www.notion.so" target="_blank" rel="noopener">Notion</a> / <a class="tbl-link" href="https://sheets.google.com" target="_blank" rel="noopener">Google Sheets</a></strong></td><td>Trade journal. Log every trade with the template from Stage 7.</td><td>Free</td><td><span class="tag tag-g">Essential</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://www.forexfactory.com" target="_blank" rel="noopener">Forex Factory</a></strong></td><td>Economic calendar. Know every high-impact event before each session.</td><td>Free</td><td><span class="tag tag-g">Essential</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://www.myfxbook.com" target="_blank" rel="noopener">Myfxbook</a> / <a class="tbl-link" href="https://www.fxblue.com" target="_blank" rel="noopener">FX Blue</a></strong></td><td>Track live account stats — drawdown, win rate by pair, session performance</td><td>Free</td><td><span class="tag tag-a">Recommended</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://forextester.com" target="_blank" rel="noopener">Forex Tester Online</a></strong></td><td>Dedicated backtesting software. More powerful than TradingView Replay for systematic strategy testing with auto-logged results.</td><td>Free basic / Paid</td><td><span class="tag tag-a">Recommended</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://www.coinglass.com" target="_blank" rel="noopener">CoinGlass</a></strong></td><td>Crypto funding rates, open interest, liquidation heatmaps</td><td>Free</td><td><span class="tag tag-a">Crypto</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://glassnode.com" target="_blank" rel="noopener">Glassnode</a></strong></td><td>On-chain Bitcoin and Ethereum analytics</td><td>Free tier / Paid</td><td><span class="tag tag-a">Advanced Crypto</span></td></tr>
+        <tr><td><strong><a class="tbl-link" href="https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm" target="_blank" rel="noopener">CFTC COT Reports</a></strong></td><td>Commitment of Traders — institutional positioning data for Forex</td><td>Free</td><td><span class="tag tag-a">Advanced Forex</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="prose">
+    <h4>Broker Selection — Non-Negotiable Checklist</h4>
+  </div>
+
+  <div class="check-grid">
+    <div class="chk-box chk-box--yes">
+      <div class="chk-box__label">✓ Must Have</div>
+      <ul class="chk-list">
+        <li>Regulated — FCA, ASIC, CySEC, or SEBI</li>
+        <li>Spreads below 1.0 pip on EUR/USD</li>
+        <li>No dealing desk — ECN or STP execution</li>
+        <li>Negative balance protection</li>
+        <li>Demo account available before real money</li>
+        <li>MT4 / MT5 or robust proprietary platform</li>
+        <li>Withdrawals processed within 48 hours</li>
+      </ul>
+    </div>
+    <div class="chk-box chk-box--no">
+      <div class="chk-box__label">✕ Avoid</div>
+      <ul class="chk-list">
+        <li>Unregulated or offshore-only registration</li>
+        <li>"Guaranteed profit" promotions</li>
+        <li>Bonus schemes that restrict withdrawals</li>
+        <li>Fixed spreads during high-impact news</li>
+        <li>No negative balance protection</li>
+        <li>Requotes on market orders</li>
+        <li>Withdrawal delays or unexplained fees</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h4>90-Day Structured Roadmap</h4>
+  </div>
+
+  <div class="roadmap">
+    <div class="roadmap-phase">
+      <div class="roadmap-left">
+        <div class="roadmap-phase-lbl">Phase 1</div>
+        <div class="roadmap-phase-days">Days 1–20</div>
+      </div>
+      <div class="roadmap-spine">
+        <div class="roadmap-dot"></div>
+        <div class="roadmap-connector"></div>
+      </div>
+      <div class="roadmap-right">
+        <div class="roadmap-right__title">Foundation & Framework</div>
+        <ul class="roadmap-items">
+          <li>Read <em>Trading in the Zone</em> — completely, not skimmed</li>
+          <li>Study Stages 1–3 of this document with TradingView open</li>
+          <li>Study 3 months of EUR/USD on Daily — identify every BOS, CHoCH, OB, and FVG manually</li>
+          <li>Open a demo account with a regulated broker</li>
+          <li>Build your trade journal template. Do not skip this step.</li>
+          <li>No real money. No trades. Pure study and structured observation.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="roadmap-phase">
+      <div class="roadmap-left">
+        <div class="roadmap-phase-lbl">Phase 2</div>
+        <div class="roadmap-phase-days">Days 21–45</div>
+      </div>
+      <div class="roadmap-spine">
+        <div class="roadmap-dot"></div>
+        <div class="roadmap-connector"></div>
+      </div>
+      <div class="roadmap-right">
+        <div class="roadmap-right__title">Strategy Selection & Backtesting</div>
+        <ul class="roadmap-items">
+          <li>Select ONE setup type — OB entry, FVG fill, or Kill Zone BOS trigger</li>
+          <li>Write the complete rules. Every condition. Every exit. No ambiguity.</li>
+          <li>Backtest minimum 100 occurrences via TradingView Replay — EUR/USD and GBP/USD only</li>
+          <li>Log every single trade in your journal with full fields</li>
+          <li>Calculate win rate, average RR, and expectancy</li>
+          <li>Positive expectancy → proceed. Negative → refine rules and re-backtest before moving on.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="roadmap-phase">
+      <div class="roadmap-left">
+        <div class="roadmap-phase-lbl">Phase 3</div>
+        <div class="roadmap-phase-days">Days 46–70</div>
+      </div>
+      <div class="roadmap-spine">
+        <div class="roadmap-dot"></div>
+        <div class="roadmap-connector"></div>
+      </div>
+      <div class="roadmap-right">
+        <div class="roadmap-right__title">Demo Trading — Live Market Conditions</div>
+        <ul class="roadmap-items">
+          <li>Execute your strategy in real-time demo conditions</li>
+          <li>Minimum 30 live-market trades before evaluating results</li>
+          <li>Journal every trade including emotional state at entry and exit</li>
+          <li>Weekly review: are you following your rules exactly, or deviating?</li>
+          <li>Study Stages 5–7 (risk, execution, psychology) during this phase</li>
+          <li>Target: 80%+ rule adherence rate before any real capital deployment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="roadmap-phase">
+      <div class="roadmap-left">
+        <div class="roadmap-phase-lbl">Phase 4</div>
+        <div class="roadmap-phase-days">Days 71–90</div>
+      </div>
+      <div class="roadmap-spine">
+        <div class="roadmap-dot"></div>
+        <div class="roadmap-connector"></div>
+      </div>
+      <div class="roadmap-right">
+        <div class="roadmap-right__title">Real Capital — Minimum Viable Size</div>
+        <ul class="roadmap-items">
+          <li>Start with capital you are genuinely prepared to lose — not emergency or essential funds</li>
+          <li>Risk 0.5% per trade. No exceptions for the first 60 real trades.</li>
+          <li>Same setup, same pairs, same sessions as demo phase — no deviations</li>
+          <li>Measure rule adherence rate for the first month, not P&L</li>
+          <li>Study Stage 8 — observe institutional mechanics in live conditions</li>
+          <li>After 60 trades with 80%+ adherence: review and consider scaling to 1%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout--dark">
+    <span class="callout__label">Final Principle</span>
+    The trader who survives long enough to see their statistical edge play out across hundreds of trades is the one who wins. Most traders don't lose because their strategy failed. They lose because they didn't survive long enough for it to work. <strong>Survival is the strategy. Everything else is implementation.</strong>
+  </div>
+</section>
+
+</div><!-- /content -->
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">Sanjeev Signals</div>
+      <div class="footer-tagline">Pre-Market Clarity. Rule-Based Execution.</div>
+    </div>
+    <div class="footer-disclaimer">
+      Not a SEBI Registered Investment Advisor. All content is for educational purposes only and does not constitute financial advice or investment recommendations. Trading in financial markets involves substantial risk of capital loss. Past performance is not indicative of future results.
+    </div>
+  </div>
+</footer>
+
+</main>
+</div>
+
+<script>
+// Scroll progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = Math.min((scrolled / total) * 100, 100) + '%';
+}, { passive: true });
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+
+reveals.forEach(el => io.observe(el));
+
+// Sidebar active link highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sb-nav__link');
+
+const sio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => {
+        l.style.background = '';
+        l.querySelector('.sb-nav__num').style.color = '';
+        l.querySelector('.sb-nav__text').style.color = '';
+      });
+      const active = document.querySelector(`.sb-nav__link[href="#${e.target.id}"]`);
+      if (active) {
+        active.style.background = 'var(--orange-tint)';
+        active.querySelector('.sb-nav__num').style.color = 'var(--orange)';
+        active.querySelector('.sb-nav__text').style.color = 'var(--ink)';
+      }
+    }
+  });
+}, { threshold: 0.25 });
+
+sections.forEach(s => sio.observe(s));
+</script>
+
+</body>
+</html>

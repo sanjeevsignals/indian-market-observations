@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index, follow" />
+
+  <title>Why Blueberry Funded is the Premier Choice for Indian Proprietary Traders | Sanjeev Signals</title>
+  <meta name="description" content="A strategic analysis of Blueberry Funded — broker-backed infrastructure, UPI integration, and funded capital access for Indian traders. By Sanjeev Singh." />
+  <meta name="author" content="Sanjeev Singh" />
+  <meta name="keywords" content="Blueberry Funded, prop firm India, UPI prop trading, funded trading India, NIFTY 50, Sanjeev Signals" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article" />
+  <meta property="og:title"       content="Why Blueberry Funded is the Premier Choice for Indian Proprietary Traders" />
+  <meta property="og:description" content="A strategic analysis of broker-backed infrastructure, UPI integration, and funded capital access for Indian traders. By Sanjeev Singh · Sanjeev Signals." />
+  <meta property="og:site_name"   content="Sanjeev Signals" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="Why Blueberry Funded is the Premier Choice for Indian Proprietary Traders" />
+  <meta name="twitter:description" content="Broker-backed. UPI-friendly. 7-day payouts. A complete strategic breakdown for Indian traders." />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://sanjeevsignals.github.io/indian-market-observations/beyond-books/blueberry-funded-analysis.html" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════════════════ */
+    :root {
+      /* Surfaces */
+      --color-bg:           #fafaf8;
+      --color-surface:      #ffffff;
+      --color-surface-alt:  #f4f3ef;
+      --color-border:       #e8e6e0;
+      --color-border-soft:  #f0ede6;
+
+      /* Ink scale */
+      --color-ink:          #1a1916;
+      --color-ink-2:        #3d3b35;
+      --color-ink-3:        #6b6860;
+      --color-ink-4:        #9c9a94;
+
+      /* Brand — orange only for UI accents */
+      --color-brand:        #f07030;
+      --color-brand-dark:   #c85a20;
+      --color-brand-light:  #fde8d8;
+      --color-brand-glow:   rgba(240, 112, 48, 0.10);
+
+      /* Trading data colours — never used for UI decoration */
+      --color-bull:         #1a7a4a;
+      --color-bull-bg:      #edf7f2;
+      --color-bull-border:  #b2ddc5;
+      --color-bear:         #c0392b;
+      --color-bear-bg:      #fdf0ef;
+      --color-caution:      #b8860b;
+      --color-caution-bg:   #fef9e7;
+      --color-caution-border:#e8d08a;
+
+      /* Typography */
+      --font-display:  'Playfair Display', Georgia, serif;
+      --font-body:     'Outfit', system-ui, sans-serif;
+      --font-mono:     'JetBrains Mono', 'Courier New', monospace;
+
+      /* Radius scale */
+      --r-xs: 3px;
+      --r-sm: 6px;
+      --r-md: 10px;
+      --r-lg: 16px;
+      --r-xl: 24px;
+
+      /* Shadows */
+      --shadow-sm:   0 1px 4px rgba(0,0,0,0.06);
+      --shadow-card: 0 2px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+
+      /* Layout */
+      --max-width: 780px;
+      --reading-width: 680px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESET & BASE
+    ═══════════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--color-ink);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    img, svg { max-width: 100%; display: block; }
+
+    a {
+      color: var(--color-brand);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+    a:hover {
+      color: var(--color-brand-dark);
+      text-decoration-color: var(--color-brand-dark);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       LAYOUT
+    ═══════════════════════════════════════════════════════════ */
+    .page-wrapper {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 28px 96px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       MASTHEAD
+    ═══════════════════════════════════════════════════════════ */
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 22px;
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 52px;
+      gap: 16px;
+    }
+
+    .masthead__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .masthead__logo {
+      width: 38px;
+      height: 38px;
+      background: var(--color-brand);
+      border-radius: var(--r-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Correct SVG: stroke-based icon, not fill */
+    .masthead__logo svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .masthead__name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-ink);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .masthead__sub {
+      font-size: 11px;
+      color: var(--color-ink-4);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .masthead__meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--color-ink-4);
+      font-family: var(--font-mono);
+      line-height: 1.7;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════════════ */
+    .hero {
+      margin-bottom: 52px;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+      text-decoration: none;
+    }
+    .hero__eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--color-brand);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .hero__headline {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5.5vw, 46px);
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--color-ink);
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+    }
+    .hero__headline em {
+      font-style: italic;
+      color: var(--color-brand);
+    }
+
+    .hero__subhead {
+      font-size: 18px;
+      color: var(--color-ink-2);
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: var(--reading-width);
+      margin-bottom: 28px;
+    }
+
+    .hero__byline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      padding-top: 22px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .hero__author {
+      font-size: 14px;
+      color: var(--color-ink-3);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .hero__author strong {
+      color: var(--color-ink);
+      font-weight: 700;
+    }
+
+    .hero__reading-time {
+      font-size: 12px;
+      color: var(--color-ink-4);
+      font-family: var(--font-mono);
+    }
+
+    .hero__pill {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      background: var(--color-brand-light);
+      color: var(--color-brand-dark);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       LEDE (OPENING QUOTE BLOCK)
+    ═══════════════════════════════════════════════════════════ */
+    .lede {
+      background: var(--color-ink);
+      color: #fff;
+      border-radius: var(--r-lg);
+      padding: 36px 44px;
+      margin-bottom: 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lede::before {
+      content: '\201C';
+      font-family: var(--font-display);
+      font-size: 200px;
+      color: rgba(240,112,48,0.12);
+      position: absolute;
+      top: -48px;
+      left: 16px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      aria-hidden: true;
+    }
+    .lede__text {
+      font-size: 19px;
+      line-height: 1.72;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+      color: rgba(255,255,255,0.92);
+    }
+    .lede__text strong {
+      color: var(--color-brand);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PROSE BODY
+    ═══════════════════════════════════════════════════════════ */
+    .prose h2 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 60px 0 18px;
+      letter-spacing: -0.01em;
+      line-height: 1.28;
+    }
+
+    .prose h2 .section-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-brand);
+      display: block;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .prose p {
+      font-size: 17px;
+      color: var(--color-ink-2);
+      line-height: 1.82;
+      margin-bottom: 22px;
+    }
+    .prose p:last-child { margin-bottom: 0; }
+
+    .prose p strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       INSIGHT CARD (LEFT-BORDER CALLOUT)
+    ═══════════════════════════════════════════════════════════ */
+    .insight-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-brand);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      padding: 20px 26px;
+      margin: 28px 0;
+    }
+    .insight-card__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      font-family: var(--font-mono);
+      margin-bottom: 10px;
+    }
+    .insight-card__text {
+      font-size: 16px;
+      color: var(--color-ink);
+      line-height: 1.72;
+      margin: 0;
+    }
+    .insight-card__text em {
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       WARNING / CAUTION BLOCK
+    ═══════════════════════════════════════════════════════════ */
+    .warning-block {
+      background: var(--color-caution-bg);
+      border: 1px solid var(--color-caution-border);
+      border-radius: var(--r-md);
+      padding: 20px 26px;
+      margin: 28px 0;
+    }
+    .warning-block__header {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 10px;
+    }
+    .warning-block__icon {
+      font-size: 17px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .warning-block__label {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-caution);
+      font-family: var(--font-mono);
+    }
+    .warning-block__text {
+      font-size: 15px;
+      color: #4a3900;
+      line-height: 1.72;
+      margin: 0;
+    }
+    .warning-block__text strong {
+      color: #7a5c00;
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DATA TABLE
+    ═══════════════════════════════════════════════════════════ */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 32px 0;
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--color-border);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14.5px;
+    }
+    .data-table thead {
+      background: var(--color-ink);
+    }
+    .data-table thead th {
+      padding: 14px 20px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      color: rgba(255,255,255,0.85);
+      white-space: nowrap;
+    }
+    .data-table thead th:first-child { color: #fff; }
+
+    .data-table tbody tr {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border-soft);
+      transition: background 0.1s ease;
+    }
+    .data-table tbody tr:last-child { border-bottom: none; }
+    .data-table tbody tr:nth-child(even) { background: var(--color-surface-alt); }
+
+    .data-table tbody td {
+      padding: 13px 20px;
+      color: var(--color-ink-2);
+      line-height: 1.5;
+      vertical-align: middle;
+    }
+    .data-table tbody td:first-child {
+      font-weight: 600;
+      color: var(--color-ink);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: var(--r-xs);
+      font-family: var(--font-mono);
+      white-space: nowrap;
+    }
+    .tag--bull {
+      background: var(--color-bull-bg);
+      color: var(--color-bull);
+    }
+    .tag--brand {
+      background: var(--color-brand-light);
+      color: var(--color-brand-dark);
+    }
+    .tag--neutral {
+      background: var(--color-surface-alt);
+      color: var(--color-ink-3);
+      border: 1px solid var(--color-border);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       STAT GRID
+    ═══════════════════════════════════════════════════════════ */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin: 32px 0;
+    }
+    .stat-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      padding: 22px 16px;
+      text-align: center;
+    }
+    .stat-card__value {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-brand);
+      line-height: 1.1;
+      margin-bottom: 7px;
+      letter-spacing: -0.02em;
+    }
+    .stat-card__label {
+      font-size: 11px;
+      color: var(--color-ink-4);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PHASE CARDS (DUAL COLUMN)
+    ═══════════════════════════════════════════════════════════ */
+    .phase-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 28px 0;
+    }
+    .phase-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      padding: 24px 22px;
+    }
+    .phase-card--bull {
+      background: var(--color-bull-bg);
+      border-color: var(--color-bull-border);
+    }
+    .phase-card__badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 10px;
+    }
+    .phase-card--bull .phase-card__badge {
+      color: var(--color-bull);
+    }
+    .phase-card__target {
+      font-size: 21px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--color-ink);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .phase-card__desc {
+      font-size: 14px;
+      color: var(--color-ink-3);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       RULE LIST
+    ═══════════════════════════════════════════════════════════ */
+    .rule-list {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin: 28px 0;
+    }
+    .rule-list__header {
+      background: var(--color-surface-alt);
+      padding: 12px 20px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-ink-3);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .rule-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--color-border-soft);
+    }
+    .rule-item:last-child {
+      border-bottom: none;
+    }
+    .rule-item__icon {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-top: 1px;
+    }
+    .rule-item__icon--bear   { background: var(--color-bear-bg); }
+    .rule-item__icon--bull   { background: var(--color-bull-bg); }
+    .rule-item__icon--amber  { background: var(--color-caution-bg); }
+    .rule-item__title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-ink);
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+    .rule-item__detail {
+      font-size: 14px;
+      color: var(--color-ink-3);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .rule-item__detail strong {
+      color: var(--color-ink-2);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CASE STUDY (DARK BOX)
+    ═══════════════════════════════════════════════════════════ */
+    .case-study {
+      background: var(--color-ink);
+      border-radius: var(--r-lg);
+      padding: 36px 40px;
+      margin: 36px 0;
+      color: #fff;
+    }
+    .case-study__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 14px;
+    }
+    .case-study__title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 24px;
+      line-height: 1.38;
+    }
+    .case-study__flow {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      margin-bottom: 24px;
+    }
+    .case-study__step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .case-study__step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-brand);
+      flex-shrink: 0;
+    }
+    .case-study__step-dot--bear {
+      background: #e74c3c;
+    }
+    .case-study__step-text {
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.5;
+    }
+    .case-study__step-text strong {
+      color: #fff;
+    }
+    .case-study__step-text--alert {
+      color: #f87171;
+    }
+    .case-study__verdict {
+      background: rgba(240,112,48,0.14);
+      border: 1px solid rgba(240,112,48,0.28);
+      border-radius: var(--r-sm);
+      padding: 16px 20px;
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.65;
+    }
+    .case-study__verdict strong {
+      color: var(--color-brand);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PULL QUOTE
+    ═══════════════════════════════════════════════════════════ */
+    .pullquote {
+      border-top: 3px solid var(--color-brand);
+      border-bottom: 1px solid var(--color-border);
+      padding: 30px 0;
+      margin: 44px 0;
+    }
+    .pullquote__text {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-style: italic;
+      color: var(--color-ink);
+      line-height: 1.52;
+      margin-bottom: 14px;
+    }
+    .pullquote__attr {
+      font-size: 12.5px;
+      color: var(--color-ink-4);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION DIVIDER
+    ═══════════════════════════════════════════════════════════ */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 52px 0 0;
+    }
+    .section-divider__line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+    .section-divider__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-brand);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CHECKLIST
+    ═══════════════════════════════════════════════════════════ */
+    .checklist {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin: 36px 0;
+    }
+    .checklist__header {
+      background: var(--color-surface-alt);
+      padding: 14px 24px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-ink-3);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .checklist__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--color-border-soft);
+      font-size: 15px;
+      color: var(--color-ink-2);
+      line-height: 1.55;
+    }
+    .checklist__item:last-child {
+      border-bottom: none;
+    }
+    .checklist__box {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border);
+      border-radius: var(--r-xs);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       CONCLUSION BLOCK
+    ═══════════════════════════════════════════════════════════ */
+    .conclusion {
+      background: linear-gradient(140deg, #1a1916 0%, #242018 100%);
+      border-radius: var(--r-xl);
+      padding: 52px 48px;
+      margin-top: 68px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .conclusion::after {
+      content: '';
+      position: absolute;
+      bottom: -60px;
+      right: -60px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: var(--color-brand-glow);
+      border: 1px solid rgba(240,112,48,0.18);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .conclusion > * { position: relative; z-index: 1; }
+
+    .conclusion__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 16px;
+    }
+    .conclusion__heading {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3.5vw, 30px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.28;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+    .conclusion__body {
+      font-size: 16px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.78;
+      margin-bottom: 36px;
+      max-width: 580px;
+    }
+    .conclusion__pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .conclusion__pillar {
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--r-md);
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .conclusion__pillar-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+    .conclusion__pillar-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .conclusion__pillar-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       AUTHOR CARD
+    ═══════════════════════════════════════════════════════════ */
+    .author-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-lg);
+      padding: 32px 36px;
+      margin-top: 52px;
+    }
+    .author-card__avatar {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--color-ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .author-card__avatar::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 2px solid var(--color-brand);
+      opacity: 0.35;
+    }
+    .author-card__initials {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-brand);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .author-card__body {
+      flex: 1;
+      min-width: 0;
+    }
+    .author-card__label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ink-4);
+      margin-bottom: 6px;
+    }
+    .author-card__name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-ink);
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+    .author-card__brand {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--color-brand);
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+      margin-bottom: 16px;
+    }
+    .author-card__bio {
+      font-size: 15px;
+      color: var(--color-ink-3);
+      line-height: 1.72;
+      margin-bottom: 16px;
+    }
+    .author-card__bio strong {
+      color: var(--color-ink-2);
+      font-weight: 600;
+    }
+    .author-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+    .author-card__tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+      padding: 4px 11px;
+      border-radius: 20px;
+      background: var(--color-surface-alt);
+      color: var(--color-ink-3);
+      border: 1px solid var(--color-border);
+      white-space: nowrap;
+    }
+    .author-card__tag--brand {
+      background: var(--color-brand-light);
+      color: var(--color-brand-dark);
+      border-color: transparent;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DISCLAIMER
+    ═══════════════════════════════════════════════════════════ */
+    .disclaimer {
+      margin-top: 44px;
+      padding: 18px 22px;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--r-md);
+      font-size: 12px;
+      color: var(--color-ink-4);
+      line-height: 1.75;
+    }
+    .disclaimer strong {
+      color: var(--color-ink-3);
+      font-weight: 700;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 24px 0;
+      margin-top: 40px;
+      border-top: 1px solid var(--color-border);
+    }
+    .footer__left {
+      font-size: 13px;
+      color: var(--color-ink-4);
+      font-family: var(--font-mono);
+      line-height: 1.5;
+    }
+    .footer__left strong {
+      color: var(--color-ink);
+      font-weight: 700;
+    }
+    .footer__right {
+      font-size: 12px;
+      color: var(--color-ink-4);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ENTRANCE ANIMATION
+    ═══════════════════════════════════════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero  { animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+    .lede  { animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.08s both; }
+    .prose { animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.16s both; }
+
+    /* ═══════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .page-wrapper        { padding: 0 18px 72px; }
+      .masthead            { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .masthead__meta      { text-align: left; }
+      .lede                { padding: 28px 24px; }
+      .lede__text          { font-size: 17px; }
+      .stat-grid           { grid-template-columns: repeat(2, 1fr); }
+      .phase-strip         { grid-template-columns: 1fr; }
+      .conclusion          { padding: 36px 28px; }
+      .conclusion__pillars { grid-template-columns: 1fr; gap: 10px; }
+      .author-card         { flex-direction: column; gap: 20px; padding: 26px 22px; }
+      .footer              { flex-direction: column; align-items: flex-start; }
+      .case-study          { padding: 28px 24px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PRINT
+    ═══════════════════════════════════════════════════════════ */
+    @media print {
+      body { background: #fff; font-size: 13px; }
+      .page-wrapper { max-width: 100%; padding: 0; }
+      .masthead { padding: 12px 0; margin-bottom: 24px; }
+      .lede { background: #f0f0f0; color: #000; border-radius: 0; }
+      .lede__text { color: #000; font-size: 14px; }
+      .case-study { background: #f0f0f0; color: #000; }
+      .case-study__step-text { color: #333; }
+      .conclusion { background: #f0f0f0; color: #000; border-radius: 0; }
+      .conclusion__heading, .conclusion__body { color: #000; }
+      .conclusion__pillar { border: 1px solid #ccc; }
+      .conclusion__pillar-desc { color: #555; }
+      .hero, .lede, .prose { animation: none; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- ── Masthead ─────────────────────────────────────────── -->
+  <header class="masthead" role="banner">
+    <div class="masthead__brand">
+      <div class="masthead__logo" aria-hidden="true">
+        <!-- Stroke-based layered-bars icon — correct SVG for this style -->
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <div>
+        <div class="masthead__name">Sanjeev Signals</div>
+        <div class="masthead__sub">Pre-Market Clarity · Rule-Based Execution</div>
+      </div>
+    </div>
+    <div class="masthead__meta" aria-label="Publication metadata">
+      Strategic Analysis<br />
+      By Sanjeev Singh
+    </div>
+  </header>
+
+  <!-- ── Hero ──────────────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero__eyebrow" aria-label="Category">Prop Trading · Indian Markets</div>
+    <h1 class="hero__headline">
+      Why Blueberry Funded is the <em>Premier Choice</em> for Indian Proprietary Traders
+    </h1>
+    <p class="hero__subhead">
+      A strategic analysis of broker-backed infrastructure, localized payment access, and what it actually takes to convert a ₹3,500 entry fee into a ₹4,00,000 trading account — without the noise.
+    </p>
+    <div class="hero__byline">
+      <span class="hero__author">
+        <strong>Sanjeev Singh</strong> · Independent F&amp;O Trader &amp; Systems Researcher
+      </span>
+      <span class="hero__reading-time">~12 min read</span>
+      <span class="hero__pill">Strategic Analysis</span>
+    </div>
+  </div>
+
+  <!-- ── Opening Lede ───────────────────────────────────────── -->
+  <div class="lede" role="note">
+    <p class="lede__text">
+      For most Indian traders, the biggest obstacle has never been strategy. It has been <strong>capital access</strong>. You can have a well-tested edge, disciplined risk management, and consistent results — and still hit a wall when you try to put real money behind it. That wall is not skill. It is infrastructure. Blueberry Funded is one of the few platforms that has actually tried to remove it.
+    </p>
+  </div>
+
+  <!-- ── Article Body ───────────────────────────────────────── -->
+  <main class="prose" id="main-content">
+
+    <!-- Section 01 -->
+    <h2>
+      <span class="section-num">Section 01</span>
+      The Real Problem Indian Traders Face Before the First Trade
+    </h2>
+
+    <p>
+      Most global prop firms assume you have a crypto wallet, an international credit card that clears without friction, and the technical patience to navigate USDT conversions. That assumption eliminates a significant portion of qualified Indian traders before they can even register — not because they lack skill, but because the payment infrastructure was never built for them.
+    </p>
+    <p>
+      Blueberry Funded addresses this directly by integrating with India's existing digital payment stack. You can fund a challenge using UPI, IMPS, or local bank transfers through the Blueberry Cashier. The experience is comparable to any domestic e-commerce checkout. No crypto wallet setup, no international card, no intermediary required.
+    </p>
+
+    <div class="warning-block" role="note">
+      <div class="warning-block__header">
+        <span class="warning-block__icon" aria-hidden="true">⚠️</span>
+        <span class="warning-block__label">Tactical Note — The GST Trap</span>
+      </div>
+      <p class="warning-block__text">
+        Not all UPI routes within the platform are equal. Some gateways — particularly "Expedite" or "XP Lite" style options — route payments through a structure that adds <strong>18% GST on top of the challenge fee</strong>. On a $55 challenge, that is a meaningful hit before a single trade is placed. The correct route is the <strong>"Blueberry Cashier"</strong> option, which supports direct UPI and IMPS transfers without additional tax overhead. This one decision protects your capital before the market ever gets a chance to.
+      </p>
+    </div>
+
+    <!-- Section 02 -->
+    <h2>
+      <span class="section-num">Section 02</span>
+      Why "Broker-Backed" is Not Just a Marketing Term
+    </h2>
+
+    <p>
+      The prop firm space has a trust problem. Standalone platforms — with no underlying brokerage, no regulated liquidity provider, and no verifiable infrastructure — have appeared and disappeared inside 12 to 18 months. Traders who passed their challenges never got paid because the firm had no real money to begin with.
+    </p>
+    <p>
+      Blueberry Funded operates within the infrastructure of Blueberry Markets, an established brokerage. This is not cosmetic branding. It means the firm controls its own trading servers, liquidity routing, and execution environment. For the trader, this translates into three practical advantages: tighter spreads, lower slippage, and significantly reduced counterparty risk at the payout stage.
+    </p>
+
+    <div class="insight-card" role="note">
+      <div class="insight-card__label">Key Distinction</div>
+      <p class="insight-card__text">
+        A platform-only prop firm sits between you and the market. A broker-backed firm <em>is</em> the infrastructure. In volatile conditions — exactly when execution quality matters most — that difference is not theoretical.
+      </p>
+    </div>
+
+    <!-- Section 03 -->
+    <h2>
+      <span class="section-num">Section 03</span>
+      The $38.50 Entry Point: Understanding the Capital Asymmetry
+    </h2>
+
+    <p>
+      The standard price for a $5,000 Prime 2-Step challenge is approximately $55. By applying the coupon code <strong>CRYPTO</strong> at checkout, the cost drops by 30% to <strong>$38.50</strong> — roughly ₹3,200 to ₹3,500 depending on the prevailing exchange rate.
+    </p>
+
+    <div class="stat-grid" role="region" aria-label="Key statistics">
+      <div class="stat-card">
+        <div class="stat-card__value">$38.50</div>
+        <div class="stat-card__label">Net Entry Cost</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__value">$5,000</div>
+        <div class="stat-card__label">Trading Capital</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__value">130×</div>
+        <div class="stat-card__label">Capital Leverage Ratio</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__value">80%</div>
+        <div class="stat-card__label">Your Profit Share</div>
+      </div>
+    </div>
+
+    <p>
+      This is the core value proposition of funded trading: your personal financial risk is capped at the challenge fee. If you breach the rules, you lose $38.50 — not $5,000. But if you pass, you gain access to a capital base that most retail traders spend years accumulating, and you keep 80% of whatever you generate on it.
+    </p>
+    <p>
+      That asymmetry is real. But it only holds if the platform pays. The broker-backed model is what makes that promise credible.
+    </p>
+
+    <!-- Section 04 — Preceded by visual divider -->
+    <div class="section-divider" aria-hidden="true">
+      <div class="section-divider__line"></div>
+      <div class="section-divider__dot"></div>
+      <div class="section-divider__line"></div>
+    </div>
+
+    <h2>
+      <span class="section-num">Section 04</span>
+      Choosing Your Path: Evaluation vs. Instant Funding
+    </h2>
+
+    <p>
+      Blueberry Funded offers two account structures for the $5,000 tier. The choice between them is not just about cost — it is a question of what kind of discipline filter you want before you go live with real capital.
+    </p>
+
+    <div class="table-wrapper" role="region" aria-label="Account comparison table">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Prime 2-Step</th>
+            <th scope="col">Instant Elite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Entry Cost</td>
+            <td><span class="tag tag--bull">$38.50 with code CRYPTO</span></td>
+            <td>~$200</td>
+          </tr>
+          <tr>
+            <td>Evaluation Required</td>
+            <td>Two-phase</td>
+            <td>None — direct access</td>
+          </tr>
+          <tr>
+            <td>Phase 1 Target</td>
+            <td>8% profit ($400)</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Phase 2 Target</td>
+            <td>6% profit ($300)</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Max Drawdown</td>
+            <td>10% ($500)</td>
+            <td>10% ($500)</td>
+          </tr>
+          <tr>
+            <td>Daily Loss Limit</td>
+            <td>4% ($200)</td>
+            <td>4% ($200)</td>
+          </tr>
+          <tr>
+            <td>Payout Cycle</td>
+            <td><span class="tag tag--bull">7 days</span></td>
+            <td><span class="tag tag--neutral">14 days</span></td>
+          </tr>
+          <tr>
+            <td>Best For</td>
+            <td>Traders building consistency</td>
+            <td>Proven strategies, immediate access</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-card" role="note">
+      <div class="insight-card__label">Recommendation</div>
+      <p class="insight-card__text">
+        The Prime 2-Step is the stronger long-term choice for most traders. Beyond the cost advantage, the evaluation phase forces you to prove consistency under defined constraints before touching live capital. The discipline it builds is more valuable than the $145 you save by skipping it. A failed $38.50 challenge is a learning event. A blown $200 instant account with no evaluation feedback is just an expensive mistake.
+      </p>
+    </div>
+
+    <!-- Section 05 -->
+    <h2>
+      <span class="section-num">Section 05</span>
+      The Evaluation Framework: What You Are Actually Being Tested On
+    </h2>
+
+    <p>
+      The two-step challenge tests one thing above everything else: the ability to generate returns without taking outsized risk. The targets are deliberately structured so you cannot hit them by over-leveraging and hoping. You have to trade well, consistently.
+    </p>
+
+    <div class="phase-strip" role="region" aria-label="Evaluation phases">
+      <div class="phase-card">
+        <div class="phase-card__badge">Phase 1</div>
+        <div class="phase-card__target">8% → $400</div>
+        <p class="phase-card__desc">Hit this profit target while keeping daily drawdown under $200 and total drawdown under $500.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card__badge">Phase 2</div>
+        <div class="phase-card__target">6% → $300</div>
+        <p class="phase-card__desc">Demonstrate Phase 1 was not luck. Same risk limits apply throughout.</p>
+      </div>
+    </div>
+
+    <p>The risk rules that govern both phases are enforced automatically — there are no warnings, no second chances:</p>
+
+    <div class="rule-list" role="list" aria-label="Hard rules">
+      <div class="rule-list__header">Hard Rules — Zero Tolerance Enforcement</div>
+      <div class="rule-item" role="listitem">
+        <div class="rule-item__icon rule-item__icon--bear" aria-hidden="true">🚫</div>
+        <div>
+          <div class="rule-item__title">Daily Loss Limit — $200 (4%)</div>
+          <p class="rule-item__detail">Your account cannot lose more than $200 from the equity level at the start of any trading day. Breach this and the account is terminated automatically — no appeal.</p>
+        </div>
+      </div>
+      <div class="rule-item" role="listitem">
+        <div class="rule-item__icon rule-item__icon--bear" aria-hidden="true">🚫</div>
+        <div>
+          <div class="rule-item__title">Maximum Drawdown — $500 (10%)</div>
+          <p class="rule-item__detail">Total account equity cannot fall more than $500 below the initial $5,000 balance at any point — during the evaluation or the funded phase.</p>
+        </div>
+      </div>
+      <div class="rule-item" role="listitem">
+        <div class="rule-item__icon rule-item__icon--bull" aria-hidden="true">✓</div>
+        <div>
+          <div class="rule-item__title">KYC Accuracy — No Exceptions</div>
+          <p class="rule-item__detail">Registration details must <strong>exactly</strong> match your government-issued ID — Aadhar, PAN, or Passport. Any discrepancy at the withdrawal stage will freeze your payout. This is enforced at the brokerage level, not just the platform level.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 06 -->
+    <h2>
+      <span class="section-num">Section 06</span>
+      The Equity Reset Trap: The Rule That Ends Most Accounts
+    </h2>
+
+    <p>
+      Most account terminations are not caused by bad strategy. They are caused by a misunderstanding of how the daily loss limit actually works — specifically how it behaves when you hold positions overnight.
+    </p>
+    <p>
+      The daily loss limit is <strong>equity-based, not balance-based</strong>. It resets every day at server midnight and is calculated against whatever your equity was at the start of that day — not your original $5,000.
+    </p>
+
+    <div class="case-study" role="region" aria-label="Case study: Equity Reset Trap">
+      <div class="case-study__label">Case Study — The Overnight Reset Trap</div>
+      <div class="case-study__title">How a Profitable Account Gets Terminated at Breakeven</div>
+      <div class="case-study__flow">
+        <div class="case-study__step">
+          <div class="case-study__step-dot" aria-hidden="true"></div>
+          <div class="case-study__step-text">Day 1 ends: open position pushes equity to <strong>$5,200</strong></div>
+        </div>
+        <div class="case-study__step">
+          <div class="case-study__step-dot" aria-hidden="true"></div>
+          <div class="case-study__step-text">Server resets at midnight — new day baseline = <strong>$5,200</strong></div>
+        </div>
+        <div class="case-study__step">
+          <div class="case-study__step-dot" aria-hidden="true"></div>
+          <div class="case-study__step-text">Daily loss limit for the new day = <strong>$200 from $5,200</strong></div>
+        </div>
+        <div class="case-study__step">
+          <div class="case-study__step-dot" aria-hidden="true"></div>
+          <div class="case-study__step-text">Market retraces — equity falls back to <strong>$5,000</strong></div>
+        </div>
+        <div class="case-study__step">
+          <div class="case-study__step-dot case-study__step-dot--bear" aria-hidden="true"></div>
+          <div class="case-study__step-text case-study__step-text--alert">System registers a $200 loss for the day → <strong>Account Terminated</strong></div>
+        </div>
+      </div>
+      <div class="case-study__verdict">
+        Your account balance is $5,000 — exactly where you started. But the account is gone because the daily loss was calculated from $5,200, not $5,000. <strong>The rule governs equity movement within the calendar day, not profit or loss from your original entry price.</strong>
+      </div>
+    </div>
+
+    <p>
+      The straightforward mitigation is to close all positions before the daily server reset. Operate intraday. This keeps your baseline clean at the start of every new session and eliminates the possibility of an involuntary breach on a trade that is technically profitable from your original entry.
+    </p>
+
+    <div class="pullquote">
+      <p class="pullquote__text">"Levels decide. Bias follows levels. Everything else — including whether you hold overnight — is noise."</p>
+      <div class="pullquote__attr">Sanjeev Singh · Sanjeev Signals</div>
+    </div>
+
+    <!-- Section 07 -->
+    <h2>
+      <span class="section-num">Section 07</span>
+      MT5 Setup: The Technical Steps That Cannot Be Skipped
+    </h2>
+
+    <p>
+      After purchase, your dashboard will display MT5 credentials. The server configuration step is where most traders make errors — usually by selecting the wrong server from the search results or mistyping case-sensitive credentials.
+    </p>
+
+    <div class="rule-list" role="list" aria-label="MT5 setup protocol">
+      <div class="rule-list__header">MT5 Connection Protocol — Three Steps</div>
+      <div class="rule-item" role="listitem">
+        <div class="rule-item__icon rule-item__icon--amber" aria-hidden="true">①</div>
+        <div>
+          <div class="rule-item__title">Retrieve Credentials from Dashboard</div>
+          <p class="rule-item__detail">Navigate to Active Accounts → Credentials. <strong>Copy your Login ID and Password directly</strong> — do not retype them. Credentials are case-sensitive and a single character error is the most common cause of login failure.</p>
+        </div>
+      </div>
+      <div class="rule-item" role="listitem">
+        <div class="rule-item__icon rule-item__icon--amber" aria-hidden="true">②</div>
+        <div>
+          <div class="rule-item__title">Select the Correct Server</div>
+          <p class="rule-item__detail">In MT5, go to New Account and search for <strong>Blueberry Markets SVG LLC</strong> or <strong>Blueberry Markets SVG Live</strong>. If the server does not appear immediately, type the full name manually. Connecting to any other server will result in authentication failure.</p>
+        </div>
+      </div>
+      <div class="rule-item" role="listitem">
+        <div class="rule-item__icon rule-item__icon--amber" aria-hidden="true">③</div>
+        <div>
+          <div class="rule-item__title">Validate with a Minimum-Size Trade</div>
+          <p class="rule-item__detail">Before executing your strategy, open a <strong>0.01 lot position</strong> on a high-liquidity instrument — XAUUSD or BTCUSD. This confirms server connectivity and execution speed without risking your daily loss buffer.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 08 -->
+    <h2>
+      <span class="section-num">Section 08</span>
+      The Payout Structure: What Happens After You Pass
+    </h2>
+
+    <p>
+      Completing the two-phase evaluation transitions you from candidate to funded partner. The profit-sharing structure is direct: you retain 80% of everything you generate. The firm keeps 20% to maintain capital and platform operations.
+    </p>
+
+    <div class="phase-strip" role="region" aria-label="Payout comparison">
+      <div class="phase-card phase-card--bull">
+        <div class="phase-card__badge">Prime 2-Step — Funded</div>
+        <div class="phase-card__target">7-Day Cycle</div>
+        <p class="phase-card__desc">Faster payout frequency than most evaluation-based programs. Profits distributed via crypto transfer — USDT or equivalent.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-card__badge">Instant Elite — Funded</div>
+        <div class="phase-card__target">14-Day Cycle</div>
+        <p class="phase-card__desc">Despite the higher entry cost and no evaluation required, the payout frequency is slower. The Prime 2-Step path wins on this metric too.</p>
+      </div>
+    </div>
+
+    <p>
+      Withdrawals are processed in crypto. Indian traders will need to convert USDT to INR through a domestic exchange or P2P platform — that operational step is your responsibility to plan before you need it, not after.
+    </p>
+
+    <div class="warning-block" role="note">
+      <div class="warning-block__header">
+        <span class="warning-block__icon" aria-hidden="true">⚠️</span>
+        <span class="warning-block__label">Compliance Continues Post-Qualification</span>
+      </div>
+      <p class="warning-block__text">
+        Passing the challenge does not end your compliance obligations. The daily loss limit and maximum drawdown rules apply equally to your funded account. <strong>A breach post-qualification forfeits the account and all accrued profits — no exceptions.</strong> Read the full Terms and Conditions on the Blueberry Funded site before your first live trade.
+      </p>
+    </div>
+
+  </main><!-- /prose -->
+
+  <!-- ── Pre-Trade Checklist ────────────────────────────────── -->
+  <div class="checklist" role="region" aria-label="Pre-trade checklist">
+    <div class="checklist__header">Pre-Trade Checklist — Before Your First Execution</div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="KYC details verified"></div>
+      <span>KYC details match government ID exactly — full name, address, every character.</span>
+    </div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="Blueberry Cashier used"></div>
+      <span>Payment made via Blueberry Cashier — not the GST-triggering gateway.</span>
+    </div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="Coupon applied"></div>
+      <span>Coupon code CRYPTO applied at checkout — net cost confirmed at $38.50.</span>
+    </div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="MT5 server correct"></div>
+      <span>MT5 connected to correct server: Blueberry Markets SVG LLC.</span>
+    </div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="Validation trade done"></div>
+      <span>0.01 lot validation trade executed — server connectivity confirmed.</span>
+    </div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="Equity reset understood"></div>
+      <span>Daily equity reset mechanics understood — no overnight positions held without a documented plan.</span>
+    </div>
+    <div class="checklist__item">
+      <div class="checklist__box" role="checkbox" aria-checked="false" aria-label="T&Cs reviewed"></div>
+      <span>Full Terms &amp; Conditions reviewed on the official Blueberry Funded website.</span>
+    </div>
+  </div>
+
+  <!-- ── Conclusion ─────────────────────────────────────────── -->
+  <div class="conclusion" role="region" aria-label="Strategic verdict">
+    <div class="conclusion__label">Strategic Verdict</div>
+    <h2 class="conclusion__heading">The Opportunity Is Real. The Rules Are Not Flexible.</h2>
+    <p class="conclusion__body">
+      Blueberry Funded solves three structural problems that have historically locked Indian retail traders out of funded capital: payment friction, platform trust, and execution quality. The infrastructure is legitimate. The capital access is real. What separates traders who collect payouts from traders who lose their challenge fee is not strategy. It is whether they actually respect the rules they agreed to follow.
+    </p>
+    <div class="conclusion__pillars">
+      <div class="conclusion__pillar">
+        <div class="conclusion__pillar-icon" aria-hidden="true">💳</div>
+        <div class="conclusion__pillar-title">UPI / IMPS Access</div>
+        <div class="conclusion__pillar-desc">No crypto wallet required for Indian traders to get started</div>
+      </div>
+      <div class="conclusion__pillar">
+        <div class="conclusion__pillar-icon" aria-hidden="true">🏛️</div>
+        <div class="conclusion__pillar-title">Broker-Backed</div>
+        <div class="conclusion__pillar-desc">Real liquidity infrastructure — not a platform-only middleman</div>
+      </div>
+      <div class="conclusion__pillar">
+        <div class="conclusion__pillar-icon" aria-hidden="true">⚡</div>
+        <div class="conclusion__pillar-title">7-Day Payouts</div>
+        <div class="conclusion__pillar-desc">Faster than most funded programs currently in the market</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Author Card ─────────────────────────────────────────── -->
+  <div class="author-card" role="complementary" aria-label="About the author">
+    <div class="author-card__avatar" aria-hidden="true">
+      <span class="author-card__initials">SS</span>
+    </div>
+    <div class="author-card__body">
+      <div class="author-card__label">About the Author</div>
+      <div class="author-card__name">Sanjeev Singh</div>
+      <div class="author-card__brand">Sanjeev Signals</div>
+      <p class="author-card__bio">
+        Independent F&amp;O trader and options buyer focused on <strong>NIFTY 50 pre-market analysis and rule-based execution</strong>. Sanjeev operates as a real P&amp;L practitioner — no formal certifications, no theoretical frameworks borrowed from textbooks. Every framework published under Sanjeev Signals is derived from live market observation and documented trade history. His core philosophy: <strong>levels decide, bias follows levels, execution stays structured</strong>.
+      </p>
+      <div class="author-card__tags" aria-label="Author specialisations">
+        <span class="author-card__tag author-card__tag--brand">Sanjeev Signals</span>
+        <span class="author-card__tag">NIFTY 50 Trader</span>
+        <span class="author-card__tag">F&amp;O · Options Buyer</span>
+        <span class="author-card__tag">Systems Researcher</span>
+        <span class="author-card__tag">Real P&amp;L · No Certifications</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Disclaimer ─────────────────────────────────────────── -->
+  <div class="disclaimer" role="note" aria-label="SEBI disclaimer">
+    <strong>SEBI Disclaimer:</strong> Sanjeev Singh is not a SEBI Registered Investment Advisor. This content is published for educational and informational purposes only and does not constitute financial advice, investment guidance, or a recommendation to buy, sell, or hold any financial instrument. Proprietary trading programs involve significant risk. Past results from funded account evaluations are not indicative of future performance. Readers should conduct their own due diligence and review all Terms and Conditions on the official Blueberry Funded website before participating in any funded trading program.
+  </div>
+
+  <!-- ── Footer ─────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__left">
+      <strong>Sanjeev Signals</strong> · Sanjeev Singh<br />
+      sanjeevsignals.github.io
+    </div>
+    <div class="footer__right">
+      Levels decide · Bias follows · Execution stays structured
+    </div>
+  </footer>
+
+</div><!-- /page-wrapper -->
+
+</body>
+</html>

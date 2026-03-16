@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>NIFTY 50 Morning Plan · 17 March 2026 | Sanjeev Signals</title>
+  <meta name="description" content="NIFTY 50 pre-market structured trading plan for 17 March 2026. Key levels, scenarios, and execution framework by Sanjeev Singh." />
+  <link rel="canonical" href="https://sanjeevsignals.github.io/indian-market-observations/NIFTY50/2026/Pre-Analysis/2026-03-17-nifty-pre-analysis.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="article" />
+  <meta property="og:title"       content="NIFTY 50 Morning Plan · 17 March 2026 | Sanjeev Signals" />
+  <meta property="og:description" content="Key levels 23,500–23,560 / 23,350–23,420 / 23,120–23,150. Bearish continuation, breakdown trade, and bullish recovery framework." />
+  <meta property="og:url"         content="https://sanjeevsignals.github.io/indian-market-observations/NIFTY50/2026/Pre-Analysis/2026-03-17-nifty-pre-analysis.html" />
+  <meta property="og:site_name"   content="Sanjeev Signals" />
+  <meta property="og:image"       content="https://sanjeevsignals.github.io/assets/og-default.png" />
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="NIFTY 50 Morning Plan · 17 March 2026 | Sanjeev Signals" />
+  <meta name="twitter:description" content="Key levels 23,500–23,560 / 23,350–23,420 / 23,120–23,150. Bearish continuation, breakdown trade, and bullish recovery framework." />
+  <meta name="twitter:image"       content="https://sanjeevsignals.github.io/assets/og-default.png" />
+
+  <!-- Favicon (inline SVG — no external file dependency) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%230e0d0b%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2254%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22serif%22%20font-size%3D%2220%22%20font-weight%3D%22bold%22%20fill%3D%22%23bf3528%22%3ES%3C%2Ftext%3E%3C%2Fsvg%3E" />
+
+  <!-- Google Fonts — preconnect first to reduce latency -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&amp;family=Lora:ital,wght@0,400;0,600;1,400&amp;display=swap" />
+
+  <style>
+
+    /* =====================================================
+       DESIGN TOKENS — single source of truth for all color
+       ===================================================== */
+    :root {
+      /* Neutrals */
+      --ink:           #0e0d0b;
+      --ink-deep:      #2c2722;
+      --paper:         #f6f2eb;
+      --level-bg:      #eee9e0;
+      --rule:          #c4b9a8;
+      --muted:         #6a6055;
+      --faint:         #a09488;
+
+      /* Masthead dark palette */
+      --mast-bg:       #161310;
+      --mast-border:   #2a2724;
+      --mast-pipe:     #2e2b27;
+
+      /* Bearish */
+      --bear:          #8b1c1c;
+      --bear-bg:       #f5e9e9;
+      --bear-rule:     #d4a0a0;
+      --bear-light:    #fdf3f3;
+      --bear-tint:     #e8b0b0;
+      --bear-sep:      #c09090;
+
+      /* Breakdown (darker orange-red) */
+      --breakdown:     #5c1a00;
+      --breakdown-bg:  #fdf0e8;
+      --breakdown-rule:#d4926a;
+      --breakdown-light:#fef6f0;
+      --breakdown-tint:#f0c0a0;
+      --breakdown-sep: #c09070;
+
+      /* Bullish */
+      --bull:          #1b6645;
+      --bull-bg:       #eaf3ed;
+      --bull-rule:     #afd0bb;
+      --bull-light:    #f3faf5;
+      --bull-tint:     #a8d4bc;
+      --bull-sep:      #8ab8a0;
+
+      /* Noise / caution */
+      --noise:         #5a4e00;
+      --noise-bg:      #faf4d8;
+      --noise-rule:    #d4c260;
+      --noise-light:   #fff8d8;
+      --noise-text:    #4a4200;
+
+      /* Brand accent */
+      --accent:        #bf3528;
+
+      /* White */
+      --white:         #ffffff;
+
+      /* Scenario badge separator — white at low opacity */
+      --badge-sep:     rgba(255, 255, 255, 0.12);
+    }
+
+    /* =====================================================
+       RESET
+       ===================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* =====================================================
+       BASE
+       ===================================================== */
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.75;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* =====================================================
+       MASTHEAD
+       ===================================================== */
+    .masthead {
+      background: var(--ink);
+      padding: 24px 24px 18px;
+      text-align: center;
+    }
+    .masthead-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      letter-spacing: 0.14em;
+      line-height: 1;
+      color: var(--white);
+    }
+    .masthead-brand em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .masthead-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-top: 7px;
+    }
+    .masthead-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      padding: 7px 20px;
+      border: 1px solid var(--mast-border);
+      background: var(--mast-bg);
+    }
+    .masthead-strip span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .masthead-strip span.hi { color: var(--accent); }
+    .masthead-strip .pipe {
+      color: var(--mast-pipe);
+      font-size: 0.75rem;
+      letter-spacing: 0;
+    }
+
+    /* =====================================================
+       PAGE WRAPPER
+       ===================================================== */
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 28px 72px;
+    }
+
+    /* =====================================================
+       SHARED UTILITIES
+       ===================================================== */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* =====================================================
+       HEADLINE BLOCK
+       ===================================================== */
+    .headline-block {
+      padding: 36px 0 26px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 2px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .headline-block h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      letter-spacing: 0.07em;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .author-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* =====================================================
+       KEY LEVELS
+       ===================================================== */
+    .levels-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .levels-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .level-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      align-items: stretch;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+    }
+    .level-row.resistance-row { border-color: var(--bear-rule); }
+    .level-row.decision-row   { border-color: var(--rule); }
+    .level-row.support-row    { border-color: var(--bull-rule); }
+    .level-price {
+      padding: 13px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: clamp(0.72rem, 1.8vw, 0.88rem);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-right: 1px solid;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      line-height: 1.4;
+    }
+    .level-price.resistance {
+      color: var(--bear);
+      background: var(--bear-bg);
+      border-color: var(--bear-rule);
+      border-left: 3px solid var(--bear);
+    }
+    .level-price.decision {
+      color: var(--ink);
+      background: var(--level-bg);
+      border-color: var(--rule);
+      border-left: 3px solid var(--ink);
+    }
+    .level-price.support {
+      color: var(--bull);
+      background: var(--bull-bg);
+      border-color: var(--bull-rule);
+      border-left: 3px solid var(--bull);
+    }
+    .level-desc {
+      padding: 13px 18px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--paper);
+      display: flex;
+      align-items: center;
+    }
+    /* level-desc inherits row border-color via parent; no override needed */
+
+    /* =====================================================
+       SCENARIO CARDS
+       ===================================================== */
+    .scenarios-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .scenario-card {
+      margin-bottom: 18px;
+    }
+    .scenario-card:last-child { margin-bottom: 0; }
+
+    .scenario-header {
+      display: flex;
+      align-items: stretch;
+    }
+    .scenario-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 18px;
+      min-width: 86px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .badge-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.52rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      display: block;
+    }
+    .badge-plan {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      display: block;
+      margin-top: 3px;
+    }
+    .scenario-title-block {
+      padding: 14px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .scenario-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+    .scenario-trigger {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 5px;
+      display: block;
+      line-height: 1.45;
+    }
+    .scenario-body {
+      padding: 18px 20px;
+    }
+    .scenario-body p {
+      font-size: 0.93rem;
+      line-height: 1.8;
+      color: var(--ink-deep);
+      margin-bottom: 0;
+    }
+    .targets-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 16px;
+      margin-bottom: 10px;
+    }
+    .targets-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .target-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      padding: 6px 14px;
+      letter-spacing: 0.05em;
+      border: 1px solid;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chip-num {
+      font-size: 0.58rem;
+      opacity: 0.55;
+    }
+    .exec-note {
+      margin-top: 14px;
+      padding: 11px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.55;
+      border-left: 3px solid;
+    }
+
+    /* S1 — Bearish Continuation (Primary) */
+    .scenario-card.s1 .scenario-header {
+      background: var(--bear);
+      border: 1px solid var(--bear-rule);
+      border-bottom: none;
+    }
+    .scenario-card.s1 .scenario-badge   { border-right: 1px solid var(--badge-sep); }
+    .scenario-card.s1 .badge-label      { color: var(--bear-tint); }
+    .scenario-card.s1 .badge-plan       { color: var(--white); }
+    .scenario-card.s1 .scenario-title   { color: var(--white); }
+    .scenario-card.s1 .scenario-trigger { color: var(--bear-tint); }
+    .scenario-card.s1 .scenario-body {
+      background: var(--bear-bg);
+      border: 1px solid var(--bear-rule);
+      border-top: 1px solid var(--bear-sep);
+    }
+    .scenario-card.s1 .target-chip {
+      color: var(--bear);
+      border-color: var(--bear-rule);
+      background: var(--bear-light);
+    }
+    .scenario-card.s1 .exec-note {
+      color: var(--bear);
+      border-color: var(--bear-rule);
+      background: var(--bear-light);
+    }
+
+    /* S2 — Breakdown Trade (Secondary) */
+    .scenario-card.s2 .scenario-header {
+      background: var(--breakdown);
+      border: 1px solid var(--breakdown-rule);
+      border-bottom: none;
+    }
+    .scenario-card.s2 .scenario-badge   { border-right: 1px solid var(--badge-sep); }
+    .scenario-card.s2 .badge-label      { color: var(--breakdown-tint); }
+    .scenario-card.s2 .badge-plan       { color: var(--white); }
+    .scenario-card.s2 .scenario-title   { color: var(--white); }
+    .scenario-card.s2 .scenario-trigger { color: var(--breakdown-tint); }
+    .scenario-card.s2 .scenario-body {
+      background: var(--breakdown-bg);
+      border: 1px solid var(--breakdown-rule);
+      border-top: 1px solid var(--breakdown-sep);
+    }
+    .scenario-card.s2 .target-chip {
+      color: var(--breakdown);
+      border-color: var(--breakdown-rule);
+      background: var(--breakdown-light);
+    }
+    .scenario-card.s2 .exec-note {
+      color: var(--breakdown);
+      border-color: var(--breakdown-rule);
+      background: var(--breakdown-light);
+    }
+
+    /* S3 — Bullish Recovery (Low Probability) */
+    .scenario-card.s3 .scenario-header {
+      background: var(--bull);
+      border: 1px solid var(--bull-rule);
+      border-bottom: none;
+    }
+    .scenario-card.s3 .scenario-badge   { border-right: 1px solid var(--badge-sep); }
+    .scenario-card.s3 .badge-label      { color: var(--bull-tint); }
+    .scenario-card.s3 .badge-plan       { color: var(--white); }
+    .scenario-card.s3 .scenario-title   { color: var(--white); }
+    .scenario-card.s3 .scenario-trigger { color: var(--bull-tint); }
+    .scenario-card.s3 .scenario-body {
+      background: var(--bull-bg);
+      border: 1px solid var(--bull-rule);
+      border-top: 1px solid var(--bull-sep);
+    }
+    .scenario-card.s3 .target-chip {
+      color: var(--bull);
+      border-color: var(--bull-rule);
+      background: var(--bull-light);
+    }
+    .scenario-card.s3 .exec-note {
+      color: var(--bull);
+      border-color: var(--bull-rule);
+      background: var(--bull-light);
+    }
+
+    /* =====================================================
+       NOISE ZONE
+       ===================================================== */
+    .noise-section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .noise-strip {
+      background: var(--noise-bg);
+      border: 1px solid var(--noise-rule);
+      border-left: 4px solid var(--noise);
+      padding: 18px 22px;
+    }
+    .noise-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .noise-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--noise);
+      font-weight: 500;
+      border: 1px solid var(--noise-rule);
+      padding: 3px 8px;
+    }
+    .noise-range {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--noise);
+      letter-spacing: 0.07em;
+    }
+    .noise-strip p {
+      font-size: 0.91rem;
+      line-height: 1.75;
+      color: var(--noise-text);
+      margin-bottom: 0;
+    }
+    .noise-strip p + .noise-bullets {
+      margin-top: 14px;
+    }
+    .noise-strip strong { font-weight: 600; }
+    .noise-bullets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .noise-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 5px 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--noise);
+      border: 1px solid var(--noise-rule);
+      background: var(--noise-light);
+    }
+
+    /* =====================================================
+       EXECUTION FRAMEWORK
+       ===================================================== */
+    .execution-section {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .exec-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .exec-rule {
+      display: grid;
+      grid-template-columns: 1fr 40px 1.6fr;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .exec-condition {
+      padding: 14px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-right: 1px solid;
+      display: flex;
+      align-items: center;
+      line-height: 1.4;
+    }
+    .exec-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      border-right: 1px solid;
+    }
+    .exec-outcome {
+      padding: 14px 18px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      line-height: 1.4;
+    }
+
+    .exec-rule.bear-exec {
+      border: 1px solid var(--bear-rule);
+      background: var(--bear-bg);
+    }
+    .exec-rule.bear-exec .exec-condition { color: var(--bear); border-color: var(--bear-rule); }
+    .exec-rule.bear-exec .exec-arrow     { color: var(--bear); border-color: var(--bear-rule); }
+    .exec-rule.bear-exec .exec-outcome   { color: var(--bear); }
+
+    .exec-rule.breakdown-exec {
+      border: 1px solid var(--breakdown-rule);
+      background: var(--breakdown-bg);
+    }
+    .exec-rule.breakdown-exec .exec-condition { color: var(--breakdown); border-color: var(--breakdown-rule); }
+    .exec-rule.breakdown-exec .exec-arrow     { color: var(--breakdown); border-color: var(--breakdown-rule); }
+    .exec-rule.breakdown-exec .exec-outcome   { color: var(--breakdown); }
+
+    .exec-rule.noise-exec {
+      border: 1px solid var(--noise-rule);
+      background: var(--noise-bg);
+    }
+    .exec-rule.noise-exec .exec-condition { color: var(--noise); border-color: var(--noise-rule); }
+    .exec-rule.noise-exec .exec-arrow     { color: var(--noise); border-color: var(--noise-rule); }
+    .exec-rule.noise-exec .exec-outcome   { color: var(--noise); }
+
+    .exec-rule.bull-exec {
+      border: 1px solid var(--bull-rule);
+      background: var(--bull-bg);
+    }
+    .exec-rule.bull-exec .exec-condition { color: var(--bull); border-color: var(--bull-rule); }
+    .exec-rule.bull-exec .exec-arrow     { color: var(--bull); border-color: var(--bull-rule); }
+    .exec-rule.bull-exec .exec-outcome   { color: var(--bull); }
+
+    /* =====================================================
+       CORE PRINCIPLE
+       ===================================================== */
+    .principle-section {
+      padding: 44px 0;
+      border-bottom: 1px solid var(--rule);
+      text-align: center;
+    }
+    .principle-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 24px;
+    }
+    .principle-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .principle-line {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.13em;
+      line-height: 1.1;
+    }
+    .principle-line.l1 { font-size: clamp(1.3rem, 3.8vw, 2.2rem); color: var(--ink); }
+    .principle-line.l2 { font-size: clamp(1.1rem, 3.0vw, 1.7rem); color: var(--muted); margin-top: 4px; }
+    .principle-line.l3 { font-size: clamp(0.85rem, 2.2vw, 1.25rem); color: var(--rule); margin-top: 4px; }
+    .principle-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--rule);
+      margin: 5px 0;
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+    .footer {
+      margin-top: 52px;
+      padding-top: 22px;
+      border-top: 3px solid var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-left {
+      flex-shrink: 0;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.65rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .footer-brand em {
+      color: var(--accent);
+      font-style: normal;
+    }
+    .footer-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .footer-profile {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      color: var(--faint);
+      margin-top: 4px;
+      line-height: 1.65;
+    }
+    .footer-right {
+      max-width: 340px;
+    }
+    .footer-disclaimer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+    .footer-sebi {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.07em;
+      color: var(--faint);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--rule);
+      line-height: 1.65;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 600px) {
+      .page { padding: 0 18px 56px; }
+
+      .level-row { grid-template-columns: 140px 1fr; }
+
+      .exec-rule { grid-template-columns: 1fr; }
+      .exec-condition {
+        border-right: none;
+        border-bottom: 1px solid;
+      }
+      .exec-rule.bear-exec      .exec-condition { border-bottom-color: var(--bear-rule); }
+      .exec-rule.breakdown-exec .exec-condition { border-bottom-color: var(--breakdown-rule); }
+      .exec-rule.noise-exec     .exec-condition { border-bottom-color: var(--noise-rule); }
+      .exec-rule.bull-exec      .exec-condition { border-bottom-color: var(--bull-rule); }
+      .exec-arrow   { display: none; }
+      .exec-outcome { padding: 12px 16px 14px; }
+
+      .footer { flex-direction: column; }
+      .footer-right { max-width: 100%; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-brand">Sanjeev <em>Signals</em></div>
+    <div class="masthead-tagline">Pre-Market Clarity &nbsp;&middot;&nbsp; Rule-Based Execution</div>
+    <div class="masthead-strip">
+      <span class="hi">NIFTY 50</span>
+      <span class="pipe">&vert;</span>
+      <span>17 March 2026</span>
+      <span class="pipe">&vert;</span>
+      <span>Morning Plan</span>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- HEADLINE -->
+    <div class="headline-block">
+      <div class="eyebrow">Opening Control Framework</div>
+      <h1>NIFTY 50 &mdash; Morning Plan &mdash; 17 March 2026</h1>
+      <div class="author-line">By Sanjeev Singh &nbsp;&middot;&nbsp; Sanjeev Signals &nbsp;&middot;&nbsp; Independent F&amp;O Researcher</div>
+    </div>
+
+    <!-- KEY LEVELS -->
+    <section class="levels-section" aria-labelledby="lbl-levels">
+      <div class="section-label" id="lbl-levels">Key Levels for 17 March</div>
+      <div class="levels-list">
+
+        <div class="level-row resistance-row">
+          <div class="level-price resistance">23,500 &ndash; 23,560</div>
+          <div class="level-desc">Resistance &mdash; sell on rise zone</div>
+        </div>
+
+        <div class="level-row decision-row">
+          <div class="level-price decision">23,350 &ndash; 23,420</div>
+          <div class="level-desc">Noise &mdash; rotation zone</div>
+        </div>
+
+        <div class="level-row support-row">
+          <div class="level-price support">23,120 &ndash; 23,150</div>
+          <div class="level-desc">Key support &mdash; decision zone</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section class="scenarios-section" aria-labelledby="lbl-scenarios">
+      <div class="section-heading" id="lbl-scenarios">Scenario Analysis</div>
+
+      <!-- S1: Bearish Continuation — Primary -->
+      <div class="scenario-card s1">
+        <div class="scenario-header">
+          <div class="scenario-badge">
+            <span class="badge-label">Plan</span>
+            <span class="badge-plan">Primary</span>
+          </div>
+          <div class="scenario-title-block">
+            <div class="scenario-title">Bearish Continuation</div>
+            <span class="scenario-trigger">Trigger &mdash; Sell on rise near 23,500&ndash;23,560</span>
+          </div>
+        </div>
+        <div class="scenario-body">
+          <p>Primary structure remains <strong>bearish</strong>. Unless price accepts above 23,560, sell on rise remains the preferred approach. Wait for rejection near 23,500&ndash;23,560 &mdash; do not anticipate the move.</p>
+          <div class="targets-label">Downside Targets</div>
+          <div class="targets-row">
+            <span class="target-chip"><span class="chip-num">&#9312;</span> 23,350 &ndash; Rotation zone</span>
+            <span class="target-chip"><span class="chip-num">&#9313;</span> 23,120 &ndash; Key support</span>
+          </div>
+          <div class="exec-note">Rejection candle or LTF confirmation required before entry</div>
+        </div>
+      </div>
+
+      <!-- S2: Breakdown Trade — Secondary -->
+      <div class="scenario-card s2">
+        <div class="scenario-header">
+          <div class="scenario-badge">
+            <span class="badge-label">Plan</span>
+            <span class="badge-plan">Secondary</span>
+          </div>
+          <div class="scenario-title-block">
+            <div class="scenario-title">Breakdown Trade</div>
+            <span class="scenario-trigger">Trigger &mdash; Price accepts and sustains below 23,150</span>
+          </div>
+        </div>
+        <div class="scenario-body">
+          <p>If price accepts and <strong>sustains</strong> below 23,150, downside continuation becomes likely. A brief wick below does not qualify &mdash; the operative condition is sustained acceptance, not a temporary pierce.</p>
+          <div class="targets-label">Downside Targets</div>
+          <div class="targets-row">
+            <span class="target-chip"><span class="chip-num">&#9312;</span> 23,000 &ndash; Psychological support</span>
+            <span class="target-chip"><span class="chip-num">&#9313;</span> 22,900 &ndash; Extended downside zone</span>
+          </div>
+          <div class="exec-note">Sustained acceptance below 23,150 required &mdash; not a wick</div>
+        </div>
+      </div>
+
+      <!-- S3: Bullish Recovery — Low Probability -->
+      <div class="scenario-card s3">
+        <div class="scenario-header">
+          <div class="scenario-badge">
+            <span class="badge-label">Low</span>
+            <span class="badge-plan">Probability</span>
+          </div>
+          <div class="scenario-title-block">
+            <div class="scenario-title">Bullish Recovery</div>
+            <span class="scenario-trigger">Trigger &mdash; Acceptance above 23,560 weakens bearish structure</span>
+          </div>
+        </div>
+        <div class="scenario-body">
+          <p>If price accepts above 23,560, the <strong>bearish structure begins to weaken</strong>. This does not flip the bias immediately &mdash; monitor for genuine follow-through before considering any long-side exposure. This remains the low-probability scenario.</p>
+          <div class="targets-label">Upside Targets</div>
+          <div class="targets-row">
+            <span class="target-chip"><span class="chip-num">&#9312;</span> 23,650 &ndash; First recovery zone</span>
+            <span class="target-chip"><span class="chip-num">&#9313;</span> 23,750 &ndash; Next resistance area</span>
+          </div>
+          <div class="exec-note">Clear acceptance above 23,560 required &mdash; not anticipation</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- NOISE ZONE -->
+    <section class="noise-section" aria-labelledby="lbl-noise">
+      <div class="section-label" id="lbl-noise">Noise / Trap Zone</div>
+      <div class="noise-strip">
+        <div class="noise-header">
+          <span class="noise-tag">Caution Zone</span>
+          <span class="noise-range">23,350 &ndash; 23,420</span>
+        </div>
+        <p>Inside this range, expect <strong>choppy moves and intraday rotation</strong>. Price oscillating within this zone does not confirm direction &mdash; best approach is to wait for a clear reaction at the defined levels above or below.</p>
+        <div class="noise-bullets">
+          <span class="noise-chip">Fake Breakouts</span>
+          <span class="noise-chip">Intraday Rotation</span>
+          <span class="noise-chip">Liquidity Sweep</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXECUTION FRAMEWORK -->
+    <section class="execution-section" aria-labelledby="lbl-execution">
+      <div class="section-heading" id="lbl-execution">Execution Rules</div>
+      <div class="exec-rules">
+
+        <div class="exec-rule bear-exec">
+          <div class="exec-condition">Rejection at 23,500&ndash;23,560</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Sell-on-rise setup &mdash; wait for confirmation</div>
+        </div>
+
+        <div class="exec-rule breakdown-exec">
+          <div class="exec-condition">Below 23,150 sustained</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Downside continuation toward 23,000&ndash;22,900</div>
+        </div>
+
+        <div class="exec-rule noise-exec">
+          <div class="exec-condition">23,350&ndash;23,420 range</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Noise zone &mdash; exercise patience</div>
+        </div>
+
+        <div class="exec-rule bull-exec">
+          <div class="exec-condition">Accepts above 23,560</div>
+          <div class="exec-arrow">&rarr;</div>
+          <div class="exec-outcome">Bearish structure weakens &mdash; monitor</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CORE PRINCIPLE -->
+    <section class="principle-section" aria-labelledby="lbl-principle">
+      <div class="principle-label" id="lbl-principle">Core Rule</div>
+      <div class="principle-stack">
+        <div class="principle-line l1">No Prediction. No Anticipation.</div>
+        <div class="principle-divider" aria-hidden="true"></div>
+        <div class="principle-line l2">Levels Decide. Bias Follows.</div>
+        <div class="principle-divider" aria-hidden="true"></div>
+        <div class="principle-line l3">Execution Stays Disciplined.</div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-left">
+        <div class="footer-brand">Sanjeev <em>Signals</em></div>
+        <div class="footer-author">&mdash; Sanjeev Singh</div>
+        <div class="footer-profile">
+          Real P&amp;L Practitioner &nbsp;&middot;&nbsp; Independent F&amp;O Researcher<br>
+          NIFTY 50 Analysis &nbsp;&middot;&nbsp; Options Buying &nbsp;&middot;&nbsp; Behavioral Markets
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-disclaimer">
+          This analysis is published for educational purposes only. It does not constitute investment advice or a solicitation to trade any security or derivative instrument.
+        </div>
+        <div class="footer-sebi">
+          Sanjeev Singh is not a SEBI Registered Investment Advisor. All views are personal research and reflect the author&rsquo;s independent analysis. Trading in F&amp;O carries significant risk. Trade at your own discretion and risk.
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

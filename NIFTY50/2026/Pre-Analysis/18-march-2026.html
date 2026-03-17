@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NIFTY50 Pre-Market Plan by Sanjeev Singh — Opening Control Framework for 18 March 2026. Key levels, scenarios, trap zones, and execution rules." />
+  <meta name="author" content="Sanjeev Singh — Sanjeev Signals" />
+  <meta name="theme-color" content="#07090d" />
+  <meta property="og:title" content="NIFTY50 Morning Plan — 18 March 2026 | Sanjeev Signals" />
+  <meta property="og:description" content="Pre-Market Opening Control Framework by Sanjeev Singh. Pure Option Buyer. Real P&amp;L. Zero Certifications." />
+  <meta property="og:type" content="article" />
+  <title>NIFTY50 Morning Plan — 18 March 2026 | Sanjeev Signals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=IBM+Plex+Mono:wght@300;400;500;600&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,300&amp;display=swap" rel="stylesheet" />
+  <style>
+    /* ================================================================
+       DESIGN TOKENS
+    ================================================================ */
+    :root {
+      --bg:          #07090d;
+      --surface:     #0c1017;
+      --surface-2:   #111820;
+      --border:      #1a2333;
+      --border-2:    #243040;
+      --muted:       #38495e;
+      --text:        #cdd5de;
+      --soft:        #7e8fa3;
+      --faint:       #4a5a6e;
+
+      --gold:        #c9993a;
+      --gold-bright: #e8b84b;
+      --gold-dim:    #7a5e20;
+
+      --green:       #34a84a;
+      --red:         #e84040;
+      --blue:        #4a8fd4;
+      --orange:      #d4831a;
+      --accent:      #eab93a;
+
+      --font-mono:   'IBM Plex Mono', 'Courier New', monospace;
+      --font-sans:   'IBM Plex Sans', system-ui, sans-serif;
+      --font-disp:   'Bebas Neue', Impact, sans-serif;
+
+      --radius:      8px;
+      --radius-sm:   4px;
+    }
+
+    /* ================================================================
+       RESET + BASE
+    ================================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,153,58,0.06) 0%, transparent 60%);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    /* ================================================================
+       TICKER TAPE  —  true seamless scroll
+    ================================================================ */
+    .ticker-wrap {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border-2);
+      overflow: hidden;
+      padding: 7px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker-scroll 44s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+
+    .ticker-set {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .t-item {
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--soft);
+      padding: 0 26px;
+      border-right: 1px solid var(--border-2);
+    }
+    .t-item:last-child { border-right: 1px solid var(--border-2); }
+    .t-gold  { color: var(--gold-bright); font-weight: 500; }
+    .t-green { color: var(--green); }
+    .t-red   { color: var(--red); }
+    .t-dim   { color: var(--faint); }
+
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ================================================================
+       PAGE WRAPPER
+    ================================================================ */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ================================================================
+       HEADER
+    ================================================================ */
+    header {
+      padding: 32px 0 28px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand-block { display: flex; flex-direction: column; gap: 6px; }
+
+    .brand-name {
+      font-family: var(--font-disp);
+      font-size: 44px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .brand-name .accent-word { color: var(--accent); }
+
+    .brand-tagline {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--soft);
+      letter-spacing: 0.03em;
+      line-height: 1.65;
+      max-width: 540px;
+    }
+
+    .header-meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .header-date {
+      font-family: var(--font-disp);
+      font-size: 28px;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      line-height: 1;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .header-sub {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--soft);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.7;
+    }
+
+    /* ================================================================
+       MAIN GRID
+    ================================================================ */
+    main {
+      padding: 30px 0 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .span-2 { grid-column: 1 / -1; }
+
+    /* ================================================================
+       CARD BASE
+    ================================================================ */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .c-gold::before   { background: linear-gradient(90deg, var(--gold-bright) 0%, transparent 70%); }
+    .c-red::before    { background: linear-gradient(90deg, var(--red) 0%, transparent 70%); }
+    .c-green::before  { background: linear-gradient(90deg, var(--green) 0%, transparent 70%); }
+    .c-blue::before   { background: linear-gradient(90deg, var(--blue) 0%, transparent 70%); }
+    .c-neutral::before { background: linear-gradient(90deg, var(--muted) 0%, transparent 70%); }
+
+    /* Section label */
+    .sec-label {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .sec-label::before {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 12px;
+      background: var(--gold-dim);
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       1. CONTROL ZONES
+    ================================================================ */
+    .zones { display: flex; flex-direction: column; flex: 1; }
+
+    .zone-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .zone-row:first-child { padding-top: 0; }
+    .zone-row:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    .zone-left { display: flex; align-items: center; gap: 10px; }
+
+    .zone-bar {
+      width: 3px;
+      height: 34px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .zb-red    { background: var(--red);    box-shadow: 0 0 8px rgba(232,64,64,0.55); }
+    .zb-blue   { background: var(--blue);   box-shadow: 0 0 8px rgba(74,143,212,0.55); }
+    .zb-orange { background: var(--orange); box-shadow: 0 0 8px rgba(212,131,26,0.55); }
+
+    .zone-num {
+      font-family: var(--font-disp);
+      font-size: 22px;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .zone-badge {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid;
+      white-space: nowrap;
+    }
+    .zb-badge-red    { color: var(--red);    border-color: rgba(232,64,64,0.35);    background: rgba(232,64,64,0.07); }
+    .zb-badge-blue   { color: var(--blue);   border-color: rgba(74,143,212,0.35);   background: rgba(74,143,212,0.07); }
+    .zb-badge-orange { color: var(--orange); border-color: rgba(212,131,26,0.35);   background: rgba(212,131,26,0.07); }
+
+    /* ================================================================
+       2. MARKET STRUCTURE
+    ================================================================ */
+    .struct { display: flex; flex-direction: column; flex: 1; }
+
+    .struct-row {
+      display: grid;
+      grid-template-columns: 130px 18px 1fr;
+      align-items: start;
+      gap: 6px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .struct-row:first-child { padding-top: 0; }
+    .struct-row:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    .sc { font-family: var(--font-mono); font-size: 11.5px; color: var(--gold-bright); line-height: 1.5; }
+    .sa { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.5; }
+    .sr { font-family: var(--font-sans); font-size: 13px; font-weight: 300; color: var(--text); line-height: 1.5; }
+
+    /* ================================================================
+       3. SCENARIOS (3-col grid)
+    ================================================================ */
+    .scen-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .scen-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      position: relative;
+      overflow: hidden;
+    }
+    .scen-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+    }
+    .s-bear::before { background: linear-gradient(90deg, var(--red) 0%, transparent 80%); }
+    .s-bull::before { background: linear-gradient(90deg, var(--green) 0%, transparent 80%); }
+    .s-weak::before { background: linear-gradient(90deg, var(--orange) 0%, transparent 80%); }
+
+    .scen-idx {
+      font-family: var(--font-disp);
+      font-size: 38px;
+      line-height: 1;
+    }
+    .s-bear .scen-idx { color: rgba(232,64,64,0.20); }
+    .s-bull .scen-idx { color: rgba(52,168,74,0.20); }
+    .s-weak .scen-idx { color: rgba(212,131,26,0.20); }
+
+    .scen-trig {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+    .s-bear .scen-trig { color: var(--red); }
+    .s-bull .scen-trig { color: var(--green); }
+    .s-weak .scen-trig { color: var(--orange); }
+
+    .scen-desc {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--soft);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .scen-targets {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .tgt-label {
+      font-size: 9.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-right: 2px;
+    }
+    .tgt-pill {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 2px 9px;
+      border-radius: var(--radius-sm);
+      border: 1px solid;
+    }
+    .s-bear .tgt-pill { color: var(--red);    border-color: rgba(232,64,64,0.3);    background: rgba(232,64,64,0.07); }
+    .s-bull .tgt-pill { color: var(--green);  border-color: rgba(52,168,74,0.3);    background: rgba(52,168,74,0.07); }
+    .s-weak .tgt-pill { color: var(--orange); border-color: rgba(212,131,26,0.3);   background: rgba(212,131,26,0.07); }
+
+    .tgt-arrow { color: var(--muted); font-size: 11px; }
+
+    /* ================================================================
+       4. TRAP ZONE
+    ================================================================ */
+    .trap-range {
+      font-family: var(--font-disp);
+      font-size: 46px;
+      color: var(--red);
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+    .trap-dash {
+      font-family: var(--font-disp);
+      font-size: 26px;
+      color: var(--muted);
+      line-height: 1;
+      display: block;
+      margin: 3px 0;
+    }
+    .trap-caption {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-top: 8px;
+      margin-bottom: 20px;
+    }
+    .trap-items { display: flex; flex-direction: column; gap: 9px; margin-top: auto; }
+    .trap-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text);
+    }
+    .trap-ico {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,64,64,0.4);
+      background: rgba(232,64,64,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      color: var(--red);
+    }
+
+    /* ================================================================
+       5. REAL TRIGGER
+    ================================================================ */
+    .trigger-body {
+      text-align: center;
+      padding: 6px 0 14px;
+      flex: 1;
+    }
+    .trigger-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 4px;
+    }
+    .trigger-level {
+      font-family: var(--font-disp);
+      font-size: 84px;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      color: var(--accent);
+      animation: glow-pulse 3.5s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { text-shadow: 0 0 20px rgba(234,185,58,0.25), 0 0 60px rgba(234,185,58,0.10); }
+      50%       { text-shadow: 0 0 30px rgba(234,185,58,0.55), 0 0 90px rgba(234,185,58,0.22); }
+    }
+    .trigger-rule {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--soft);
+      margin-top: 8px;
+      letter-spacing: 0.06em;
+    }
+    .trigger-rule strong { color: var(--gold-bright); font-weight: 500; }
+
+    .trigger-box {
+      background: rgba(234,185,58,0.04);
+      border: 1px solid rgba(234,185,58,0.15);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+    .trigger-box p {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .trigger-box .hi { color: var(--gold-bright); font-weight: 400; }
+    .trigger-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-2);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--soft);
+      letter-spacing: 0.04em;
+    }
+    .note-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 5px var(--green);
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       6. EXECUTION RULE
+    ================================================================ */
+    .exec-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .exec-left { }
+    .exec-nop {
+      font-family: var(--font-disp);
+      font-size: 32px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .exec-flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0;
+    }
+    .exec-step {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-bright);
+      background: rgba(234,185,58,0.07);
+      border: 1px solid rgba(234,185,58,0.2);
+      border-radius: var(--radius-sm);
+      padding: 7px 11px;
+      white-space: nowrap;
+    }
+    .exec-sep {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 0 5px;
+      flex-shrink: 0;
+    }
+
+    .exec-rules { display: flex; flex-direction: column; }
+    .exec-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--soft);
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exec-rule:last-child { border-bottom: none; }
+    .rule-n {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gold-dim);
+      letter-spacing: 0.1em;
+      min-width: 20px;
+      flex-shrink: 0;
+    }
+
+    /* ================================================================
+       FOOTER
+    ================================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .footer-l { display: flex; flex-direction: column; gap: 4px; }
+    .footer-name {
+      font-family: var(--font-disp);
+      font-size: 22px;
+      letter-spacing: 0.14em;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .footer-div {
+      width: 28px;
+      height: 1px;
+      background: var(--gold-dim);
+      margin: 5px 0;
+    }
+    .footer-role {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--soft);
+      line-height: 1.55;
+      max-width: 340px;
+    }
+
+    .footer-r {
+      font-family: var(--font-sans);
+      font-size: 10.5px;
+      font-weight: 300;
+      color: var(--faint);
+      text-align: right;
+      line-height: 1.85;
+      max-width: 380px;
+    }
+
+    /* ================================================================
+       RESPONSIVE
+    ================================================================ */
+    @media (max-width: 760px) {
+      .wrap { padding: 0 16px; }
+      header { padding: 22px 0 20px; }
+      .brand-name { font-size: 34px; }
+      main { grid-template-columns: 1fr; gap: 14px; }
+      .span-2 { grid-column: 1; }
+      .scen-grid { grid-template-columns: 1fr; }
+      .exec-inner { grid-template-columns: 1fr; gap: 20px; }
+      .trigger-level { font-size: 64px; }
+      .footer-r { text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+      .struct-row { grid-template-columns: 100px 14px 1fr; }
+      .exec-flow { overflow-x: auto; }
+    }
+
+    /* ================================================================
+       PRINT
+    ================================================================ */
+    @media print {
+      body { background: #fff; color: #111; }
+      .ticker-wrap { display: none; }
+      .card { border: 1px solid #ccc; background: #fafafa; break-inside: avoid; }
+      .trigger-level { animation: none; text-shadow: none; color: #333; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     TICKER TAPE
+================================================================ -->
+<div class="ticker-wrap" role="marquee" aria-label="Pre-market highlights">
+  <div class="ticker-track">
+    <!-- Set 1 -->
+    <div class="ticker-set">
+      <span class="t-item t-gold">Sanjeev Signals</span>
+      <span class="t-item t-dim">NIFTY50</span>
+      <span class="t-item t-green">&#9650;&nbsp; Pre-Market Plan</span>
+      <span class="t-item">18 March 2026</span>
+      <span class="t-item t-red">Trap Zone &nbsp;23,350 &ndash; 23,680</span>
+      <span class="t-item t-gold">Real Trigger &nbsp;23,680</span>
+      <span class="t-item">5&ndash;15 Min Sustain Rule</span>
+      <span class="t-item t-red">&#9660;&nbsp; Supply 23,600 &ndash; 23,680</span>
+      <span class="t-item t-green">&#9650;&nbsp; Pivot 23,350 &ndash; 23,450</span>
+      <span class="t-item t-dim">Breakdown 23,150</span>
+      <span class="t-item">Wait &rarr; Level &rarr; Reaction &rarr; Execute</span>
+      <span class="t-item t-gold">No Tips &middot; No Shortcuts &middot; No Predictions</span>
+      <span class="t-item t-dim">F&amp;O &middot; Pure Option Buyer</span>
+    </div>
+    <!-- Set 2 — identical for seamless loop -->
+    <div class="ticker-set" aria-hidden="true">
+      <span class="t-item t-gold">Sanjeev Signals</span>
+      <span class="t-item t-dim">NIFTY50</span>
+      <span class="t-item t-green">&#9650;&nbsp; Pre-Market Plan</span>
+      <span class="t-item">18 March 2026</span>
+      <span class="t-item t-red">Trap Zone &nbsp;23,350 &ndash; 23,680</span>
+      <span class="t-item t-gold">Real Trigger &nbsp;23,680</span>
+      <span class="t-item">5&ndash;15 Min Sustain Rule</span>
+      <span class="t-item t-red">&#9660;&nbsp; Supply 23,600 &ndash; 23,680</span>
+      <span class="t-item t-green">&#9650;&nbsp; Pivot 23,350 &ndash; 23,450</span>
+      <span class="t-item t-dim">Breakdown 23,150</span>
+      <span class="t-item">Wait &rarr; Level &rarr; Reaction &rarr; Execute</span>
+      <span class="t-item t-gold">No Tips &middot; No Shortcuts &middot; No Predictions</span>
+      <span class="t-item t-dim">F&amp;O &middot; Pure Option Buyer</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     HEADER
+================================================================ -->
+<div class="wrap">
+  <header>
+    <div class="brand-block">
+      <div class="brand-name">Sanjeev&nbsp;<span class="accent-word">Signals</span></div>
+      <div class="brand-tagline">
+        F&amp;O Trader &middot; Pure Option Buyer &middot; Real P&amp;L &middot; Zero Certifications<br>
+        Pre-Market Plans &rarr; Post-Market Validation &middot; Survived Textbooks<br>
+        No Tips &middot; No Shortcuts &middot; No Get-Rich-Quick-Gimmicks
+      </div>
+    </div>
+    <div class="header-meta">
+      <span class="header-date">18 March 2026</span>
+      <div class="header-sub">Morning Plan &nbsp;/&nbsp; NIFTY50</div>
+      <div class="header-sub" style="color:var(--faint);font-size:9.5px;">Opening Control Framework</div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       MAIN GRID
+  ================================================================ -->
+  <main>
+
+    <!-- ── 1. CONTROL ZONES ── -->
+    <div class="card c-gold">
+      <div class="sec-label">Opening Control Framework</div>
+      <div class="zones">
+
+        <div class="zone-row">
+          <div class="zone-left">
+            <div class="zone-bar zb-red"></div>
+            <div class="zone-num">23,600 &ndash; 23,680</div>
+          </div>
+          <span class="zone-badge zb-badge-red">Decision Supply</span>
+        </div>
+
+        <div class="zone-row">
+          <div class="zone-left">
+            <div class="zone-bar zb-blue"></div>
+            <div class="zone-num">23,350 &ndash; 23,450</div>
+          </div>
+          <span class="zone-badge zb-badge-blue">Intraday Pivot</span>
+        </div>
+
+        <div class="zone-row">
+          <div class="zone-left">
+            <div class="zone-bar zb-orange"></div>
+            <div class="zone-num">23,150</div>
+          </div>
+          <span class="zone-badge zb-badge-orange">Breakdown Trigger</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 2. MARKET STRUCTURE ── -->
+    <div class="card c-blue">
+      <div class="sec-label">Market Structure Shift</div>
+      <div class="struct">
+
+        <div class="struct-row">
+          <div class="sc">Below 23,600</div>
+          <div class="sa">&rarr;</div>
+          <div class="sr">Bearish pullback remains in play</div>
+        </div>
+
+        <div class="struct-row">
+          <div class="sc">Sustained above 23,600</div>
+          <div class="sa">&rarr;</div>
+          <div class="sr">Short covering triggers bullish expansion</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 3. SCENARIOS ── -->
+    <div class="card c-neutral span-2">
+      <div class="sec-label">Scenarios</div>
+      <div class="scen-grid">
+
+        <div class="scen-card s-bear">
+          <div class="scen-idx">&#9312;</div>
+          <div class="scen-trig">Rejection at<br>23,600 &ndash; 23,680</div>
+          <div class="scen-desc">Classic trap setup &mdash; sell on rise remains valid</div>
+          <div class="scen-targets">
+            <span class="tgt-label">Target</span>
+            <span class="tgt-pill">23,350</span>
+            <span class="tgt-arrow">&rarr;</span>
+            <span class="tgt-pill">23,150</span>
+          </div>
+        </div>
+
+        <div class="scen-card s-bull">
+          <div class="scen-idx">&#9313;</div>
+          <div class="scen-trig">Acceptance above<br>23,680</div>
+          <div class="scen-desc">Short squeeze + momentum &mdash; fast expansion move</div>
+          <div class="scen-targets">
+            <span class="tgt-label">Target</span>
+            <span class="tgt-pill">23,850</span>
+            <span class="tgt-arrow">&rarr;</span>
+            <span class="tgt-pill">24,000</span>
+          </div>
+        </div>
+
+        <div class="scen-card s-weak">
+          <div class="scen-idx">&#9314;</div>
+          <div class="scen-trig">Break below<br>23,350</div>
+          <div class="scen-desc">Weakness confirmed &mdash; continuation downward</div>
+          <div class="scen-targets">
+            <span class="tgt-label">Target</span>
+            <span class="tgt-pill">23,150</span>
+            <span class="tgt-arrow">&rarr;</span>
+            <span class="tgt-pill">22,900</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── 4. TRAP ZONE ── -->
+    <div class="card c-red">
+      <div class="sec-label">Trap Zone</div>
+      <div class="trap-range">23,350</div>
+      <span class="trap-dash">&mdash;</span>
+      <div class="trap-range">23,680</div>
+      <div class="trap-caption">Expect both-side traps inside this range</div>
+      <div class="trap-items">
+        <div class="trap-item">
+          <span class="trap-ico">&#9888;</span>
+          Fake breakouts
+        </div>
+        <div class="trap-item">
+          <span class="trap-ico">&#9888;</span>
+          Stop hunts
+        </div>
+        <div class="trap-item">
+          <span class="trap-ico">&#9888;</span>
+          Both side traps
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 5. REAL TRIGGER ── -->
+    <div class="card c-gold">
+      <div class="sec-label">The Real Trigger</div>
+      <div class="trigger-body">
+        <div class="trigger-eyebrow">Critical Level</div>
+        <div class="trigger-level">23,680</div>
+        <div class="trigger-rule">Sustain on <strong>5&ndash;15 min</strong> candle close</div>
+      </div>
+      <div class="trigger-box">
+        <p>Level breaks with sustained close &rarr; market can expand <span class="hi">150&ndash;250 points</span> quickly.</p>
+        <div class="trigger-note">
+          <span class="note-dot"></span>
+          Shorts panic &nbsp;+&nbsp; fresh buyers enter together
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 6. EXECUTION RULE ── -->
+    <div class="card c-green span-2">
+      <div class="sec-label">Execution Rule</div>
+      <div class="exec-inner">
+        <div class="exec-left">
+          <div class="exec-nop">No Prediction.<br>No Anticipation.</div>
+          <div class="exec-flow">
+            <span class="exec-step">Wait</span>
+            <span class="exec-sep">&rarr;</span>
+            <span class="exec-step">Level</span>
+            <span class="exec-sep">&rarr;</span>
+            <span class="exec-step">Reaction</span>
+            <span class="exec-sep">&rarr;</span>
+            <span class="exec-step">Execute</span>
+          </div>
+        </div>
+        <div class="exec-rules">
+          <div class="exec-rule">
+            <span class="rule-n">01</span>
+            Levels decide &mdash; not opinions
+          </div>
+          <div class="exec-rule">
+            <span class="rule-n">02</span>
+            Bias follows the level &mdash; not the ego
+          </div>
+          <div class="exec-rule">
+            <span class="rule-n">03</span>
+            Execution stays disciplined &mdash; always
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+  ================================================================ -->
+  <footer>
+    <div class="footer-l">
+      <div class="footer-name">Sanjeev Singh &#x1F4CA;</div>
+      <div class="footer-div"></div>
+      <div class="footer-role">
+        Independent Systems Researcher &mdash; Markets &amp; Behavior<br>
+        at Sanjeev Signals
+      </div>
+    </div>
+    <div class="footer-r">
+      For educational &amp; journaling purposes only.<br>
+      Not SEBI registered. Not investment advice.<br>
+      Pre-market plans are frameworks, not predictions.<br>
+      <span style="color:var(--border-2);">&mdash; Trade your own system &mdash;</span>
+    </div>
+  </footer>
+
+</div><!-- /.wrap -->
+
+</body>
+</html>

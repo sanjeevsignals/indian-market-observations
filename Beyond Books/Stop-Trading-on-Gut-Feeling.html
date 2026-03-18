@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanjeev Signals — Stop Trading on Gut Feeling. Build a System Instead.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=UnifrakturMaguntia&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ════════════════════════════════════════════
+   DESIGN TOKENS
+════════════════════════════════════════════ */
+:root {
+  --ink:        #18120a;
+  --paper:      #f6f0df;
+  --aged:       #ece2cb;
+  --rule:       #28190a;
+  --accent:     #8b1a1a;
+  --gold:       #b8943f;
+  --muted:      #6b5c3e;
+  --light:      #a8956a;
+  --col-border: #cbb98a;
+}
+
+/* ════════════════════════════════════════════
+   RESET
+════════════════════════════════════════════ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html { -webkit-text-size-adjust: 100%; }
+
+/* ════════════════════════════════════════════
+   BODY / BACKGROUND
+════════════════════════════════════════════ */
+body {
+  background-color: #cec3a8;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 27px,
+    rgba(0,0,0,0.035) 27px, rgba(0,0,0,0.035) 28px
+  );
+  font-family: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 28px 14px 48px;
+}
+
+/* ════════════════════════════════════════════
+   PAGE WRAPPER
+════════════════════════════════════════════ */
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  border: 1px solid #bfaa80;
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.12),
+    4px 8px 32px rgba(0,0,0,0.22),
+    inset 0 0 100px rgba(160,130,70,0.07);
+  padding: 40px 44px 64px;
+  animation: pageReveal 0.7s ease-out both;
+}
+@keyframes pageReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════════════════════════════
+   MASTHEAD
+════════════════════════════════════════════ */
+.masthead {
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 3px double var(--rule);
+}
+.masthead-tagline {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.masthead-name {
+  font-family: 'UnifrakturMaguntia', 'Palatino Linotype', serif;
+  font-size: 72px;
+  line-height: 1;
+  color: var(--rule);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.10);
+}
+.masthead-subtitle {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ════════════════════════════════════════════
+   META BAR
+════════════════════════════════════════════ */
+.meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 5px 2px;
+  margin: 10px 0 22px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.meta-bar-left,
+.meta-bar-right { white-space: nowrap; }
+.edition-badge {
+  background: var(--rule);
+  color: var(--paper);
+  padding: 2px 10px;
+  font-size: 7.5px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+/* ════════════════════════════════════════════
+   HEADLINE BLOCK
+════════════════════════════════════════════ */
+.headline-block {
+  text-align: center;
+  padding: 16px 24px 22px;
+  border-bottom: 2px solid var(--rule);
+}
+.kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.kicker::before,
+.kicker::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.main-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1.07;
+  color: var(--rule);
+  margin: 0 auto 16px;
+  max-width: 720px;
+}
+.deck {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ════════════════════════════════════════════
+   BYLINE
+════════════════════════════════════════════ */
+.byline-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--col-border);
+  padding: 11px 0 15px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.by-name {
+  color: var(--rule);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.byline-sep {
+  display: inline-block;
+  margin: 0 14px;
+  color: var(--col-border);
+  font-size: 12px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* ════════════════════════════════════════════
+   COLUMN GRIDS
+════════════════════════════════════════════ */
+.columns-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--col-border);
+}
+.columns-2 {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  border-top: 1px solid var(--col-border);
+}
+.col {
+  padding: 20px 22px;
+  border-right: 1px solid var(--col-border);
+}
+.col:last-child { border-right: none; }
+
+/* ════════════════════════════════════════════
+   SECTION FLAG
+════════════════════════════════════════════ */
+.section-flag {
+  display: inline-block;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--accent);
+  padding: 3px 9px 2px;
+  margin-bottom: 11px;
+}
+
+/* ════════════════════════════════════════════
+   COLUMN HEADLINES
+════════════════════════════════════════════ */
+.col-hed {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.22;
+  color: var(--rule);
+  margin-bottom: 12px;
+}
+.col-hed-lg {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 1.18;
+  color: var(--rule);
+  margin-bottom: 14px;
+}
+
+/* ════════════════════════════════════════════
+   BODY TEXT — scoped class, no global p selector
+════════════════════════════════════════════ */
+.body-text {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: 11.5px;
+  line-height: 1.78;
+  color: var(--ink);
+  text-align: justify;
+  hyphens: auto;
+  margin-bottom: 11px;
+}
+.body-text:last-child { margin-bottom: 0; }
+
+/* Drop cap — explicit opt-in only */
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  font-weight: 900;
+  float: left;
+  line-height: 0.80;
+  margin-right: 5px;
+  margin-top: 5px;
+  color: var(--rule);
+}
+
+/* ════════════════════════════════════════════
+   PULL QUOTE
+════════════════════════════════════════════ */
+.pull-quote {
+  border-top: 2px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  padding: 14px 10px;
+  margin: 20px 0;
+  text-align: center;
+}
+.pull-quote blockquote {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16.5px;
+  line-height: 1.52;
+  color: var(--rule);
+}
+.pull-quote cite {
+  display: block;
+  font-family: 'Source Sans 3', sans-serif;
+  font-style: normal;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* ════════════════════════════════════════════
+   INSET BOX
+════════════════════════════════════════════ */
+.inset-box {
+  background: var(--aged);
+  border: 1px solid var(--col-border);
+  border-left: 3px solid var(--accent);
+  padding: 13px 15px 11px;
+  margin: 17px 0;
+}
+.inset-box-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 9px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--col-border);
+}
+.inset-box .body-text {
+  font-size: 10.5px;
+  line-height: 1.68;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* ════════════════════════════════════════════
+   NEWS LIST
+════════════════════════════════════════════ */
+.news-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.news-list li {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink);
+  padding: 6px 0 6px 16px;
+  border-bottom: 1px dotted var(--col-border);
+  position: relative;
+}
+.news-list li:last-child { border-bottom: none; }
+.news-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  font-size: 8px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+/* ════════════════════════════════════════════
+   STAT TRIO
+════════════════════════════════════════════ */
+.stat-trio {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--col-border);
+  border: 1px solid var(--col-border);
+  margin: 16px 0;
+}
+.stat-cell {
+  background: var(--aged);
+  padding: 13px 6px 11px;
+  text-align: center;
+}
+.stat-num {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-label {
+  display: block;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 5px;
+  line-height: 1.45;
+}
+
+/* ════════════════════════════════════════════
+   DIVIDERS
+════════════════════════════════════════════ */
+.rule-thin {
+  height: 0;
+  border: none;
+  border-top: 1px solid var(--col-border);
+  margin: 16px 0;
+}
+.rule-double {
+  height: 0;
+  border: none;
+  border-top: 1px solid var(--rule);
+  box-shadow: 0 3px 0 0 var(--rule);
+  margin: 22px 0 20px;
+}
+
+/* ════════════════════════════════════════════
+   CLOSING SECTION
+════════════════════════════════════════════ */
+.section-closer {
+  border-top: 2px solid var(--rule);
+}
+.section-closer-flag {
+  display: block;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--rule);
+  padding: 4px 14px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ════════════════════════════════════════════
+   ORNAMENT & CLOSING LINE
+════════════════════════════════════════════ */
+.ornament {
+  text-align: center;
+  font-family: 'Libre Baskerville', serif;
+  color: var(--gold);
+  font-size: 14px;
+  letter-spacing: 10px;
+  margin: 12px 0 10px;
+  user-select: none;
+}
+.closing-line {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+  display: block;
+  line-height: 1.65;
+}
+
+/* ════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════ */
+.footer {
+  border-top: 3px double var(--rule);
+  margin-top: 40px;
+  padding-top: 16px;
+  text-align: center;
+}
+.footer-name {
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: 24px;
+  color: var(--rule);
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+.footer-meta {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footer-disclaimer {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 7.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--light);
+  margin-top: 7px;
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .page { padding: 22px 18px 44px; }
+  .masthead-name { font-size: 44px; }
+  .main-headline { font-size: 30px; }
+  .deck { font-size: 14px; }
+  .columns-3,
+  .columns-2 { grid-template-columns: 1fr; }
+  .col { border-right: none; border-bottom: 1px solid var(--col-border); }
+  .col:last-child { border-bottom: none; }
+  .meta-bar { flex-wrap: wrap; justify-content: center; text-align: center; }
+  .byline-row { flex-wrap: wrap; gap: 4px; justify-content: center; }
+  .byline-sep { display: none; }
+}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+
+  <!-- ══════════════════════════
+       MASTHEAD
+  ══════════════════════════ -->
+  <header class="masthead">
+    <p class="masthead-tagline">F&amp;O Trader &nbsp;·&nbsp; Pure Option Buyer &nbsp;·&nbsp; Real P&amp;L &nbsp;·&nbsp; Zero Certifications</p>
+    <div class="masthead-name">Sanjeev Signals</div>
+    <p class="masthead-subtitle">Pre-Market Plans &nbsp;→&nbsp; Post-Market Validation &nbsp;&nbsp;·&nbsp;&nbsp; Structure &nbsp;·&nbsp; Discipline &nbsp;·&nbsp; Edge</p>
+  </header>
+
+
+  <!-- ══════════════════════════
+       META BAR
+  ══════════════════════════ -->
+  <div class="meta-bar">
+    <span class="meta-bar-left">Vol. XLVII &nbsp;·&nbsp; No. 212</span>
+    <span class="edition-badge">Special Edition</span>
+    <span class="meta-bar-right">Wednesday, March 2026 &nbsp;·&nbsp; Price: One Clear Mind</span>
+  </div>
+
+
+  <!-- ══════════════════════════
+       HEADLINE BLOCK
+  ══════════════════════════ -->
+  <div class="headline-block">
+    <div class="kicker">Analysis &amp; Commentary</div>
+    <h1 class="main-headline">Stop Trading on Gut Feeling.<br>Build a System Instead.</h1>
+    <p class="deck">What most traders call intuition is nothing more than unstructured reaction dressed in the costume of skill. The market, indifferent to confidence, rewards only structure.</p>
+  </div>
+
+
+  <!-- ══════════════════════════
+       BYLINE
+  ══════════════════════════ -->
+  <div class="byline-row">
+    <span>By&nbsp;<span class="by-name">Sanjeev Singh</span></span>
+    <span class="byline-sep">|</span>
+    <span>Special Report</span>
+    <span class="byline-sep">|</span>
+    <span>Independent Systems Researcher — Markets &amp; Behaviour</span>
+  </div>
+
+
+  <!-- ══════════════════════════
+       ROW 1 — THREE COLUMNS
+  ══════════════════════════ -->
+  <div class="columns-3">
+
+    <div class="col">
+      <div class="section-flag">The Problem</div>
+      <h2 class="col-hed">Information Alone Does Not Create Decisions</h2>
+      <p class="body-text drop-cap">A few wins make it feel like skill. A few losses expose what it really is — no rules, no consistency, no edge. And the market does not reward that for long.</p>
+      <p class="body-text">We live in a time where trading information is everywhere. Charts, indicators, news, opinions — available in seconds. Yet most traders still struggle. Why? Because information without structure creates confusion, not decisions.</p>
+      <p class="body-text">You scroll, you analyse, you hesitate — and then you act late. Or worse, you act randomly.</p>
+    </div>
+
+    <div class="col">
+      <div class="section-flag">The Definition</div>
+      <h2 class="col-hed">What a Real Strategy Actually Means</h2>
+      <p class="body-text drop-cap">A lot of traders think a strategy is a setup, an indicator, or a pattern they recognise. That is incomplete. A real strategy is much simpler — and much stricter.</p>
+
+      <div class="pull-quote">
+        <blockquote>"Entry + Exit + Risk. That is it. If these are not defined before the trade, you do not have a strategy. You have a guess."</blockquote>
+        <cite>— The Structured Trader's Maxim</cite>
+      </div>
+
+      <p class="body-text">When exactly do you enter? Where exactly do you exit if you are wrong? How much are you willing to lose? These three questions, answered before every trade, are the foundation of everything.</p>
+    </div>
+
+    <div class="col">
+      <div class="section-flag">The Illusion</div>
+      <h2 class="col-hed">The Trap of "Feeling the Market"</h2>
+      <p class="body-text drop-cap">There is a phase every trader goes through. You start understanding charts. You spot patterns. A few trades go your way — and suddenly it feels like you can read the market.</p>
+      <p class="body-text">That is where the trap begins. What feels like intuition is often just selective memory, recency bias, and overconfidence from a small sample of wins.</p>
+
+      <div class="inset-box">
+        <div class="inset-box-title">The Three Culprits</div>
+        <ul class="news-list">
+          <li>Selective memory of winning trades</li>
+          <li>Recency bias from recent momentum</li>
+          <li>Overconfidence from small sample wins</li>
+        </ul>
+      </div>
+
+      <p class="body-text">The market does not care how confident you feel. It responds to structure, liquidity, and behaviour — not to your belief.</p>
+    </div>
+
+  </div>
+
+
+  <div class="rule-double"></div>
+
+
+  <!-- ══════════════════════════
+       ROW 2 — TWO COLUMNS
+  ══════════════════════════ -->
+  <div class="columns-2">
+
+    <div class="col">
+      <div class="section-flag">The Silent Failure</div>
+      <h2 class="col-hed-lg">Why Most Traders Fail Quietly — And Never Know Why</h2>
+      <p class="body-text drop-cap">The failure is not dramatic. It does not happen in one trade. It happens slowly — across dozens of small decisions that each feel reasonable in isolation but collectively destroy any chance of consistency.</p>
+
+      <div class="stat-trio">
+        <div class="stat-cell">
+          <span class="stat-num">1–2%</span>
+          <span class="stat-label">Risk per trade<br>You survive &amp; learn</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-num">10%</span>
+          <span class="stat-label">Risk per trade<br>Danger zone</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-num">20%</span>
+          <span class="stat-label">Risk per trade<br>Wipeout math</span>
+        </div>
+      </div>
+
+      <p class="body-text">Entering without a defined plan. Holding losers longer than planned. Exiting winners too early. Increasing size after a win. Hesitating after a loss. Individually, each decision feels small. Together, they destroy consistency.</p>
+      <p class="body-text">And without consistency, there is no edge. This is not theory — it is arithmetic. The market is unforgiving with bad math.</p>
+
+      <div class="pull-quote">
+        <blockquote>"Most traders obsess over entries. Professionals focus on risk. Because entries can be wrong. Risk management cannot."</blockquote>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section-flag">The Reality Check</div>
+      <h2 class="col-hed">Backtesting: Where Good-Looking Strategies Go to Die</h2>
+      <p class="body-text drop-cap">Before you trust any idea in live markets, it needs to be tested. Not emotionally, not selectively — structurally. Backtesting forces you to answer the questions the market will eventually ask you anyway.</p>
+
+      <div class="inset-box">
+        <div class="inset-box-title">What Backtesting Demands</div>
+        <ul class="news-list">
+          <li>Does this setup actually work over time?</li>
+          <li>What is the true win rate?</li>
+          <li>What is the average risk-to-reward?</li>
+          <li>What drawdowns should you expect?</li>
+        </ul>
+      </div>
+
+      <p class="body-text">This is where most good-looking strategies fail. And that is a good thing — because it saves you from paying for those lessons with real money.</p>
+
+      <div class="rule-thin"></div>
+
+      <div class="section-flag">The Breakdown</div>
+      <h2 class="col-hed">Same Chart. Completely Different Thinking.</h2>
+      <p class="body-text">The market opens near a known supply zone. Retail traders see momentum and buy the breakout. Price fails. Reverses. Losses follow.</p>
+      <p class="body-text">A structured trader asks: Who got trapped? Where was the invalidation? What was the correct entry? What did the risk look like?</p>
+      <p class="body-text">Most people merely describe the move. A few structure it. That difference compounds — and over time, it shows.</p>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════
+       CLOSING SECTION
+  ══════════════════════════ -->
+  <div class="section-closer">
+    <span class="section-closer-flag">The Conclusion</span>
+
+    <div class="columns-3" style="border-top: none;">
+
+      <div class="col">
+        <div class="section-flag">Execution</div>
+        <h2 class="col-hed">Where Every System Ultimately Breaks</h2>
+        <p class="body-text drop-cap">Even with a defined strategy, most traders still struggle — not because the system is flawed, but because execution is. Following rules sounds simple. It is not.</p>
+        <p class="body-text">You skip valid trades. You take invalid ones. You move stops. You override exits. Not because you do not know better — but because discipline under genuine uncertainty is hard. This is where trading shifts from the technical to the psychological.</p>
+      </div>
+
+      <div class="col">
+        <div class="pull-quote" style="margin-top: 8px;">
+          <blockquote>"The market already gives you everything you need: levels, behaviour, traps, reactions. The difference is not in what you see — it is in how you structure it."</blockquote>
+        </div>
+        <p class="body-text">Most traders are watching the market. A few are building systems from it. You do not need more indicators, more opinions, or more high-probability setups. You need structure.</p>
+      </div>
+
+      <div class="col">
+        <div class="section-flag">The Shift</div>
+        <h2 class="col-hed">A Repeatable Process, Not a Prediction</h2>
+        <p class="body-text drop-cap">You need a repeatable way to define your decisions, control your risk, and evaluate your outcomes honestly.</p>
+        <p class="body-text">Because in the end, trading is not about predicting. It is about executing a defined process under uncertainty — again and again, without deviation, without ego.</p>
+        <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+        <span class="closing-line">That difference compounds.<br>And over time, it shows.</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════
+       FOOTER
+  ══════════════════════════ -->
+  <footer class="footer">
+    <div class="ornament" style="margin-bottom: 10px;">— &nbsp; ◆ &nbsp; —</div>
+    <span class="footer-name">Sanjeev Signals</span>
+    <p class="footer-meta">Sanjeev Singh &nbsp;·&nbsp; Independent Systems Researcher — Markets &amp; Behaviour</p>
+    <p class="footer-disclaimer">No Tips &nbsp;·&nbsp; No Shortcuts &nbsp;·&nbsp; No Get-Rich-Quick Gimmicks &nbsp;·&nbsp; Just Structure &amp; Real P&amp;L</p>
+  </footer>
+
+
+</div><!-- /page -->
+</body>
+</html>

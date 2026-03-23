@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Sanjeev Signals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:         #f4f4f0;
+      --white:      #ffffff;
+      --border:     #e0ddd6;
+      --border-lt:  #eeebe4;
+      --amber:      #b5420a;
+      --amber-lt:   #fdf3ee;
+      --navy:       #1a2340;
+      --text:       #1c1c1c;
+      --muted:      #6b6b6b;
+      --muted-lt:   #999;
+      --hover:      #faf8f5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: var(--navy);
+      padding: 0.55rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .topbar-brand span { color: #e8922a; }
+    .topbar-nav {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      color: #7788aa;
+      text-transform: uppercase;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--amber);
+      padding: 2rem 2rem 1.6rem;
+    }
+    .header-inner { max-width: 920px; margin: 0 auto; }
+
+    .breadcrumb {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      color: var(--muted-lt);
+      text-transform: uppercase;
+      margin-bottom: 0.9rem;
+    }
+    .breadcrumb span { color: var(--amber); }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.7rem;
+    }
+    header h1 em { color: var(--amber); font-style: italic; }
+
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .header-meta span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .tag {
+      background: var(--amber-lt);
+      color: var(--amber);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.65rem;
+      border: 1px solid #f0c0a0;
+      border-radius: 2px;
+    }
+
+    /* ── Layout ── */
+    .layout {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 255px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+
+    /* ── FAQ column ── */
+    .faq-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 2px solid var(--navy);
+    }
+    .faq-header-row h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .faq-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      color: var(--muted-lt);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── FAQ list ── */
+    .faq-list {
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-lt);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.4s ease forwards;
+    }
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-item:nth-child(1)  { animation-delay: 0.04s; }
+    .faq-item:nth-child(2)  { animation-delay: 0.08s; }
+    .faq-item:nth-child(3)  { animation-delay: 0.12s; }
+    .faq-item:nth-child(4)  { animation-delay: 0.16s; }
+    .faq-item:nth-child(5)  { animation-delay: 0.20s; }
+    .faq-item:nth-child(6)  { animation-delay: 0.24s; }
+    .faq-item:nth-child(7)  { animation-delay: 0.28s; }
+    .faq-item:nth-child(8)  { animation-delay: 0.32s; }
+    .faq-item:nth-child(9)  { animation-delay: 0.36s; }
+    .faq-item:nth-child(10) { animation-delay: 0.40s; }
+    .faq-item:nth-child(11) { animation-delay: 0.44s; }
+    .faq-item:nth-child(12) { animation-delay: 0.48s; }
+    .faq-item:nth-child(13) { animation-delay: 0.52s; }
+    .faq-item:nth-child(14) { animation-delay: 0.56s; }
+    .faq-item:nth-child(15) { animation-delay: 0.60s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .faq-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 1rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .faq-trigger:hover { background: var(--hover); }
+    .faq-item.open .faq-trigger {
+      background: var(--amber-lt);
+      border-left: 3px solid var(--amber);
+    }
+
+    .faq-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      color: var(--muted-lt);
+      flex-shrink: 0;
+      min-width: 20px;
+    }
+    .faq-q {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.93rem;
+      font-weight: 600;
+      color: var(--navy);
+      flex: 1;
+      line-height: 1.4;
+      transition: color 0.15s;
+    }
+    .faq-item.open .faq-q { color: var(--amber); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+    .faq-icon svg {
+      width: 10px; height: 10px;
+      fill: none; stroke: var(--muted); stroke-width: 2.5;
+    }
+
+    .faq-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s ease;
+    }
+    .faq-item.open .faq-body { grid-template-rows: 1fr; }
+    .faq-body-inner { overflow: hidden; }
+
+    .faq-a {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.88rem;
+      color: #383838;
+      line-height: 1.85;
+      padding: 0.8rem 1.2rem 1.2rem 3rem;
+      background: var(--amber-lt);
+      border-left: 3px solid var(--amber);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar { display: flex; flex-direction: column; gap: 1.4rem; }
+
+    .sidebar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+    }
+    .sidebar-card-header {
+      background: var(--navy);
+      padding: 0.6rem 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: #8899bb;
+      text-transform: uppercase;
+    }
+    .sidebar-card-body { padding: 1.1rem 1rem; }
+
+    .philosophy-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--navy);
+      line-height: 1.6;
+      border-left: 3px solid var(--amber);
+      padding-left: 0.8rem;
+      margin-bottom: 0.7rem;
+    }
+    .philosophy-cite {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      color: var(--muted-lt);
+      letter-spacing: 0.1em;
+    }
+
+    .formula-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.66rem;
+      color: var(--navy);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--border-lt);
+      line-height: 1.5;
+    }
+    .formula-line:last-child { border-bottom: none; }
+    .formula-line .arrow { color: var(--amber); margin-right: 0.3rem; }
+
+    .sidebar-link {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      color: var(--amber);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border-lt);
+      transition: color 0.15s;
+    }
+    .sidebar-link:last-child { border-bottom: none; }
+    .sidebar-link:hover { color: var(--navy); }
+    .sidebar-link::before { content: '→ '; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .footer-brand span { color: #e8922a; }
+    .footer-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.56rem;
+      color: #6677aa;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .disclaimer {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.5rem;
+      color: #445577;
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-brand">Sanjeev <span>Signals</span></div>
+    <div class="topbar-nav">Pre-Market Clarity · Rule-Based Execution</div>
+  </div>
+
+  <header>
+    <div class="header-inner">
+      <p class="breadcrumb">Home › <span>Trader FAQ</span></p>
+      <h1>Traders Ask. <em>I Answer.</em></h1>
+      <div class="header-meta">
+        <span>15 Questions</span>
+        <span>·</span>
+        <span>NIFTY 50 Options</span>
+        <span>·</span>
+        <div class="tag">Rule-Based Trading</div>
+        <div class="tag">Pure Option Buyer</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <div>
+      <div class="faq-header-row">
+        <h2>Frequently Asked Questions</h2>
+        <span class="faq-count">15 entries</span>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">01</span>
+            <span class="faq-q">Do you trade Forex?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">No — Indian equity derivatives only. NIFTY 50 options, pure buyer side. The market structure and session timing suit my system.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">02</span>
+            <span class="faq-q">Why not Forex?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Retail forex trading through offshore platforms is illegal in India under FEMA. I stay within what is legally permitted. NIFTY 50 options on NSE fits that perfectly.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">03</span>
+            <span class="faq-q">How do you decide trade size?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Fixed risk per trade, defined before entry. Capital protection is non-negotiable — position size follows from that, not the other way around.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">04</span>
+            <span class="faq-q">How do you identify key levels pre-market?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Previous day's high and low, overnight SGX data, and key option chain levels — OI concentration tells you where the market is likely to respect or reject. I cover this in my pre-market analysis published daily on Sanjeev Signals.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">05</span>
+            <span class="faq-q">Do you use indicators or price action?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Levels first, always. Indicators don't decide — they confirm. If price action at a key level says no, no indicator changes that.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">06</span>
+            <span class="faq-q">How many trades do you take in a day?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">As many as the setup demands — which is usually very few. Overtrading is just expensive impatience.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">07</span>
+            <span class="faq-q">Do you hold positions overnight?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">No. Options decay doesn't wait. I close what I opened — clean slate every day.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">08</span>
+            <span class="faq-q">What is your edge?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Pre-market preparation. By the time the market opens, the plan is already done. Intraday is just execution.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">09</span>
+            <span class="faq-q">Do you follow tips or recommendations?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Never. Someone else's conviction doesn't belong in my trade. Every entry has to make sense within my own framework.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">10</span>
+            <span class="faq-q">How do you handle losing trades?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Pre-defined exit, no negotiation. The loss was accounted for before entry. A stopped-out trade isn't a failure — it's the system working.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">11</span>
+            <span class="faq-q">Can you teach me your strategy?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">The framework is public — I publish pre-market analysis daily on Sanjeev Signals. The real work is building the discipline to follow it.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">12</span>
+            <span class="faq-q">Do you use leverage?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Options themselves carry inherent leverage. Adding more on top of that is just adding noise to an already complex instrument.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">13</span>
+            <span class="faq-q">How long have you been trading?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">Long enough to know that consistency matters more than any single trade. The P&L that counts is the one at year end — not today's.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">14</span>
+            <span class="faq-q">Do you trade based on news?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">News creates noise. Levels create opportunity. I let the levels tell me what the market is doing — not the headlines.</p>
+          </div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" aria-expanded="false">
+            <span class="faq-num">15</span>
+            <span class="faq-q">What platform do you use for analysis?</span>
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><polyline points="2,3 5,7 8,3"/></svg></span>
+          </button>
+          <div class="faq-body"><div class="faq-body-inner">
+            <p class="faq-a">TradingView — clean, fast, and does exactly what I need it to do.</p>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">Trading Philosophy</div>
+        <div class="sidebar-card-body">
+          <p class="philosophy-quote">"Trading is not risk management. It is nervous system management."</p>
+          <p class="philosophy-cite">— Sanjeev Signals</p>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">The Framework</div>
+        <div class="sidebar-card-body">
+          <div class="formula-line"><span class="arrow">→</span> Levels Decide</div>
+          <div class="formula-line"><span class="arrow">→</span> Bias Follows</div>
+          <div class="formula-line"><span class="arrow">→</span> Execution Stays Structured</div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-card-header">Explore</div>
+        <div class="sidebar-card-body">
+          <a class="sidebar-link" href="https://github.com/sanjeevsignals/indian-market-observations/tree/main/NIFTY50/2026/Pre-Analysis" target="_blank" rel="noopener">Daily Pre-Market Analysis</a>
+          <a class="sidebar-link" href="https://github.com/sanjeevsignals/indian-market-observations/tree/main/Beyond%20Books" target="_blank" rel="noopener">Beyond Books Series</a>
+          <a class="sidebar-link" href="https://github.com/sanjeevsignals/indian-market-observations?tab=readme-ov-file" target="_blank" rel="noopener">Trading Journal</a>
+          <a class="sidebar-link" href="https://sanjeevsignals.github.io/indian-market-observations/Beyond%20Books/candlestick-theory.html" target="_blank" rel="noopener">Candlestick Theory</a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <footer>
+    <p class="footer-brand">Sanjeev <span>Signals</span></p>
+    <p class="footer-tagline">Pre-Market Clarity · Rule-Based Execution</p>
+    <p class="disclaimer">
+      SEBI Disclaimer: This content is for educational and informational purposes only. It does not constitute investment advice or a recommendation to buy or sell any securities. Trading in options involves substantial risk of loss. Please consult a SEBI-registered investment advisor before making any investment decisions.
+    </p>
+  </footer>
+
+  <script>
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach(item => {
+      const trigger = item.querySelector('.faq-trigger');
+      trigger.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        items.forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Types &amp; Execution — Sanjeev Signals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=DM+Mono:wght@400;500&amp;family=Libre+Franklin:wght@300;400;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #0d0d0d;
+      --paper: #f5f0e8;
+      --cream: #ede7d5;
+      --accent: #c0392b;
+      --accent2: #1a3a5c;
+      --rule: #2c2c2c;
+      --muted: #6b6153;
+      --mono: 'DM Mono', monospace;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Libre Franklin', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+      padding: 20px 24px 16px;
+      border-bottom: 4px double var(--accent);
+      animation: fadeDown 0.6s ease both;
+    }
+    .masthead-brand {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: var(--paper);
+      line-height: 1;
+    }
+    .masthead-brand span { color: var(--accent); }
+    .masthead-tagline {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+    .masthead-rule {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 14px auto 0;
+      max-width: 640px;
+    }
+    .masthead-rule::before,
+    .masthead-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--muted);
+    }
+    .masthead-date {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── HEADLINE BLOCK ── */
+    .headline-block {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 0;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+    .kicker {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    h1.headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--ink);
+      max-width: 760px;
+      margin-bottom: 20px;
+    }
+    .deck {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 680px;
+      border-left: 3px solid var(--accent);
+      padding-left: 18px;
+      margin-bottom: 32px;
+    }
+    .byline-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 40px;
+    }
+    .byline-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-weight: 900;
+      color: white;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .byline-text { font-size: 0.78rem; }
+    .byline-text strong { display: block; font-weight: 600; color: var(--ink); }
+    .byline-text span { color: var(--muted); font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; }
+
+    /* ── DOUBLE RULE DIVIDER ── */
+    .double-rule {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      border-top: 4px double var(--rule);
+      margin-bottom: 0;
+    }
+
+    /* ── MAIN GRID ── */
+    .page-grid {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 40px 48px;
+    }
+    .main-col { min-width: 0; }
+    .side-col { min-width: 0; }
+
+    @media (max-width: 700px) {
+      .page-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: block;
+    }
+    h2.section-head {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+    }
+    h3.sub-head {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 24px 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h3.sub-head .num {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    p { margin-bottom: 14px; font-size: 0.95rem; color: #2a2a2a; }
+
+    /* ── TRUTH CALLOUT ── */
+    .truth-box {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 24px 28px;
+      margin: 28px 0;
+      position: relative;
+      animation: fadeIn 0.8s 0.3s ease both;
+    }
+    .truth-box::before {
+      content: '\201C';
+      font-family: var(--serif);
+      font-size: 5rem;
+      color: var(--accent);
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      line-height: 1;
+    }
+    .truth-box p {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--paper);
+      line-height: 1.5;
+      padding-top: 20px;
+      margin: 0;
+    }
+
+    /* ── ORDER TYPE CARDS ── */
+    .order-card {
+      border: 1px solid #c8bfaf;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      position: relative;
+      background: #faf6ee;
+      transition: box-shadow 0.2s;
+    }
+    .order-card:hover { box-shadow: 4px 4px 0 var(--accent); }
+    .order-card-tag {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--paper);
+      background: var(--accent2);
+      padding: 3px 8px;
+      position: absolute;
+      top: -11px;
+      left: 16px;
+    }
+    .order-card-title {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      margin-top: 4px;
+    }
+    .order-card p { font-size: 0.88rem; margin-bottom: 6px; }
+    .order-card .verdict {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #c8bfaf;
+    }
+    .order-card .tag-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      padding: 3px 8px;
+      border: 1px solid;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+    .tag.green { border-color: #27ae60; color: #27ae60; }
+    .tag.red { border-color: var(--accent); color: var(--accent); }
+    .tag.blue { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── EXECUTION STEPS ── */
+    .exec-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.5s ease both;
+    }
+    .exec-step-num {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 1;
+      min-width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+      -webkit-text-stroke: 1px #b0a898;
+    }
+    .exec-step-body h4 {
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .exec-step-body p { font-size: 0.85rem; margin: 0; color: #444; }
+    .exec-step.critical .exec-step-body { border-left: 3px solid var(--accent); padding-left: 12px; }
+    .exec-step.critical .exec-step-body h4 { color: var(--accent); }
+
+    /* ── TRADE EXAMPLE ── */
+    .trade-example {
+      background: var(--accent2);
+      color: var(--paper);
+      padding: 24px 26px;
+      margin: 28px 0;
+    }
+    .trade-example .ex-title {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #7fa0bf;
+      margin-bottom: 14px;
+    }
+    .trade-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 14px;
+    }
+    .trade-cell {
+      background: var(--accent2);
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .trade-cell .tc-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; color: #7fa0bf; text-transform: uppercase; margin-bottom: 4px; }
+    .trade-cell .tc-val { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; color: var(--paper); }
+    .trade-cell .tc-val.entry { color: #f0c040; }
+    .trade-cell .tc-val.sl { color: #e74c3c; }
+    .trade-cell .tc-val.tgt { color: #2ecc71; }
+    .trade-note { font-size: 0.8rem; color: #aac5d8; font-family: var(--mono); }
+
+    /* ── RULES BOX ── */
+    .rules-box {
+      border: 2px solid var(--ink);
+      padding: 22px 24px;
+      margin: 28px 0;
+    }
+    .rules-box .rules-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .rule-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .rule-num {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      background: var(--ink);
+      color: var(--paper);
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .rule-text { font-size: 0.88rem; line-height: 1.5; }
+    .rule-text strong { color: var(--accent); }
+
+    /* ── MISTAKES ── */
+    .mistake-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd5c5;
+    }
+    .mistake-row:last-child { border-bottom: none; }
+    .mistake-x {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .mistake-row p { margin: 0; font-size: 0.86rem; }
+    .mistake-row p strong { display: block; font-weight: 700; margin-bottom: 2px; }
+    .mistake-row p span { color: var(--muted); font-size: 0.82rem; }
+
+    /* ── SIDEBAR ── */
+    .sidebar-box {
+      border: 1px solid #c8bfaf;
+      padding: 18px 18px 14px;
+      margin-bottom: 24px;
+      background: #faf6ee;
+    }
+    .sidebar-box .sb-title {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .mental-model-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .mm-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 3px 8px;
+      min-width: 56px;
+      text-align: center;
+    }
+    .mm-label.entry-l { background: #1a3a5c; }
+    .mm-label.sl-l { background: var(--accent); }
+    .mm-label.tgt-l { background: #196f3d; }
+    .mm-text { font-size: 0.82rem; color: #444; }
+
+    .stack-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .stack-num { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); min-width: 14px; }
+    .stack-item {
+      font-size: 0.82rem;
+      background: #ede7d5;
+      padding: 5px 10px;
+      flex: 1;
+      border-left: 2px solid var(--ink);
+    }
+    .stack-arrow { font-size: 0.7rem; color: var(--muted); }
+
+    /* ── FINAL TRUTH ── */
+    .final-truth {
+      background: var(--accent);
+      color: white;
+      padding: 36px 32px;
+      text-align: center;
+      margin-top: 40px;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .final-truth .ft-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 14px;
+    }
+    .final-truth p {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: white;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .final-truth .ft-sub {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      opacity: 0.75;
+      margin-top: 14px;
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--ink);
+      color: var(--muted);
+      text-align: center;
+      padding: 20px 24px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .footer span { color: var(--accent); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .main-col > * { animation: fadeUp 0.6s ease both; }
+    .main-col > *:nth-child(1) { animation-delay: 0.1s; }
+    .main-col > *:nth-child(2) { animation-delay: 0.2s; }
+    .main-col > *:nth-child(3) { animation-delay: 0.3s; }
+    .main-col > *:nth-child(4) { animation-delay: 0.4s; }
+    .main-col > *:nth-child(5) { animation-delay: 0.5s; }
+
+    .exec-step:nth-child(1) { animation-delay: 0.1s; }
+    .exec-step:nth-child(2) { animation-delay: 0.2s; }
+    .exec-step:nth-child(3) { animation-delay: 0.3s; }
+    .exec-step:nth-child(4) { animation-delay: 0.4s; }
+    .exec-step:nth-child(5) { animation-delay: 0.5s; }
+    .exec-step:nth-child(6) { animation-delay: 0.6s; }
+    .exec-step:nth-child(7) { animation-delay: 0.7s; }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-brand">SANJEEV <span>SIGNALS</span></div>
+    <div class="masthead-tagline">Independent Systems Research · Markets &amp; Behaviour</div>
+    <div class="masthead-rule">
+      <div class="masthead-date">Option Execution Series · March 2026</div>
+    </div>
+  </header>
+
+  <!-- HEADLINE -->
+  <section class="headline-block">
+    <span class="kicker">Execution Intelligence</span>
+    <h1 class="headline">Order Types &amp; Execution Rules: The System Most Traders Skip</h1>
+    <p class="deck">
+      Your analysis can be right and you can still lose. Not because the market fooled you — because your execution was random. This is the complete practical system that fixes that.
+    </p>
+    <div class="byline-bar">
+      <div class="byline-avatar">SS</div>
+      <div class="byline-text">
+        <strong>Sanjeev Singh</strong>
+        <span>F&amp;O Trader · Option Buyer · No tips, no shortcuts, no certification</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="double-rule"></div>
+
+  <!-- MAIN GRID -->
+  <div class="page-grid">
+
+    <!-- MAIN COLUMN -->
+    <main class="main-col">
+
+      <!-- CORE IDEA -->
+      <div class="truth-box">
+        <p>Order type decides how your trade behaves in the market. Not your indicator. Not your opinion.</p>
+      </div>
+
+      <!-- ORDER TYPES -->
+      <span class="section-label">Section 01</span>
+      <h2 class="section-head">The 5 Order Types — Stripped Down</h2>
+
+      <div class="order-card">
+        <span class="order-card-tag">① Market Order</span>
+        <div class="order-card-title">Execute now. At whatever price.</div>
+        <p>Fastest execution you can get. Zero price control. In options, slippage is real — you'll often get a worse fill than you expected because the spread is wide and you're competing against algos.</p>
+        <div class="tag-row">
+          <span class="tag green">Fast</span>
+          <span class="tag red">No Price Control</span>
+          <span class="tag red">Slippage Risk</span>
+        </div>
+        <div class="verdict">→ Use only when speed matters more than price. Exits in panic. Never for entries in options.</div>
+      </div>
+
+      <div class="order-card">
+        <span class="order-card-tag">② Limit Order</span>
+        <div class="order-card-title">Execute only at my price — or better.</div>
+        <p>Strong price control. No guaranteed execution. If price doesn't come to you, you don't trade. That's discipline, not a flaw.</p>
+        <div class="tag-row">
+          <span class="tag green">Price Control</span>
+          <span class="tag blue">Planned Entry</span>
+          <span class="tag red">Not Always Filled</span>
+        </div>
+        <div class="verdict">→ Good for planned entries. Not for chasing a move that's already happened.</div>
+      </div>
+
+      <div class="order-card">
+        <span class="order-card-tag">③ Stop Loss (SL vs SL-M)</span>
+        <div class="order-card-title">Your exit when you're wrong.</div>
+        <p><strong>SL (Limit-based):</strong> Trigger fires → limit order placed. Better price, but may not execute if price gaps through.<br/>
+        <strong>SL-M (Market-based):</strong> Trigger fires → market order executed. Guaranteed exit, will slip in fast moves.</p>
+        <div class="tag-row">
+          <span class="tag green">SL → Price Control</span>
+          <span class="tag red">SL-M → Guaranteed Exit</span>
+        </div>
+        <div class="verdict">→ In fast options markets, SL-M is usually more reliable. Don't get stuck holding because your SL didn't fill.</div>
+      </div>
+
+      <div class="order-card">
+        <span class="order-card-tag">④ GTT — Good Till Triggered</span>
+        <div class="order-card-title">A condition, not an order.</div>
+        <p>You're telling the system: <em>"When price reaches X, place my order."</em> GTT itself doesn't execute anything — it triggers an order. Critical distinction.</p>
+        <p><strong>Single GTT</strong> → Used for entry at a level.<br/><strong>OCO GTT</strong> → Target + Stoploss together. When one fires, the other cancels.</p>
+        <div class="tag-row">
+          <span class="tag blue">Entry Tool</span>
+          <span class="tag blue">OCO Exit Tool</span>
+          <span class="tag red">Does NOT Guarantee Fill</span>
+        </div>
+        <div class="verdict">→ GTT guarantees order placement. Not execution. Don't confuse the two.</div>
+      </div>
+
+      <div class="order-card">
+        <span class="order-card-tag">⑤ Bracket Order (BO)</span>
+        <div class="order-card-title">Entry + SL + Target in one shot. In theory.</div>
+        <p>Looks clean on paper. But in fast markets it behaves unpredictably. Multiple triggers can fire, system risk increases. That's why most brokers restricted it.</p>
+        <div class="tag-row">
+          <span class="tag red">Unpredictable in Volatility</span>
+          <span class="tag red">Most Brokers Restricted</span>
+        </div>
+        <div class="verdict">→ Know it exists. Don't rely on it as a primary tool.</div>
+      </div>
+
+      <!-- TRADE EXAMPLE -->
+      <span class="section-label">Section 02</span>
+      <h2 class="section-head">Real Example — How It Looks Live</h2>
+
+      <div class="trade-example">
+        <div class="ex-title">Live Trade Setup · NIFTY 22,000</div>
+        <div class="trade-grid">
+          <div class="trade-cell">
+            <div class="tc-label">Current Price</div>
+            <div class="tc-val">₹376</div>
+          </div>
+          <div class="trade-cell">
+            <div class="tc-label">Strike</div>
+            <div class="tc-val">22,900 CE</div>
+          </div>
+          <div class="trade-cell">
+            <div class="tc-label">Instrument</div>
+            <div class="tc-val">NIFTY</div>
+          </div>
+        </div>
+        <div class="trade-grid">
+          <div class="trade-cell">
+            <div class="tc-label">Entry Level</div>
+            <div class="tc-val entry">₹400</div>
+          </div>
+          <div class="trade-cell">
+            <div class="tc-label">Stop Loss</div>
+            <div class="tc-val sl">₹320</div>
+          </div>
+          <div class="trade-cell">
+            <div class="tc-label">Target</div>
+            <div class="tc-val tgt">₹480</div>
+          </div>
+        </div>
+        <div class="trade-note">GTT Trigger = 400 · Limit = 402–405 · OCO placed immediately on fill</div>
+      </div>
+
+      <!-- EXECUTION STEPS -->
+      <span class="section-label">Section 03</span>
+      <h2 class="section-head">7-Step Execution System</h2>
+
+      <div class="exec-step">
+        <div class="exec-step-num">01</div>
+        <div class="exec-step-body">
+          <h4>Pre-Market — Mark Your Levels</h4>
+          <p>Define support, resistance, key zones before the bell rings. If levels aren't clear → No trade. Simple as that.</p>
+        </div>
+      </div>
+
+      <div class="exec-step">
+        <div class="exec-step-num">02</div>
+        <div class="exec-step-body">
+          <h4>Define Your Trade Plan</h4>
+          <p>Entry, SL, Target — written before market opens. Not improvised. Not adjusted mid-session based on hope.</p>
+        </div>
+      </div>
+
+      <div class="exec-step">
+        <div class="exec-step-num">03</div>
+        <div class="exec-step-body">
+          <h4>Market Check at Open</h4>
+          <p>Gap up/down? Volatility spiking? Levels respected? If the open is chaotic → avoid GTT entry. Let it settle.</p>
+        </div>
+      </div>
+
+      <div class="exec-step">
+        <div class="exec-step-num">04</div>
+        <div class="exec-step-body">
+          <h4>Entry via GTT or Limit</h4>
+          <p>Set trigger at 400, limit at 402–405. Avoid market orders in options unless it's an emergency exit.</p>
+        </div>
+      </div>
+
+      <div class="exec-step critical">
+        <div class="exec-step-num">05</div>
+        <div class="exec-step-body">
+          <h4>⚡ Immediately After Fill — Place OCO</h4>
+          <p>The moment your entry executes → OCO GTT goes on. Target 480. SL 320. Non-negotiable. Without this step, you are trading without protection.</p>
+        </div>
+      </div>
+
+      <div class="exec-step">
+        <div class="exec-step-num">06</div>
+        <div class="exec-step-body">
+          <h4>Trade Management — Hands Off</h4>
+          <p>Don't move SL randomly. Don't act on emotions. Let OCO do its job. Intervene only for news events, extreme volatility, or system issues.</p>
+        </div>
+      </div>
+
+      <div class="exec-step">
+        <div class="exec-step-num">07</div>
+        <div class="exec-step-body">
+          <h4>Exit Handling</h4>
+          <p>Target hits → profit booked. SL hits → loss controlled. Do not re-enter without a fresh setup. One trade, one clean cycle.</p>
+        </div>
+      </div>
+
+      <!-- MISTAKES -->
+      <span class="section-label">Section 04</span>
+      <h2 class="section-head">Common Mistakes That Kill Accounts</h2>
+
+      <div class="mistake-row">
+        <span class="mistake-x">✕</span>
+        <p><strong>No Stop Loss</strong><span>Biggest account killer. Full stop. There is no justification for this.</span></p>
+      </div>
+      <div class="mistake-row">
+        <span class="mistake-x">✕</span>
+        <p><strong>Market Order Misuse</strong><span>Using market orders for entry in options = gifting slippage to your broker.</span></p>
+      </div>
+      <div class="mistake-row">
+        <span class="mistake-x">✕</span>
+        <p><strong>GTT Misunderstanding</strong><span>GTT places the order. It doesn't fill it. If there's no liquidity at your limit, you're still unprotected.</span></p>
+      </div>
+      <div class="mistake-row">
+        <span class="mistake-x">✕</span>
+        <p><strong>Random SL / Target</strong><span>No structure = no edge. You can't have consistent results from inconsistent execution.</span></p>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="side-col">
+
+      <!-- Mental Model -->
+      <div class="sidebar-box">
+        <div class="sb-title">Mental Model</div>
+        <div class="mental-model-item">
+          <span class="mm-label entry-l">ENTRY</span>
+          <span class="mm-text">"I'm starting the trade"</span>
+        </div>
+        <div class="mental-model-item">
+          <span class="mm-label sl-l">SL</span>
+          <span class="mm-text">"I was wrong here"</span>
+        </div>
+        <div class="mental-model-item">
+          <span class="mm-label tgt-l">TARGET</span>
+          <span class="mm-text">"I was right here"</span>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:12px;margin-bottom:0;">Three numbers. One decision each. No improvisation allowed.</p>
+      </div>
+
+      <!-- Execution Stack -->
+      <div class="sidebar-box">
+        <div class="sb-title">Execution Stack</div>
+        <div class="stack-row">
+          <span class="stack-num">①</span>
+          <span class="stack-item">Levels defined</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-num">②</span>
+          <span class="stack-item">Bias clear</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-num">③</span>
+          <span class="stack-item">Entry planned</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-arrow">↳</span>
+          <span class="stack-item" style="border-left-color:var(--accent2);">GTT / Limit → entry</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-num">④</span>
+          <span class="stack-item">Trade active</span>
+        </div>
+        <div class="stack-row">
+          <span class="stack-arrow">↳</span>
+          <span class="stack-item" style="border-left-color:#196f3d;">OCO (SL + Target)</span>
+        </div>
+      </div>
+
+      <!-- Non-Negotiable Rules -->
+      <div class="rules-box">
+        <div class="rules-title">Non-Negotiable Rules</div>
+        <div class="rule-item">
+          <span class="rule-num">1</span>
+          <span class="rule-text"><strong>No trade without levels.</strong></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">2</span>
+          <span class="rule-text">Entry without SL = <strong>invalid trade.</strong></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">3</span>
+          <span class="rule-text">SL must exist <strong>before</strong> you think about target.</span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">4</span>
+          <span class="rule-text">GTT is a tool. <strong>Not a guarantee.</strong></span>
+        </div>
+        <div class="rule-item">
+          <span class="rule-num">5</span>
+          <span class="rule-text">Market decides outcome. <strong>You control risk.</strong></span>
+        </div>
+      </div>
+
+      <!-- GTT vs Market Order Quick Ref -->
+      <div class="sidebar-box">
+        <div class="sb-title">Quick Reference</div>
+        <p style="font-size:0.78rem;margin-bottom:8px;color:var(--muted);">ENTRY — Use GTT or Limit<br/>EXIT HIT — OCO fires automatically<br/>EMERGENCY EXIT — SL-M (market)<br/>PANIC EXIT — Never market order for entry</p>
+        <div style="border-top:1px dashed #c8bfaf;padding-top:10px;margin-top:10px;">
+          <p style="font-family:var(--mono);font-size:0.7rem;color:var(--accent);margin:0;">"Strategy tells you what to do. Order type decides how it actually happens."</p>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FINAL TRUTH -->
+  <div class="final-truth">
+    <div class="ft-label">Final Truth</div>
+    <p>"Your profit is not decided at entry. It is decided by your execution."</p>
+    <div class="ft-sub">Strategy gives you direction. Order type and execution decide your money.</div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>Sanjeev Signals</span> · Independent Systems Research · Real P&amp;L · No Tips · No Shortcuts
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Pivot Range — CPR PRO · Sanjeev Signals</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:       #faf8f4;
+  --ink-2:     #f3f0ea;
+  --ink-3:     #ece8df;
+  --rule:      #d8d2c4;
+  --muted:     #a09888;
+  --dim:       #6e6458;
+  --body:      #4a4038;
+  --text:      #2c2420;
+  --bright:    #1a1410;
+  --white:     #0d0a08;
+  --amber:     #8b5e10;
+  --amber-dim: rgba(139,94,16,.08);
+  --amber-bdr: rgba(139,94,16,.18);
+  --green:     #1f6e42;
+  --green-dim: rgba(31,110,66,.07);
+  --green-bdr: rgba(31,110,66,.2);
+  --red:       #8c2418;
+  --red-dim:   rgba(140,36,24,.07);
+  --red-bdr:   rgba(140,36,24,.2);
+  --cyan:      #1a6878;
+  --cyan-dim:  rgba(26,104,120,.07);
+  --cyan-bdr:  rgba(26,104,120,.18);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14.5px;font-weight:400;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(250,248,244,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:46px;}
+.tb-brand{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--amber);}
+.tb-right{display:flex;align-items:center;gap:20px;}
+.tb-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.tb-pill{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--green);border:1px solid var(--green-bdr);padding:2px 10px;text-transform:uppercase;}
+
+/* ── HERO ── */
+.hero{position:relative;padding:72px 36px 64px;max-width:980px;margin:0 auto;border-bottom:1px solid var(--rule);}
+.hero-eye{display:flex;align-items:center;gap:14px;margin-bottom:26px;animation:fadeUp .4s ease both;}
+.hero-eye-line{width:28px;height:1px;background:var(--amber);opacity:.5;}
+.hero-eye-text{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--amber);text-transform:uppercase;}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,6.5vw,70px);font-weight:300;line-height:1.06;color:var(--white);letter-spacing:-0.5px;max-width:680px;animation:fadeUp .45s .05s ease both;}
+.hero h1 em{font-style:italic;color:var(--amber);}
+.hero-sub{margin-top:18px;font-size:14px;font-weight:300;color:var(--dim);max-width:520px;line-height:1.7;animation:fadeUp .45s .1s ease both;}
+.hero-meta{margin-top:32px;display:flex;flex-wrap:wrap;gap:0;animation:fadeUp .45s .15s ease both;}
+.hm-item{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;padding-right:18px;margin-right:18px;border-right:1px solid var(--rule);}
+.hm-item:last-child{border-right:none;padding-right:0;margin-right:0;}
+
+/* ── PAGE GRID ── */
+.page{display:grid;grid-template-columns:200px 1fr;max-width:980px;margin:0 auto;}
+
+/* ── SIDEBAR ── */
+.sidebar{border-right:1px solid var(--rule);padding:40px 0;position:sticky;top:46px;height:calc(100vh - 46px);overflow-y:auto;scrollbar-width:none;}
+.sidebar::-webkit-scrollbar{display:none;}
+.sb-label{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:0 22px;margin-bottom:12px;}
+.sb-link{display:flex;align-items:center;gap:10px;padding:7px 22px;text-decoration:none;transition:background .12s;}
+.sb-link:hover{background:var(--ink-2);}
+.sb-link.act{background:var(--ink-2);}
+.sb-num{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--muted);min-width:16px;opacity:.6;}
+.sb-text{font-size:11.5px;font-weight:500;color:var(--muted);line-height:1.3;}
+.sb-link:hover .sb-text,.sb-link.act .sb-text{color:var(--text);}
+.sb-link:hover .sb-num,.sb-link.act .sb-num{color:var(--amber);opacity:1;}
+.sb-div{height:1px;background:var(--rule);margin:12px 22px;}
+
+/* ── MAIN ── */
+.main{padding:0 48px 80px;min-width:0;}
+
+/* ── SECTION ── */
+.sec{padding-top:60px;border-bottom:1px solid var(--rule);padding-bottom:52px;}
+.sec:last-child{border-bottom:none;}
+.sec-lbl{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.sec-n{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--amber);opacity:.65;}
+.sec-rule{flex:1;height:1px;background:var(--rule);}
+.sec h2{font-family:'Fraunces',serif;font-size:24px;font-weight:300;letter-spacing:-0.2px;color:var(--bright);margin-bottom:16px;line-height:1.2;}
+.sec>p{font-size:14px;color:var(--body);line-height:1.8;margin-bottom:12px;}
+.sec>p:last-child{margin-bottom:0;}
+.sec>p strong{color:var(--text);font-weight:500;}
+.sec>p em{color:var(--amber);font-style:italic;}
+
+/* ── LEAD ── */
+.lead{font-family:'Fraunces',serif;font-size:17px;font-weight:300;font-style:italic;color:var(--text);line-height:1.65;border-left:2px solid var(--amber);padding-left:18px;margin:18px 0 22px;}
+
+/* ── CALLOUT ── */
+.callout{background:var(--ink-2);border:1px solid var(--rule);border-left:2px solid var(--amber);padding:16px 20px;margin:18px 0;}
+.callout.g{border-left-color:var(--green);background:var(--green-dim);}
+.callout.r{border-left-color:var(--red);background:var(--red-dim);}
+.callout p{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--body);line-height:1.7;margin:0;}
+.callout p strong{color:var(--bright);}
+
+/* ── FORMULA GRID ── */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0;}
+.fcell{background:var(--ink-2);padding:22px 20px;}
+.fcell-lbl{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;margin-bottom:9px;opacity:.8;}
+.fcell-val{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:500;color:var(--bright);}
+
+/* ── CHART VISUAL ── */
+.chart{background:var(--ink-2);border:1px solid var(--rule);margin:20px 0;overflow:hidden;}
+.chart-top{background:var(--ink-3);border-bottom:1px solid var(--rule);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;}
+.chart-dots{display:flex;gap:5px;align-items:center;}
+.cdot{width:7px;height:7px;border-radius:50%;}
+.chart-ttl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-left:10px;}
+.chart-bd{position:relative;height:188px;padding:0 18px;}
+.c-zone{position:absolute;left:18px;right:18px;top:28%;bottom:32%;background:var(--cyan-dim);border-top:1px dashed rgba(176,52,40,.25);border-bottom:1px dashed rgba(58,158,106,.25);}
+.c-line{position:absolute;left:18px;right:18px;height:1px;display:flex;align-items:center;}
+.c-line-bar{position:absolute;left:0;right:0;height:1px;}
+.c-line-tag{position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.8px;background:var(--ink-2);padding:1px 6px;}
+.cl-tc{top:22%;}.cl-pv{top:50%;}.cl-bc{top:72%;}
+.cl-tc .c-line-bar{background:var(--red);opacity:.45;}
+.cl-pv .c-line-bar{background:var(--amber);opacity:.55;}
+.cl-bc .c-line-bar{background:var(--green);opacity:.45;}
+.cl-tc .c-line-tag{color:var(--red);}
+.cl-pv .c-line-tag{color:var(--amber);}
+.cl-bc .c-line-tag{color:var(--green);}
+.cdl-group{position:absolute;right:36px;top:10px;bottom:10px;display:flex;align-items:center;gap:5px;}
+.cdl{display:flex;flex-direction:column;align-items:center;}
+.cdl-w{width:1px;background:var(--muted);}
+.cdl-b{width:7px;border-radius:1px;}
+.chart-cap{border-top:1px solid var(--rule);padding:9px 16px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.8px;}
+
+/* ── DATA TABLE ── */
+.dtable{width:100%;border-collapse:collapse;border:1px solid var(--rule);margin:20px 0;font-size:13px;}
+.dtable thead{background:var(--ink-3);}
+.dtable th{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:11px 14px;text-align:left;border-bottom:1px solid var(--rule);font-weight:500;}
+.dtable td{padding:11px 14px;border-bottom:1px solid var(--rule);color:var(--body);line-height:1.55;vertical-align:top;}
+.dtable tr:last-child td{border-bottom:none;}
+.dtable tr:hover td{background:var(--ink-2);}
+.dtable td:first-child{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text);white-space:nowrap;}
+
+/* ── BIAS TABLE ── */
+.btable{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0;}
+.bcell{background:var(--ink-2);padding:22px 18px;}
+.bcell.bull{background:var(--green-dim);}
+.bcell.bear{background:var(--red-dim);}
+.bmarker{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;display:inline-block;padding:2px 8px;border-radius:1px;margin-bottom:10px;}
+.bull .bmarker{color:var(--green);background:var(--green-dim);border:1px solid var(--green-bdr);}
+.bear .bmarker{color:var(--red);background:var(--red-dim);border:1px solid var(--red-bdr);}
+.bcell:not(.bull):not(.bear) .bmarker{color:var(--muted);background:var(--ink-3);border:1px solid var(--rule);}
+.btitle{font-family:'Fraunces',serif;font-size:18px;font-weight:300;margin-bottom:6px;}
+.bull .btitle{color:var(--green);}
+.bear .btitle{color:var(--red);}
+.bcell:not(.bull):not(.bear) .btitle{color:var(--dim);}
+.bdesc{font-size:12px;color:var(--dim);line-height:1.6;}
+
+/* ── WIDTH SPLIT ── */
+.wsplit{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0;}
+.wcell{background:var(--ink-2);padding:24px 22px;}
+.wcell.nrw{background:var(--green-dim);}
+.wcell.wid{background:var(--red-dim);}
+.wmark{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;}
+.nrw .wmark{color:var(--green);}
+.wid .wmark{color:var(--red);}
+.wtitle{font-family:'Fraunces',serif;font-size:18px;font-weight:300;margin-bottom:8px;}
+.nrw .wtitle{color:var(--green);}
+.wid .wtitle{color:var(--red);}
+.wcell p{font-size:12.5px;color:var(--dim);line-height:1.7;}
+.wcell p strong{color:var(--body);font-weight:500;}
+
+/* ── SETUP GRID ── */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0;}
+.scell{background:var(--ink-2);padding:26px 22px;}
+.scell.bull{background:var(--green-dim);}
+.scell.bear{background:var(--red-dim);}
+.stitle{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:11px;border-bottom:1px solid var(--rule);}
+.scell.bull .stitle{color:var(--green);border-color:var(--green-bdr);}
+.scell.bear .stitle{color:var(--red);border-color:var(--red-bdr);}
+.srow{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:12.5px;color:var(--body);}
+.srow:last-child{border-bottom:none;}
+.skey{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:1px;white-space:nowrap;margin-top:2px;flex-shrink:0;}
+.kc{background:var(--cyan-dim);color:var(--cyan);border:1px solid var(--cyan-bdr);}
+.ke{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber-bdr);}
+.ks{background:var(--red-dim);color:var(--red);border:1px solid var(--red-bdr);}
+.kt{background:var(--green-dim);color:var(--green);border:1px solid var(--green-bdr);}
+
+/* ── CODE ── */
+.code-wrap{margin:20px 0;border:1px solid var(--rule);}
+.code-bar{background:var(--ink-3);border-bottom:1px solid var(--rule);padding:9px 16px;display:flex;align-items:center;justify-content:space-between;}
+.code-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;}
+.copy-btn{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--rule);padding:3px 11px;cursor:pointer;transition:color .15s,border-color .15s;}
+.copy-btn:hover{color:var(--amber);border-color:var(--amber-bdr);}
+pre{background:var(--ink-3);padding:22px 20px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.85;color:#5a4830;}
+.kw{color:#1a5c8c;}.fn{color:#7a4e0a;}.cm{color:#a09070;font-style:italic;}.st{color:#7a3020;}.nm{color:#286040;}
+
+/* ── RULES ── */
+.rgrid{border:1px solid var(--rule);margin:20px 0;}
+.rrow{display:flex;align-items:flex-start;gap:14px;padding:13px 18px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--body);transition:background .1s;}
+.rrow:last-child{border-bottom:none;}
+.rrow:hover{background:var(--ink-2);}
+.rind{width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;flex-shrink:0;margin-top:2px;}
+.ry{background:var(--green-dim);color:var(--green);border:1px solid var(--green-bdr);}
+.rn{background:var(--red-dim);color:var(--red);border:1px solid var(--red-bdr);}
+.rrow strong{color:var(--text);font-weight:500;}
+
+/* ── INSIGHT GRID ── */
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0;}
+.icell{background:var(--ink-2);padding:20px 18px;}
+.ilbl{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);margin-bottom:8px;opacity:.8;}
+.icell p{font-size:12.5px;color:var(--dim);line-height:1.7;}
+
+/* ── PA LIST ── */
+.palist{border:1px solid var(--rule);margin:20px 0;}
+.parow{display:flex;gap:14px;align-items:flex-start;padding:12px 18px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--body);transition:background .1s;}
+.parow:last-child{border-bottom:none;}
+.parow:hover{background:var(--ink-2);}
+.pip{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:8px;}
+.pg{background:var(--green);}.pr{background:var(--red);}.pb{background:var(--cyan);}
+.parow strong{color:var(--text);font-weight:500;}
+
+/* ── LIMIT LIST ── */
+.llist{border:1px solid var(--rule);margin:20px 0;}
+.lrow{display:flex;gap:14px;align-items:flex-start;padding:12px 18px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--dim);transition:background .1s;}
+.lrow:last-child{border-bottom:none;}
+.lrow:hover{background:var(--ink-2);}
+.ldash{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--red);opacity:.45;flex-shrink:0;margin-top:2px;}
+.lrow strong{color:var(--text);font-weight:500;}
+
+/* ── ADV GRID ── */
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin:20px 0;}
+.acell{background:var(--ink-2);padding:22px 18px;}
+.acell h4{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:9px;}
+.acell p{font-size:12.5px;color:var(--dim);line-height:1.7;}
+
+/* ── PULLQUOTE ── */
+.pq{margin:28px 0;padding:24px 0 24px 24px;border-left:2px solid var(--amber);}
+.pq p{font-family:'Fraunces',serif;font-size:20px;font-weight:300;font-style:italic;color:var(--bright);line-height:1.4;margin:0 0 9px;}
+.pq small{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--amber);opacity:.65;text-transform:uppercase;}
+.pq.gq{border-left-color:var(--green);}
+.pq.gq p{color:var(--text);}
+.pq.gq small{color:var(--green);}
+
+/* ── LESSON ── */
+.lesson{background:var(--ink-2);border:1px solid var(--rule);padding:38px 34px;margin:20px 0;text-align:center;}
+.lesson .le-eye{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:12px;opacity:.65;}
+.lesson .le-title{font-family:'Fraunces',serif;font-size:30px;font-weight:300;color:var(--bright);margin-bottom:14px;letter-spacing:-0.3px;}
+.lesson p{font-size:14px;color:var(--dim);max-width:500px;margin:0 auto 9px;line-height:1.75;}
+.lesson p em{color:var(--amber);font-style:italic;}
+.lesson .le-close{margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--amber);opacity:.65;text-transform:uppercase;}
+
+/* ── AUTHOR ── */
+.author{background:var(--ink-2);border:1px solid var(--rule);padding:32px 30px 26px;margin:20px 0;}
+.au-head{padding-bottom:18px;border-bottom:1px solid var(--rule);margin-bottom:20px;}
+.au-name{font-family:'Fraunces',serif;font-size:20px;font-weight:300;color:var(--bright);margin-bottom:4px;}
+.au-role{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--amber);text-transform:uppercase;opacity:.8;}
+.au-bio{font-size:13.5px;color:var(--body);line-height:1.8;margin-bottom:20px;max-width:560px;}
+.au-bio em{color:var(--amber);font-style:italic;}
+.au-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px;}
+.au-tag{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);border:1px solid var(--cyan-bdr);background:var(--cyan-dim);padding:3px 9px;border-radius:1px;}
+.au-links{display:flex;gap:18px;margin-bottom:18px;flex-wrap:wrap;}
+.au-link{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px;transition:color .15s,border-color .15s;}
+.au-link:hover{color:var(--amber);border-color:var(--amber);}
+.au-foot{padding-top:16px;border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;}
+.au-foot span{color:var(--red);margin-right:3px;opacity:.65;}
+
+/* ── FOOTER ── */
+.pfoot{background:var(--ink-2);border-top:1px solid var(--rule);padding:32px 36px 26px;display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:100%;}
+.pf-brand{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:3px;color:var(--amber);text-transform:uppercase;margin-bottom:5px;}
+.pf-tag{font-size:12.5px;color:var(--dim);}
+.pf-sub{margin-top:4px;font-size:11.5px;color:var(--muted);}
+.pf-right{text-align:right;}
+.pf-link{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;margin-bottom:5px;transition:color .15s;}
+.pf-link:hover{color:var(--amber);}
+.pf-disc{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);grid-column:1/-1;font-size:10.5px;color:var(--muted);opacity:.65;line-height:1.65;}
+
+/* ── ANIM ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.hero h1{animation:fadeUp .45s .05s ease both;}
+.hero-sub{animation:fadeUp .45s .1s ease both;}
+.hero-meta{animation:fadeUp .45s .15s ease both;}
+.hero-eye{animation:fadeUp .4s ease both;}
+
+/* ── MOBILE ── */
+@media(max-width:720px){
+  .page{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .main{padding:0 18px 60px;}
+  .hero{padding:44px 18px 44px;}
+  .fgrid,.btable,.wsplit,.sgrid,.agrid,.igrid{grid-template-columns:1fr;}
+  .pfoot{grid-template-columns:1fr;}
+  .pf-right{text-align:left;}
+  .tb-right{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="tb-brand">Sanjeev Signals</div>
+  <div class="tb-right">
+    <span class="tb-label">CPR PRO Framework</span>
+    <span class="tb-pill">Pine Script v5</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-eye">
+    <div class="hero-eye-line"></div>
+    <div class="hero-eye-text">Complete Reference · TradingView Strategy</div>
+  </div>
+  <h1>Central Pivot<br><em>Range</em></h1>
+  <p class="hero-sub">A structured framework for pre-market preparation, directional bias, and rule-based execution — built on yesterday's data, ready before the first candle prints.</p>
+  <div class="hero-meta">
+    <span class="hm-item">Leading Indicator</span>
+    <span class="hm-item">Intraday Framework</span>
+    <span class="hm-item">Pine Script v5</span>
+    <span class="hm-item">Sanjeev Signals</span>
+  </div>
+</header>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-label">Contents</div>
+    <a class="sb-link act" href="#s01"><span class="sb-num">01</span><span class="sb-text">What Is CPR</span></a>
+    <a class="sb-link" href="#s02"><span class="sb-num">02</span><span class="sb-text">Calculation</span></a>
+    <a class="sb-link" href="#s03"><span class="sb-num">03</span><span class="sb-text">Chart Visual</span></a>
+    <a class="sb-link" href="#s04"><span class="sb-num">04</span><span class="sb-text">Opening Bias</span></a>
+    <a class="sb-link" href="#s05"><span class="sb-num">05</span><span class="sb-text">CPR Width</span></a>
+    <a class="sb-link" href="#s06"><span class="sb-num">06</span><span class="sb-text">Entry Setup</span></a>
+    <a class="sb-link" href="#s07"><span class="sb-num">07</span><span class="sb-text">Pine Script</span></a>
+    <a class="sb-link" href="#s08"><span class="sb-num">08</span><span class="sb-text">Golden Rules</span></a>
+    <div class="sb-div"></div>
+    <a class="sb-link" href="#s09"><span class="sb-num">09</span><span class="sb-text">Psychology</span></a>
+    <a class="sb-link" href="#s10"><span class="sb-num">10</span><span class="sb-text">Framework vs Signal</span></a>
+    <a class="sb-link" href="#s11"><span class="sb-num">11</span><span class="sb-text">Price Action</span></a>
+    <a class="sb-link" href="#s12"><span class="sb-num">12</span><span class="sb-text">Risk Management</span></a>
+    <a class="sb-link" href="#s13"><span class="sb-num">13</span><span class="sb-text">Limitations</span></a>
+    <a class="sb-link" href="#s14"><span class="sb-num">14</span><span class="sb-text">Advanced Edge</span></a>
+    <a class="sb-link" href="#s15"><span class="sb-num">15</span><span class="sb-text">The Deeper Lesson</span></a>
+    <div class="sb-div"></div>
+    <a class="sb-link" href="#author"><span class="sb-num">—</span><span class="sb-text">About the Author</span></a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <section class="sec" id="s01">
+      <div class="sec-lbl"><span class="sec-n">01</span><div class="sec-rule"></div></div>
+      <h2>What Is CPR — And Why Is It a Leading Indicator?</h2>
+      <div class="lead">Most indicators follow price. CPR anticipates it.</div>
+      <p>CPR (Central Pivot Range) uses yesterday's session data to construct today's key levels before the market opens. You have your map before the first candle prints — that structural advantage is what separates it from every reactive indicator on your chart.</p>
+      <p>While moving averages and oscillators respond to price that has already moved, CPR delivers pre-calculated zones of support, resistance, and indecision. That forward-looking nature is precisely what classifies it as a <strong>leading indicator</strong>.</p>
+    </section>
+
+    <section class="sec" id="s02">
+      <div class="sec-lbl"><span class="sec-n">02</span><div class="sec-rule"></div></div>
+      <h2>Calculation</h2>
+      <p>Three numbers from the prior session. That is the entire input.</p>
+      <div class="fgrid">
+        <div class="fcell"><div class="fcell-lbl">Pivot — P</div><div class="fcell-val">( H + L + C ) ÷ 3</div></div>
+        <div class="fcell"><div class="fcell-lbl">BC — Bottom Central</div><div class="fcell-val">( H + L ) ÷ 2</div></div>
+        <div class="fcell"><div class="fcell-lbl">TC — Top Central</div><div class="fcell-val">( P − BC ) + P</div></div>
+      </div>
+      <div class="callout">
+        <p>Input: <strong>Prev Day High · Low · Close</strong> &nbsp;→&nbsp; Output: <strong>TC · Pivot · BC</strong> — three levels available before market open.</p>
+      </div>
+      <p>These three levels form the CPR band. Not merely a set of lines — a representation of the market's <strong>fair value zone</strong> from the prior session.</p>
+    </section>
+
+    <section class="sec" id="s03">
+      <div class="sec-lbl"><span class="sec-n">03</span><div class="sec-rule"></div></div>
+      <h2>How CPR Looks on a Chart</h2>
+      <p>Three horizontal levels form a compact decision zone. How price behaves relative to this band is the primary read every session.</p>
+      <div class="chart">
+        <div class="chart-top">
+          <div style="display:flex;align-items:center;">
+            <div class="chart-dots">
+              <div class="cdot" style="background:var(--red);opacity:.5;"></div>
+              <div class="cdot" style="background:var(--amber);opacity:.5;"></div>
+              <div class="cdot" style="background:var(--green);opacity:.5;"></div>
+            </div>
+            <span class="chart-ttl">CPR — Price Structure</span>
+          </div>
+          <span class="chart-ttl">Daily</span>
+        </div>
+        <div class="chart-bd">
+          <div class="c-zone"></div>
+          <div class="c-line cl-tc"><div class="c-line-bar"></div><span class="c-line-tag">TC — Top Central · Resistance</span></div>
+          <div class="c-line cl-pv"><div class="c-line-bar"></div><span class="c-line-tag">Pivot · Equilibrium</span></div>
+          <div class="c-line cl-bc"><div class="c-line-bar"></div><span class="c-line-tag">BC — Bottom Central · Support</span></div>
+          <div class="cdl-group">
+            <div class="cdl"><div class="cdl-w" style="height:13px"></div><div class="cdl-b" style="height:20px;background:var(--green);opacity:.65;"></div><div class="cdl-w" style="height:7px"></div></div>
+            <div class="cdl"><div class="cdl-w" style="height:7px"></div><div class="cdl-b" style="height:28px;background:var(--green);opacity:.65;"></div><div class="cdl-w" style="height:10px"></div></div>
+            <div class="cdl"><div class="cdl-w" style="height:16px"></div><div class="cdl-b" style="height:16px;background:var(--red);opacity:.65;"></div><div class="cdl-w" style="height:5px"></div></div>
+            <div class="cdl"><div class="cdl-w" style="height:9px"></div><div class="cdl-b" style="height:22px;background:var(--green);opacity:.65;"></div><div class="cdl-w" style="height:9px"></div></div>
+          </div>
+        </div>
+        <div class="chart-cap">TC · Pivot · BC — three levels, one value zone.</div>
+      </div>
+      <table class="dtable">
+        <thead><tr><th>Price Position</th><th>Market Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Above CPR</td><td>Market is generally strong — bullish environment</td></tr>
+          <tr><td>Below CPR</td><td>Market is generally weak — bearish environment</td></tr>
+          <tr><td>Inside CPR</td><td>Market in balance or indecision — avoid directional entries</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="sec" id="s04">
+      <div class="sec-lbl"><span class="sec-n">04</span><div class="sec-rule"></div></div>
+      <h2>Opening Bias — Reading the Day's Context</h2>
+      <p>The single most important observation: where does price open relative to the CPR band? That one fact defines your entire directional stance for the session before a single trade is placed.</p>
+      <div class="btable">
+        <div class="bcell bull">
+          <div class="bmarker">Bullish</div>
+          <div class="btitle">Open above TC</div>
+          <div class="bdesc">Buyers are in control from the open. Look for BUY setups exclusively. Fading strength here carries low probability without exceptional confirmation.</div>
+        </div>
+        <div class="bcell bear">
+          <div class="bmarker">Bearish</div>
+          <div class="btitle">Open below BC</div>
+          <div class="bdesc">Sellers are in control from the open. Look for SELL setups exclusively. Attempting longs against this context requires extraordinary evidence.</div>
+        </div>
+        <div class="bcell">
+          <div class="bmarker">Neutral</div>
+          <div class="btitle">Open inside CPR</div>
+          <div class="bdesc">No directional edge. The market hasn't declared intent. Avoid trading — wait for price to exit the band and confirm a side.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="s05">
+      <div class="sec-lbl"><span class="sec-n">05</span><div class="sec-rule"></div></div>
+      <h2>CPR Width — Reading the Market's Mood</h2>
+      <p>The distance between TC and BC tells you what kind of day to expect before it begins. This is one of CPR's most underused signals.</p>
+      <div class="wsplit">
+        <div class="wcell nrw">
+          <div class="wmark">Narrow CPR</div>
+          <div class="wtitle">Trending Day</div>
+          <p>TC and BC are very close. Low prior-session volatility compresses the band. The market is coiling — a large directional move is expected. <strong>This is your highest-probability trading day.</strong></p>
+        </div>
+        <div class="wcell wid">
+          <div class="wmark">Wide CPR</div>
+          <div class="wtitle">Range-Bound Day</div>
+          <p>TC and BC are far apart. High prior-session volatility expands the band. Choppy, contained movement is the likely outcome. <strong>Scalp lightly or sit out entirely.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="s06">
+      <div class="sec-lbl"><span class="sec-n">06</span><div class="sec-rule"></div></div>
+      <h2>Entry Setup — How to Execute</h2>
+      <p>Once context is established via opening bias and CPR width, execution follows a disciplined structure. These are not mechanical triggers — confirmation from price action and volume is required before entry.</p>
+      <div class="sgrid">
+        <div class="scell bull">
+          <div class="stitle">Bullish Setup</div>
+          <div class="srow"><span class="skey kc">Condition</span><span>Open above CPR + Pullback + Breakout of intraday high</span></div>
+          <div class="srow"><span class="skey ke">Entry</span><span>Candle high breakout with confirmation</span></div>
+          <div class="srow"><span class="skey ks">Stop</span><span>Below CPR (BC) or most recent swing low</span></div>
+          <div class="srow"><span class="skey kt">Target</span><span>1:2 RR minimum — ATR-based sizing</span></div>
+        </div>
+        <div class="scell bear">
+          <div class="stitle">Bearish Setup</div>
+          <div class="srow"><span class="skey kc">Condition</span><span>Open below CPR + Pullback + Breakdown of intraday low</span></div>
+          <div class="srow"><span class="skey ke">Entry</span><span>Candle low breakdown with confirmation</span></div>
+          <div class="srow"><span class="skey ks">Stop</span><span>Above CPR (TC)</span></div>
+          <div class="srow"><span class="skey kt">Target</span><span>1:2 RR minimum — ATR-based sizing</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="s07">
+      <div class="sec-lbl"><span class="sec-n">07</span><div class="sec-rule"></div></div>
+      <h2>Pine Script — PRO+ Strategy Code</h2>
+      <p>A complete TradingView strategy implementation. Plots TC, Pivot, and BC; assigns directional bias from opening price; calculates ATR-based stops and targets; generates entry signals and configurable alerts.</p>
+      <div class="code-wrap">
+        <div class="code-bar">
+          <span class="code-lbl">Pine Script v5 · CPR by Sanjeev Signals PRO+</span>
+          <button class="copy-btn" onclick="copyCode()">Copy</button>
+        </div>
+        <pre id="code-block"
+><span class="cm">//@version=5</span>
+<span class="fn">strategy</span>(<span class="st">"CPR by Sanjeev Signals PRO+"</span>, overlay=<span class="kw">true</span>,
+  default_qty_type=strategy.percent_of_equity, default_qty_value=<span class="nm">10</span>)
+
+<span class="cm">// === Previous Day Data ===</span>
+prevHigh  = <span class="fn">request.security</span>(syminfo.tickerid, <span class="st">"D"</span>, high[<span class="nm">1</span>])
+prevLow   = <span class="fn">request.security</span>(syminfo.tickerid, <span class="st">"D"</span>, low[<span class="nm">1</span>])
+prevClose = <span class="fn">request.security</span>(syminfo.tickerid, <span class="st">"D"</span>, close[<span class="nm">1</span>])
+todayOpen = <span class="fn">request.security</span>(syminfo.tickerid, <span class="st">"D"</span>, open)
+
+<span class="cm">// === CPR Calculation ===</span>
+pivot = (prevHigh + prevLow + prevClose) / <span class="nm">3</span>
+bc    = (prevHigh + prevLow) / <span class="nm">2</span>
+tc    = (pivot - bc) + pivot
+
+<span class="cm">// === Plot CPR Lines ===</span>
+<span class="fn">plot</span>(tc,    color=color.red,    linewidth=<span class="nm">2</span>, title=<span class="st">"TC"</span>)
+<span class="fn">plot</span>(pivot, color=color.yellow, linewidth=<span class="nm">2</span>, title=<span class="st">"Pivot"</span>)
+<span class="fn">plot</span>(bc,    color=color.green,  linewidth=<span class="nm">2</span>, title=<span class="st">"BC"</span>)
+
+<span class="cm">// === Bias ===</span>
+bullish  = todayOpen > tc
+bearish  = todayOpen < bc
+
+<span class="cm">// === Background Color ===</span>
+<span class="fn">bgcolor</span>(bullish ? <span class="fn">color.new</span>(color.green, <span class="nm">90</span>) :
+        bearish ? <span class="fn">color.new</span>(color.red,   <span class="nm">90</span>) : na)
+
+<span class="cm">// === Narrow CPR Detection ===</span>
+cprWidth  = tc - bc
+avgWidth  = <span class="fn">ta.sma</span>(cprWidth, <span class="nm">10</span>)
+narrowCPR = cprWidth &lt; avgWidth
+
+<span class="cm">// === ATR-based SL & Target ===</span>
+atr         = <span class="fn">ta.atr</span>(<span class="nm">14</span>)
+longSL      = close - atr
+longTarget  = close + (<span class="nm">2</span> * atr)
+shortSL     = close + atr
+shortTarget = close - (<span class="nm">2</span> * atr)
+
+<span class="cm">// === Entry Conditions ===</span>
+longEntry  = bullish <span class="kw">and</span> close > high[<span class="nm">1</span>]
+shortEntry = bearish <span class="kw">and</span> close &lt; low[<span class="nm">1</span>]
+
+<span class="cm">// === Execute Strategy ===</span>
+<span class="kw">if</span> (longEntry)
+    strategy.<span class="fn">entry</span>(<span class="st">"BUY"</span>, strategy.long)
+    strategy.<span class="fn">exit</span>(<span class="st">"TP/SL BUY"</span>, from_entry=<span class="st">"BUY"</span>, stop=longSL, limit=longTarget)
+
+<span class="kw">if</span> (shortEntry)
+    strategy.<span class="fn">entry</span>(<span class="st">"SELL"</span>, strategy.short)
+    strategy.<span class="fn">exit</span>(<span class="st">"TP/SL SELL"</span>, from_entry=<span class="st">"SELL"</span>, stop=shortSL, limit=shortTarget)
+
+<span class="cm">// === Visual Signals ===</span>
+<span class="fn">plotshape</span>(longEntry,  location=location.belowbar, color=color.green,
+  style=shape.labelup,   text=<span class="st">"BUY"</span>)
+<span class="fn">plotshape</span>(shortEntry, location=location.abovebar, color=color.red,
+  style=shape.labeldown, text=<span class="st">"SELL"</span>)
+
+<span class="cm">// === Alerts ===</span>
+<span class="fn">alertcondition</span>(longEntry,  title=<span class="st">"Buy Alert"</span>,  message=<span class="st">"CPR BUY — Sanjeev Signals"</span>)
+<span class="fn">alertcondition</span>(shortEntry, title=<span class="st">"Sell Alert"</span>, message=<span class="st">"CPR SELL — Sanjeev Signals"</span>)</pre>
+      </div>
+    </section>
+
+    <section class="sec" id="s08">
+      <div class="sec-lbl"><span class="sec-n">08</span><div class="sec-rule"></div></div>
+      <h2>Golden Rules — Where the Edge Lives</h2>
+      <div class="rgrid">
+        <div class="rrow"><div class="rind ry">✓</div><span>Spend the first <strong>15–30 minutes observing only</strong> — no trades during this window, without exception</span></div>
+        <div class="rrow"><div class="rind ry">✓</div><span><strong>Never trade inside the CPR zone</strong> — no-man's land; entries here lack a clean structural reference point</span></div>
+        <div class="rrow"><div class="rind ry">✓</div><span>Enter only after <strong>confirmation</strong> — Volume and Price Action together, never either in isolation</span></div>
+        <div class="rrow"><div class="rind ry">✓</div><span>Prioritize <strong>Narrow CPR days</strong> — directional opportunity concentrates most reliably here</span></div>
+        <div class="rrow"><div class="rind rn">✗</div><span>Don't treat CPR as a signal generator — it provides <strong>context and a map</strong>, not an entry trigger</span></div>
+        <div class="rrow"><div class="rind rn">✗</div><span>Don't overtrade — <strong>one clean, well-structured setup</strong> carries more value than five mediocre ones</span></div>
+      </div>
+    </section>
+
+    <section class="sec" id="s09">
+      <div class="sec-lbl"><span class="sec-n">09</span><div class="sec-rule"></div></div>
+      <h2>Market Psychology Embedded in CPR</h2>
+      <p>CPR is not purely mathematical. The three inputs — prior day High, Low, and Close — carry behavioral information about every participant who traded that session.</p>
+      <div class="igrid">
+        <div class="icell"><div class="ilbl">Previous High &amp; Low</div><p>The outer limits of buyer and seller aggression — where conviction ran out and participants reversed or stepped away.</p></div>
+        <div class="icell"><div class="ilbl">Previous Close</div><p>The final consensus. Where the entire market agreed to end the session — the last statement before tomorrow's open.</p></div>
+        <div class="icell"><div class="ilbl">What CPR Captures</div><p>The fair value zone. Between BC and TC is where price was broadly accepted and traded, not merely reached.</p></div>
+        <div class="icell"><div class="ilbl">What It Implies</div><p>Where imbalance may resurface. CPR bridges past behavior and future expectation — that's where the structural edge originates.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="s10">
+      <div class="sec-lbl"><span class="sec-n">10</span><div class="sec-rule"></div></div>
+      <h2>CPR Is a Framework — Not a Signal</h2>
+      <div class="lead">Price above CPR does not mean buy. Price below CPR does not mean sell. That approach bleeds capital consistently.</div>
+      <p>The most persistent mistake among developing traders is mechanizing CPR into a signal generator. The levels don't fire entries. They provide structure, context, and areas of interest. The trade itself — the entry — must be earned through price action, volume, and market structure.</p>
+      <ul class="palist">
+        <li class="parow"><div class="pip pb"></div><span><strong>Context</strong> — defines whether you're operating in a bullish, bearish, or neutral environment before any other analysis</span></li>
+        <li class="parow"><div class="pip pb"></div><span><strong>Structure</strong> — creates clear reference lines that price will either respect decisively or break through with force</span></li>
+        <li class="parow"><div class="pip pb"></div><span><strong>Areas of Interest</strong> — TC, Pivot, and BC are zones to monitor, not automatic trade triggers</span></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="s11">
+      <div class="sec-lbl"><span class="sec-n">11</span><div class="sec-rule"></div></div>
+      <h2>Integrating CPR with Price Action</h2>
+      <p>The framework's real power surfaces when combined with how price actually behaves around those levels. The levels are inert without behavioral context — the behavior is where the trade lives.</p>
+      <ul class="palist">
+        <li class="parow"><div class="pip pg"></div><span><strong>Breakout above CPR with strong volume</strong> — genuine strength; institutional participation is likely behind the move</span></li>
+        <li class="parow"><div class="pip pr"></div><span><strong>Rejection from CPR</strong> — resistance is holding; a reversal or fade opportunity begins to build here</span></li>
+        <li class="parow"><div class="pip pb"></div><span><strong>Consolidation within CPR</strong> — market indecision; no directional edge; step aside and wait for resolution</span></li>
+        <li class="parow"><div class="pip pg"></div><span><strong>Price accepting and closing above TC</strong> — sustained closes, not just spikes; confirms bullish institutional intent</span></li>
+        <li class="parow"><div class="pip pr"></div><span><strong>Price failing to reclaim BC from below</strong> — confirms bearish control; breakdowns and fades become higher probability</span></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="s12">
+      <div class="sec-lbl"><span class="sec-n">12</span><div class="sec-rule"></div></div>
+      <h2>Risk Management — Structurally Defined Stops</h2>
+      <p>One underappreciated property of this framework: CPR naturally provides structurally logical stop-loss placement. Not arbitrary ATR multiples — levels the market itself has defined as meaningful.</p>
+      <div class="igrid">
+        <div class="icell"><div class="ilbl">Bullish Trade — Stop Placement</div><p>Stop goes below BC. If price cannot hold the lower boundary of the prior session's fair value zone, the bullish thesis is structurally invalidated.</p></div>
+        <div class="icell"><div class="ilbl">Bearish Trade — Stop Placement</div><p>Stop goes above TC. If price reclaims the upper boundary of CPR, the bearish case no longer has structural support.</p></div>
+      </div>
+      <div class="callout g">
+        <p><strong>Invalidation, not guesswork.</strong> CPR defines clear structural levels where the trade thesis fails. Knowing exactly when you're wrong — before you enter — is the foundation of every sound risk model.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="s13">
+      <div class="sec-lbl"><span class="sec-n">13</span><div class="sec-rule"></div></div>
+      <h2>Limitations</h2>
+      <div class="callout r">
+        <p>No framework survives contact with the market without an honest accounting of what it cannot do. Applying CPR with blind confidence is as dangerous as ignoring it entirely.</p>
+      </div>
+      <ul class="llist">
+        <li class="lrow"><span class="ldash">—</span><span>CPR <strong>cannot predict news-driven moves</strong> — macro events, earnings releases, and policy decisions override every technical level without warning</span></li>
+        <li class="lrow"><span class="ldash">—</span><span>It <strong>does not guarantee direction</strong> — opening above TC still requires price action confirmation before any trade is justified</span></li>
+        <li class="lrow"><span class="ldash">—</span><span>It <strong>requires behavioral context</strong> — CPR levels without price action reading are just lines; they carry no predictive value in isolation</span></li>
+        <li class="lrow"><span class="ldash">—</span><span><strong>Blind reliance without context</strong> generates false setups — especially during gap opens, high-volatility sessions, and news-driven days</span></li>
+      </ul>
+    </section>
+
+    <section class="sec" id="s14">
+      <div class="sec-lbl"><span class="sec-n">14</span><div class="sec-rule"></div></div>
+      <h2>Advanced Edge — What Most Traders Miss</h2>
+      <div class="agrid">
+        <div class="acell"><h4>Virgin CPR</h4><p>A prior session's CPR that price never touched. It functions as a strong magnetic level in subsequent sessions — price has a demonstrated tendency to revisit it.</p></div>
+        <div class="acell"><h4>CPR Shift</h4><p>Today's CPR is positioned higher than yesterday's — a trend continuation signal. The market is printing higher value zones. Trade with that momentum, not against it.</p></div>
+        <div class="acell"><h4>Price Acceptance</h4><p>Sustained trading and closing above TC signals institutional accumulation. Not a spike — acceptance. This is the framework's strongest and most reliable setup.</p></div>
+      </div>
+    </section>
+
+    <section class="sec" id="s15">
+      <div class="sec-lbl"><span class="sec-n">15</span><div class="sec-rule"></div></div>
+      <h2>The Deeper Lesson</h2>
+      <div class="lesson">
+        <div class="le-eye">Principle</div>
+        <div class="le-title">Structure Over Chaos</div>
+        <p>Markets are uncertain. That is not a problem to solve — it is the operating condition. CPR doesn't remove that uncertainty. It gives your decision-making a logical structure to stand on.</p>
+        <p>It doesn't simplify the market. It simplifies <em>you</em>.</p>
+        <div class="le-close">Context · Confirmation · Conviction</div>
+      </div>
+      <div class="pq">
+        <p>"In trading, the difference is not who sees the levels — but who understands them."</p>
+        <small>— Sanjeev Signals · CPR PRO Framework</small>
+      </div>
+      <div class="pq gq">
+        <p>"CPR gives you the map. Discipline determines whether you reach the destination."</p>
+        <small>— Context + Confirmation + Conviction</small>
+      </div>
+    </section>
+
+    <section class="sec" id="author">
+      <div class="sec-lbl"><span class="sec-n">—</span><div class="sec-rule"></div></div>
+      <h2>About the Author</h2>
+      <div class="author">
+        <div class="au-head">
+          <div class="au-name">Sanjeev Singh</div>
+          <div class="au-role">F&amp;O Trader · Pure Option Buyer · Liquidity Hunter · Real P&amp;L</div>
+        </div>
+        <p class="au-bio">I didn't build my edge through certificates. No CFA, CMT, FRM, NISM, or Ivy League labels — just real P&amp;L, deep drawdowns, and lessons the market forced me to earn the hard way. I engineer rule-based trading systems designed to <em>survive</em> volatility, not predict it.</p>
+        <div class="au-tags">
+          <span class="au-tag">Execution Frameworks</span>
+          <span class="au-tag">Risk Architecture</span>
+          <span class="au-tag">Python · Pandas</span>
+          <span class="au-tag">Post-Trade Analysis</span>
+          <span class="au-tag">Web Security · Bug Bounty</span>
+          <span class="au-tag">Pre-Market Planning</span>
+        </div>
+        <div class="au-links">
+          <a class="au-link" href="https://github.com/sanjeevsignals/indian-market-observations" target="_blank">github.com/sanjeevsignals</a>
+          <a class="au-link" href="/cdn-cgi/l/email-protection#dba8bab5b1bebeadb0a8b2b5bcb3f5acb4a9b09bbcb6bab2b7f5b8b4b6"><span class="__cf_email__" data-cfemail="5c2f3d323639392a372f35323b34722b332e371c3b313d3530723f3331">[email&#160;protected]</span></a>
+        </div>
+        <div class="au-foot">
+          <span>✗</span> No tips &nbsp;·&nbsp;
+          <span>✗</span> No shortcuts &nbsp;·&nbsp;
+          <span>✗</span> No get-rich-quick &nbsp;·&nbsp; Only engineered edge and repeatable process.
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="pfoot">
+  <div>
+    <div class="pf-brand">Sanjeev Signals</div>
+    <div class="pf-tag">Signals for thinking, not trading.</div>
+    <div class="pf-sub">A thinking space on markets, probability, and human behavior.</div>
+  </div>
+  <div class="pf-right">
+    <a class="pf-link" href="https://github.com/sanjeevsignals/indian-market-observations" target="_blank">github.com/sanjeevsignals</a>
+    <a class="pf-link" href="/cdn-cgi/l/email-protection#e79486898d8282918c948e89808fc99088958ca7808a868e8bc984888a"><span class="__cf_email__" data-cfemail="5221333c3837372439213b3c353a7c253d203912353f333b3e7c313d3f">[email&#160;protected]</span></a>
+    <div style="margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:1px;">CPR PRO · Pine Script v5 · TradingView</div>
+  </div>
+  <p class="pf-disc">This content is for educational purposes only. Trading in F&amp;O instruments involves substantial risk of loss. Past framework performance does not guarantee future results. Always apply proper risk management. Not SEBI registered investment advice.</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function copyCode() {
+  const raw = `//@version=5
+strategy("CPR by Sanjeev Signals PRO+", overlay=true,
+  default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+prevHigh  = request.security(syminfo.tickerid, "D", high[1])
+prevLow   = request.security(syminfo.tickerid, "D", low[1])
+prevClose = request.security(syminfo.tickerid, "D", close[1])
+todayOpen = request.security(syminfo.tickerid, "D", open)
+
+pivot = (prevHigh + prevLow + prevClose) / 3
+bc    = (prevHigh + prevLow) / 2
+tc    = (pivot - bc) + pivot
+
+plot(tc,    color=color.red,    linewidth=2, title="TC")
+plot(pivot, color=color.yellow, linewidth=2, title="Pivot")
+plot(bc,    color=color.green,  linewidth=2, title="BC")
+
+bullish  = todayOpen > tc
+bearish  = todayOpen < bc
+
+bgcolor(bullish ? color.new(color.green, 90) : bearish ? color.new(color.red, 90) : na)
+
+cprWidth  = tc - bc
+avgWidth  = ta.sma(cprWidth, 10)
+narrowCPR = cprWidth < avgWidth
+
+atr         = ta.atr(14)
+longSL      = close - atr
+longTarget  = close + (2 * atr)
+shortSL     = close + atr
+shortTarget = close - (2 * atr)
+
+longEntry  = bullish and close > high[1]
+shortEntry = bearish and close < low[1]
+
+if (longEntry)
+    strategy.entry("BUY", strategy.long)
+    strategy.exit("TP/SL BUY", from_entry="BUY", stop=longSL, limit=longTarget)
+
+if (shortEntry)
+    strategy.entry("SELL", strategy.short)
+    strategy.exit("TP/SL SELL", from_entry="SELL", stop=shortSL, limit=shortTarget)
+
+plotshape(longEntry,  location=location.belowbar, color=color.green, style=shape.labelup,   text="BUY")
+plotshape(shortEntry, location=location.abovebar, color=color.red,   style=shape.labeldown, text="SELL")
+
+alertcondition(longEntry,  title="Buy Alert",  message="CPR BUY — Sanjeev Signals")
+alertcondition(shortEntry, title="Sell Alert", message="CPR SELL — Sanjeev Signals")`;
+
+  navigator.clipboard.writeText(raw).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// Sidebar active highlight on scroll
+const sections = document.querySelectorAll('section[id]');
+const links = document.que

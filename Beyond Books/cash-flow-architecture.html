@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cash Flow Architecture Behind a Trader's Journey — Sanjeev Singh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0d0b;
+    --paper: #f5f0e8;
+    --cream: #ede7d7;
+    --gold: #b8860b;
+    --rust: #8b3a1a;
+    --sage: #3a5a40;
+    --muted: #6b6458;
+    --rule: #c8b89a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 18px 40px 14px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .masthead::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(255,255,255,0.03) 60px,
+      rgba(255,255,255,0.03) 61px
+    );
+  }
+
+  .masthead-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--rule);
+    margin-bottom: 6px;
+  }
+
+  .masthead-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+
+  .masthead-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--rule);
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* RULE LINES */
+  .masthead-rules {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px auto 0;
+    max-width: 400px;
+  }
+  .masthead-rules span { flex: 1; height: 1px; background: var(--gold); opacity: 0.5; }
+  .masthead-rules em { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--gold); font-style: normal; letter-spacing: 0.15em; }
+
+  /* KICKER BAR */
+  .kicker-bar {
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+
+  .kicker-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 400;
+  }
+
+  .kicker-author {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+  }
+
+  /* MAIN WRAPPER */
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* LEDE */
+  .lede {
+    text-align: center;
+    padding-bottom: 48px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    line-height: 1.12;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .headline em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .deck {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+
+  .pull-rule {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+    max-width: 120px;
+  }
+
+  h2.section-head {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 18px;
+    line-height: 1.3;
+  }
+
+  p {
+    color: #2a2520;
+    margin-bottom: 18px;
+    font-size: 16.5px;
+  }
+
+  /* CALLOUT QUOTE */
+  .callout {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 36px;
+    margin: 36px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .callout::before {
+    content: '❝';
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: rgba(255,255,255,0.06);
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    line-height: 1;
+  }
+
+  .callout p {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #f0ead8;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+  }
+
+  /* PAIN POINTS LIST */
+  .pain-list {
+    list-style: none;
+    margin: 20px 0 28px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .pain-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 16px;
+    background: rgba(139,58,26,0.06);
+    border-left: 3px solid var(--rust);
+    font-size: 15.5px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .pain-list li::before {
+    content: '→';
+    color: var(--rust);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 52px 0 44px;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .section-divider span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* PRIORITY SEQUENCE */
+  .priority-sequence {
+    margin: 28px 0;
+  }
+
+  .priority-item {
+    display: flex;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--cream);
+  }
+
+  .priority-item:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--rule);
+    line-height: 1;
+    width: 36px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .step-content { flex: 1; }
+
+  .step-title {
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* INCOME STREAM CARDS */
+  .stream-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  @media (max-width: 600px) {
+    .stream-grid { grid-template-columns: 1fr; }
+    .kicker-bar { padding: 10px 20px; }
+    .page-wrapper { padding: 40px 20px 80px; }
+    .masthead { padding: 16px 20px 12px; }
+  }
+
+  .stream-card {
+    border: 1px solid var(--rule);
+    padding: 22px 20px;
+    background: #fff;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .stream-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 6px 0 var(--rule);
+  }
+
+  .stream-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .stream-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .stream-body {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .stream-skills {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    background: var(--cream);
+    color: var(--muted);
+    border: 1px solid var(--rule);
+  }
+
+  /* FULL-WIDTH STREAM CARD */
+  .stream-card.wide {
+    grid-column: 1 / -1;
+  }
+
+  /* ALLOCATION TABLE */
+  .alloc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 15px;
+  }
+
+  .alloc-table thead tr {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .alloc-table thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .alloc-table tbody tr {
+    border-bottom: 1px solid var(--cream);
+    transition: background 0.15s ease;
+  }
+
+  .alloc-table tbody tr:hover { background: rgba(184,134,11,0.05); }
+
+  .alloc-table td {
+    padding: 13px 16px;
+    color: var(--ink);
+  }
+
+  .alloc-table td:last-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--sage);
+  }
+
+  .alloc-bar-cell { width: 160px; }
+
+  .alloc-bar-wrap {
+    background: var(--cream);
+    height: 6px;
+    border-radius: 0;
+    overflow: hidden;
+  }
+
+  .alloc-bar {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 0;
+    width: 0 !important;
+    transition: width 1.2s ease;
+  }
+
+  /* PHILOSOPHY BLOCK */
+  .philosophy-block {
+    background: var(--sage);
+    color: #fff;
+    padding: 40px 36px;
+    margin: 48px 0;
+    position: relative;
+  }
+
+  .philosophy-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 20px;
+  }
+
+  .philosophy-lines {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+
+  .philosophy-lines li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .philosophy-lines li span.arrow {
+    font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.35);
+    font-size: 12px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* FINAL THOUGHTS */
+  .final-block {
+    padding: 36px 0 0;
+    border-top: 2px solid var(--ink);
+    margin-top: 52px;
+  }
+
+  .final-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .closing-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    margin: 20px 0 28px;
+  }
+
+  .closing-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    padding: 10px 14px;
+    background: var(--cream);
+    border-left: 3px solid var(--sage);
+  }
+
+  .closing-list li::before {
+    content: '✦';
+    color: var(--sage);
+    font-size: 11px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  .article-footer {
+    margin-top: 52px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .author-sig {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .author-sig strong {
+    color: var(--ink);
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .brand-sig {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--rule);
+    text-transform: uppercase;
+  }
+
+  /* STAGE TABLE */
+  .stage-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 28px 0;
+    font-size: 14.5px;
+  }
+
+  .stage-table thead tr {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .stage-table thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .stage-table tbody tr {
+    border-bottom: 1px solid var(--cream);
+  }
+
+  .stage-table tbody tr:hover { background: rgba(184,134,11,0.04); }
+
+  .stage-table td {
+    padding: 12px 14px;
+    color: var(--ink);
+  }
+
+  .stage-table td:first-child {
+    font-weight: 600;
+  }
+
+  .stage-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 3px 9px;
+    text-transform: uppercase;
+  }
+
+  .badge-stability { background: rgba(58,90,64,0.12); color: var(--sage); }
+  .badge-cashflow { background: rgba(184,134,11,0.12); color: var(--gold); }
+  .badge-asset { background: rgba(139,58,26,0.10); color: var(--rust); }
+  .badge-audience { background: rgba(14,13,11,0.08); color: var(--muted); }
+  .badge-scale { background: rgba(58,90,64,0.15); color: var(--sage); }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .animate-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-brand">Sanjeev Signals</div>
+  <div class="masthead-title">SANJEEV SIGNALS</div>
+  <div class="masthead-sub">Signals for thinking, not trading</div>
+  <div class="masthead-rules">
+    <span></span>
+    <em>Markets · Probability · Human Behavior</em>
+    <span></span>
+  </div>
+</header>
+
+<!-- KICKER BAR -->
+<div class="kicker-bar">
+  <span class="kicker-tag">Capital Architecture · Wealth Systems · Trading Psychology</span>
+  <span class="kicker-author">Written by Sanjeev Singh</span>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="page-wrapper">
+
+  <!-- HEADLINE / LEDE -->
+  <div class="lede">
+    <h1 class="headline">The Cash Flow Architecture<br><em>Behind a Trader's Journey</em></h1>
+    <p class="deck">How to build a structured multi-income system that funds trading capital, reduces psychological pressure, and compounds into long-term wealth.</p>
+    <div class="pull-rule"></div>
+  </div>
+
+  <!-- INTRODUCTION -->
+  <section class="intro-section animate-section">
+    <div class="section-label">Introduction</div>
+    <h2 class="section-head">Why Traders Need a Cash Flow System</h2>
+    <p>Most aspiring traders make one critical mistake. They expect trading to become their primary source of income before they have developed consistency.</p>
+    <p>This creates immense psychological pressure. When rent, food, and daily expenses depend on your next trade:</p>
+
+    <ul class="pain-list">
+      <li>Patience disappears.</li>
+      <li>Risk management weakens.</li>
+      <li>Overtrading becomes tempting.</li>
+      <li>Losses feel emotionally heavy.</li>
+      <li>Process gives way to desperation.</li>
+    </ul>
+
+    <p>The market rewards discipline and neutrality. It punishes urgency.</p>
+    <p>That is why serious traders need a structured cash flow architecture.</p>
+
+    <div class="callout">
+      <p>Build multiple income streams that fund your trading journey without forcing the market to support your lifestyle.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"><span>Strategic Priority</span></div>
+
+  <!-- PRIORITY SEQUENCE -->
+  <section class="animate-section">
+    <div class="section-label">The Correct Order</div>
+    <h2 class="section-head">Building Trading Capital: The Right Sequence</h2>
+    <p>If your immediate objective is to build trading capital, the most practical sequence follows a logical progression — stability first, scale last.</p>
+
+    <div class="priority-sequence">
+      <div class="priority-item">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Job</div>
+          <div class="step-desc">Stability first — the financial foundation</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Freelancing</div>
+          <div class="step-desc">Skill monetization — fastest cash flow</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Blogging / Newsletter</div>
+          <div class="step-desc">Asset creation — thinking compounds</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Affiliate Marketing</div>
+          <div class="step-desc">Monetizing trust you've already built</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-title">YouTube / Trading Studio</div>
+          <div class="step-desc">Audience building — media leverage</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">6</div>
+        <div class="step-content">
+          <div class="step-title">Client Account Management</div>
+          <div class="step-desc">Skill becomes capital — performance-based income</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">7</div>
+        <div class="step-content">
+          <div class="step-title">E-Commerce or Drop Servicing</div>
+          <div class="step-desc">Operational leverage — scale with systems</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="step-num">8</div>
+        <div class="step-content">
+          <div class="step-title">Strategic Collaborations</div>
+          <div class="step-desc">Network leverage — compound through others</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><span>Income Streams</span></div>
+
+  <!-- STREAM CARDS -->
+  <section class="animate-section">
+    <div class="section-label">Detailed Breakdown</div>
+    <h2 class="section-head">The Eight Income Layers</h2>
+
+    <div class="stream-grid">
+
+      <div class="stream-card">
+        <div class="stream-num">① JOB</div>
+        <div class="stream-name">The Financial Foundation</div>
+        <p class="stream-body">A job is not a setback. It is a financing mechanism. It covers living expenses, removes pressure from trading, builds savings, and creates emotional stability. A predictable monthly income allows you to trade from a position of patience rather than need.</p>
+      </div>
+
+      <div class="stream-card">
+        <div class="stream-num">② FREELANCING</div>
+        <div class="stream-name">Fastest Monetization</div>
+        <p class="stream-body">The quickest path to additional income. Minimal startup cost, immediate earning potential, flexible schedule, global clients.</p>
+        <div class="stream-skills">
+          <span class="skill-tag">Writing</span>
+          <span class="skill-tag">Prompt Eng.</span>
+          <span class="skill-tag">Research</span>
+          <span class="skill-tag">Automation</span>
+          <span class="skill-tag">Consulting</span>
+        </div>
+      </div>
+
+      <div class="stream-card">
+        <div class="stream-num">③ BLOGGING / NEWSLETTER</div>
+        <div class="stream-name">Digital Assets</div>
+        <p class="stream-body">A compounding intellectual asset. Each article can attract traffic, build authority, generate leads, and produce recurring revenue. This is where your thinking becomes a long-term asset.</p>
+        <div class="stream-skills">
+          <span class="skill-tag">Ads</span>
+          <span class="skill-tag">Paid Subs</span>
+          <span class="skill-tag">Sponsorships</span>
+          <span class="skill-tag">Premium Reports</span>
+        </div>
+      </div>
+
+      <div class="stream-card">
+        <div class="stream-num">④ AFFILIATE MARKETING</div>
+        <div class="stream-name">Monetizing Trust</div>
+        <p class="stream-body">Earn commissions by recommending products you genuinely use. The stronger your credibility, the more effective this income stream becomes. Works best combined with content and audience.</p>
+      </div>
+
+      <div class="stream-card wide">
+        <div class="stream-num">⑤ YOUTUBE / TRADING STUDIO</div>
+        <div class="stream-name">The Media Engine</div>
+        <p class="stream-body">Video content is one of the most powerful forms of leverage. A YouTube channel or trading studio simultaneously builds authority, generates leads, and creates recurring income through ad revenue, sponsorships, memberships, courses, and consulting.</p>
+      </div>
+
+      <div class="stream-card">
+        <div class="stream-num">⑥ CLIENT ACCOUNTS</div>
+        <div class="stream-name">Skill as Capital</div>
+        <p class="stream-body">Once your process is consistent and documented, manage capital for clients. Earn based on skill rather than only your own account size — through profit sharing, performance fees, or advisory retainers.</p>
+      </div>
+
+      <div class="stream-card">
+        <div class="stream-num">⑦ E-COMMERCE / DROP SERVICING</div>
+        <div class="stream-name">Operational Leverage</div>
+        <p class="stream-body">Acquire clients and outsource fulfillment across content writing, SEO, video editing, design, and marketing services. These businesses can scale significantly once systems are in place.</p>
+      </div>
+
+      <div class="stream-card wide">
+        <div class="stream-num">⑧ STRATEGIC COLLABORATIONS</div>
+        <div class="stream-name">Network as Leverage</div>
+        <p class="stream-body">Partnerships unlock opportunities difficult to create alone. Joint ventures, revenue-sharing, referrals, consulting engagements, and product collaborations — this layer becomes increasingly powerful as your authority grows.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"><span>System Overview</span></div>
+
+  <!-- STAGE TABLE -->
+  <section class="animate-section">
+    <div class="section-label">How the System Works Together</div>
+    <h2 class="section-head">The Resilient Financial Ecosystem</h2>
+
+    <table class="stage-table">
+      <thead>
+        <tr>
+          <th>Stage</th>
+          <th>Primary Objective</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Job</td>
+          <td>Stability</td>
+          <td><span class="stage-badge badge-stability">Foundation</span></td>
+        </tr>
+        <tr>
+          <td>Freelancing</td>
+          <td>Fast cash flow</td>
+          <td><span class="stage-badge badge-cashflow">Cash Flow</span></td>
+        </tr>
+        <tr>
+          <td>Blogging / Newsletter</td>
+          <td>Digital asset creation</td>
+          <td><span class="stage-badge badge-asset">Asset</span></td>
+        </tr>
+        <tr>
+          <td>Affiliate Marketing</td>
+          <td>Monetize trust</td>
+          <td><span class="stage-badge badge-cashflow">Cash Flow</span></td>
+        </tr>
+        <tr>
+          <td>YouTube</td>
+          <td>Media leverage</td>
+          <td><span class="stage-badge badge-audience">Audience</span></td>
+        </tr>
+        <tr>
+          <td>Client Account Management</td>
+          <td>Trading-based income</td>
+          <td><span class="stage-badge badge-cashflow">Cash Flow</span></td>
+        </tr>
+        <tr>
+          <td>E-Commerce / Drop Servicing</td>
+          <td>Business scalability</td>
+          <td><span class="stage-badge badge-scale">Scale</span></td>
+        </tr>
+        <tr>
+          <td>Collaborations</td>
+          <td>Network-driven opportunities</td>
+          <td><span class="stage-badge badge-scale">Scale</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="section-divider"><span>Capital Allocation</span></div>
+
+  <!-- ALLOCATION TABLE -->
+  <section class="animate-section">
+    <div class="section-label">Framework</div>
+    <h2 class="section-head">A Practical Capital Allocation Model</h2>
+    <p>Every dollar should have a defined purpose. The exact percentages can vary based on your situation, but the principle is non-negotiable.</p>
+
+    <table class="alloc-table">
+      <thead>
+        <tr>
+          <th>Allocation</th>
+          <th>Purpose</th>
+          <th class="alloc-bar-cell">Distribution</th>
+          <th>%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Living Expenses</td>
+          <td>Cover life — remove market pressure</td>
+          <td class="alloc-bar-cell"><div class="alloc-bar-wrap"><div class="alloc-bar" data-width="50%"></div></div></td>
+          <td>50%</td>
+        </tr>
+        <tr>
+          <td>Trading Capital</td>
+          <td>Fund the actual edge</td>
+          <td class="alloc-bar-cell"><div class="alloc-bar-wrap"><div class="alloc-bar" data-width="20%"></div></div></td>
+          <td>20%</td>
+        </tr>
+        <tr>
+          <td>Business Reinvestment</td>
+          <td>Compound income streams</td>
+          <td class="alloc-bar-cell"><div class="alloc-bar-wrap"><div class="alloc-bar" data-width="15%"></div></div></td>
+          <td>15%</td>
+        </tr>
+        <tr>
+          <td>Emergency Reserves</td>
+          <td>Stay in the game</td>
+          <td class="alloc-bar-cell"><div class="alloc-bar-wrap"><div class="alloc-bar" data-width="10%"></div></div></td>
+          <td>10%</td>
+        </tr>
+        <tr>
+          <td>Education &amp; Skills</td>
+          <td>Build the edge</td>
+          <td class="alloc-bar-cell"><div class="alloc-bar-wrap"><div class="alloc-bar" data-width="5%"></div></div></td>
+          <td>5%</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="section-divider"><span>Core Philosophy</span></div>
+
+  <!-- PHILOSOPHY BLOCK -->
+  <section class="animate-section">
+    <div class="philosophy-block">
+      <h3>The Core Philosophy</h3>
+      <ul class="philosophy-lines">
+        <li><span class="arrow">01</span> Use earned income to fund skill development.</li>
+        <li><span class="arrow">02</span> Use skills to build assets.</li>
+        <li><span class="arrow">03</span> Use assets to generate recurring cash flow.</li>
+        <li><span class="arrow">04</span> Use cash flow to scale trading capital.</li>
+        <li><span class="arrow">05</span> Use trading capital to compound long-term wealth.</li>
+      </ul>
+    </div>
+
+    <p>The greatest benefit of this system is emotional freedom. When your lifestyle does not depend on your next trade — you can wait patiently, accept losses objectively, focus on process, and think in probabilities. That is where consistent trading performance begins.</p>
+  </section>
+
+  <!-- FINAL THOUGHTS -->
+  <section class="final-block animate-section">
+    <h2>Final Thoughts</h2>
+    <p>Trading should not be your only source of income in the beginning. It should be one component of a broader financial architecture.</p>
+    <p>The strongest traders are those who:</p>
+
+    <ul class="closing-list">
+      <li>Build stable cash flow.</li>
+      <li>Diversify income sources.</li>
+      <li>Remove emotional pressure.</li>
+      <li>Grow capital systematically.</li>
+      <li>Think like business owners.</li>
+    </ul>
+
+    <p>When your financial structure is sound, trading becomes a strategic activity rather than a survival mechanism.</p>
+
+    <div class="callout" style="margin-top:28px;">
+      <p>That is how a trader transitions from chasing profits to building durable wealth.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="article-footer">
+    <div class="author-sig">Written by <strong>Sanjeev Singh</strong></div>
+    <div class="brand-sig">Sanjeev Signals · Markets · Probability · Human Behavior</div>
+  </footer>
+
+</main>
+
+<script>
+  // Intersection Observer for scroll animations
+  const sections = document.querySelectorAll('.animate-section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // Animate alloc-bars inside this section
+        entry.target.querySelectorAll('.alloc-bar').forEach(bar => {
+          const target = bar.dataset.width;
+          if (target) bar.style.width = target;
+        });
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Trigger sections already in viewport on load (e.g. intro)
+  window.addEventListener('load', () => {
+    sections.forEach(s => {
+      const rect = s.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        s.classList.add('visible');
+        s.querySelectorAll('.alloc-bar').forEach(bar => {
+          const target = bar.dataset.width;
+          if (target) bar.style.width = target;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
